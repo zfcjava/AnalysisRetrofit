@@ -1,0 +1,5578 @@
+format 76
+"rxjava" // retrofit::retrofit::src::main::java::retrofit2::adapter::rxjava
+  revision 1
+  modified_by 110 "Administrator"
+  // class settings
+  //class diagram settings
+  draw_all_relations default hide_attributes default hide_operations default hide_getset_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_context default show_members_multiplicity default show_members_initialization default show_attribute_modifiers default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_relation_modifiers default show_relation_visibility default show_infonote default shadow default show_stereotype_properties default
+  //use case diagram settings
+  package_name_in_tab default show_context default auto_label_position default draw_all_relations default class_drawing_mode default shadow default show_stereotype_properties default
+  //sequence diagram settings
+  show_full_operations_definition default write_horizontally default class_drawing_mode default drawing_language default draw_all_relations default shadow default show_stereotype_properties default show_class_context_mode default show_msg_context_mode default
+  //collaboration diagram settings
+  show_full_operations_definition default show_hierarchical_rank default write_horizontally default class_drawing_mode default drawing_language default package_name_in_tab default show_context default show_msg_context default draw_all_relations default shadow default show_stereotype_properties default
+  //object diagram settings
+   write_horizontally default package_name_in_tab default show_context default auto_label_position default draw_all_relations default shadow default show_stereotype_properties default
+  //component diagram settings
+  package_name_in_tab default show_context default auto_label_position default draw_all_relations default shadow default
+  draw_component_as_icon default show_component_req_prov default show_component_rea default show_stereotype_properties default
+  //deployment diagram settings
+  package_name_in_tab default show_context default write_horizontally default auto_label_position default draw_all_relations default shadow default
+  draw_component_as_icon default show_component_req_prov default show_component_rea default show_stereotype_properties default
+  //state diagram settings
+  package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations default shadow default
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  //activity diagram settings
+  package_name_in_tab default show_context default show_opaque_action_definition default auto_label_position default write_flow_label_horizontally default draw_all_relations default shadow default
+  show_infonote default drawing_language default show_stereotype_properties default
+  
+  java_dir "e:/android2018/AnalysisRetrofit/source/retrofit/retrofit-adapters/rxjava/src/main/java/retrofit2/adapter/rxjava/"
+  java_package "retrofit2.adapter.rxjava"
+  classview 128878 "rxjava"
+    //class diagram settings
+    draw_all_relations default hide_attributes default hide_operations default hide_getset_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_context default show_members_multiplicity default show_members_initialization default show_attribute_modifiers default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_relation_modifiers default show_relation_visibility default show_infonote default shadow default show_stereotype_properties default
+    //collaboration diagram settings
+    show_full_operations_definition default show_hierarchical_rank default write_horizontally default class_drawing_mode default drawing_language default package_name_in_tab default show_context default show_msg_context default draw_all_relations default shadow default show_stereotype_properties default
+    //object diagram settings
+     write_horizontally default package_name_in_tab default show_context default auto_label_position default draw_all_relations default shadow default show_stereotype_properties default
+    //sequence diagram settings
+    show_full_operations_definition default write_horizontally default class_drawing_mode default drawing_language default draw_all_relations default shadow default show_stereotype_properties default show_class_context_mode default show_msg_context_mode default
+    //state diagram settings
+    package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations default shadow default
+    show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+    //class settings
+    //activity diagram settings
+    package_name_in_tab default show_context default show_opaque_action_definition default auto_label_position default write_flow_label_horizontally default draw_all_relations default shadow default
+    show_infonote default drawing_language default show_stereotype_properties default
+    class 143854 "BodyOnSubscribe"
+      visibility package 
+      nformals 1
+      formal name "T" type "" explicit_default_value ""
+        explicit_extends ""
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      classrelation 140270 // <realization>
+	relation 140270 -_-|>
+	  a public
+	    java "${type}<T>"
+	    classrelation_ref 140270 // <realization>
+	  b parent class_ref 143982 // OnSubscribe
+      end
+
+      classrelation 140398 // upstream (<unidirectional association>)
+	relation 140398 --->
+	  stereotype "OnSubscribe"
+	  a role_name "upstream" const_relation private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}<T>> ${name}${value};
+"
+	    classrelation_ref 140398 // upstream (<unidirectional association>)
+	  b parent class_ref 129518 // Response
+      end
+
+      operation 191214 "BodyOnSubscribe"
+	package explicit_return_type ""
+	nparams 1
+	  param inout name "upstream" explicit_type "OnSubscribe<Response<T>>"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 191342 "call"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "subscriber" explicit_type "Subscriber<? super T>"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      class 144110 "BodySubscriber"
+	visibility private 
+	nformals 1
+	formal name "R" type "" explicit_default_value ""
+	  explicit_extends ""
+	cpp_decl ""
+	java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	classrelation 140526 // <realization>
+	  relation 140526 -_-|>
+	    a public
+	      java "${type}<Response<R>>"
+	      classrelation_ref 140526 // <realization>
+	    b parent class_ref 144238 // Subscriber
+	end
+
+	attribute 142190 "subscriber"
+	  const_attribute private explicit_type "? super R"
+	  stereotype "Subscriber"
+	  cpp_decl ""
+	  java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}> ${name}${value};
+"
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	end
+
+	attribute 142318 "subscriberTerminated"
+	  private explicit_type "boolean"
+	  cpp_decl ""
+	  java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  comment " Indicates whether a terminal event has been sent to {@link #subscriber}. "
+	end
+
+	operation 191470 "BodySubscriber"
+	  package explicit_return_type ""
+	  nparams 1
+	    param inout name "subscriber" explicit_type "Subscriber<? super R>"
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  
+	  
+	  
+	end
+
+	operation 191598 "onNext"
+	  public explicit_return_type "void"
+	  nparams 1
+	    param inout name "response" type class_ref 129518 // Response
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0}<R> ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@Override
+"
+	  
+	  
+	  
+	end
+
+	operation 191726 "onError"
+	  public explicit_return_type "void"
+	  nparams 1
+	    param inout name "throwable" explicit_type "Throwable"
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@Override
+"
+	  
+	  
+	  
+	end
+
+	operation 191854 "onCompleted"
+	  public explicit_return_type "void"
+	  nparams 0
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@Override
+"
+	  
+	  
+	  
+	end
+      end
+    end
+
+    class 144366 "CallArbiter"
+      visibility package 
+      nformals 1
+      formal name "T" type "" explicit_default_value ""
+        explicit_extends ""
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      classrelation 140654 // <generalisation>
+	relation 140654 ---|>
+	  a public
+	    java "${type}"
+	    classrelation_ref 140654 // <generalisation>
+	  b parent class_ref 144494 // AtomicInteger
+      end
+
+      classrelation 140782 // <realization>
+	relation 140782 -_-|>
+	  a public
+	    java "${type}"
+	    classrelation_ref 140782 // <realization>
+	  b parent class_ref 144622 // Subscription
+      end
+
+      classrelation 140910 // <realization>
+	relation 140910 -_-|>
+	  a public
+	    java "${type}"
+	    classrelation_ref 140910 // <realization>
+	  b parent class_ref 144750 // Producer
+      end
+
+      attribute 142446 "STATE_WAITING"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 0"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 142574 "STATE_REQUESTED"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 1"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 142702 "STATE_HAS_RESPONSE"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 2"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 142830 "STATE_TERMINATED"
+	class_attribute const_attribute private explicit_type "int"
+	init_value " 3"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      classrelation 141038 // call (<unidirectional association>)
+	relation 141038 --->
+	  a role_name "call" const_relation private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type}<T> ${name}${value};
+"
+	    classrelation_ref 141038 // call (<unidirectional association>)
+	  b parent class_ref 129262 // Call
+      end
+
+      attribute 142958 "subscriber"
+	const_attribute private explicit_type "? super Response<T>"
+	stereotype "Subscriber"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}> ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 143086 "unsubscribed"
+	volatile private explicit_type "boolean"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      classrelation 141166 // response (<unidirectional association>)
+	relation 141166 --->
+	  a role_name "response" volatile private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type}<T> ${name}${value};
+"
+	    classrelation_ref 141166 // response (<unidirectional association>)
+	  b parent class_ref 129518 // Response
+      end
+
+      operation 191982 "CallArbiter"
+	package explicit_return_type ""
+	nparams 2
+	  param inout name "call" type class_ref 129262 // Call
+	  param inout name "subscriber" explicit_type "Subscriber<? super Response<T>>"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0}<T> ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 192110 "unsubscribe"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 192238 "isUnsubscribed"
+	public explicit_return_type "boolean"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 192366 "request"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "amount" explicit_type "long"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 192494 "emitResponse"
+	package explicit_return_type "void"
+	nparams 1
+	  param inout name "response" type class_ref 129518 // Response
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0}<T> ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 192622 "deliverResponse"
+	private explicit_return_type "void"
+	nparams 1
+	  param inout name "response" type class_ref 129518 // Response
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0}<T> ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 192750 "emitError"
+	package explicit_return_type "void"
+	nparams 1
+	  param inout name "t" explicit_type "Throwable"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+    end
+
+    class 144878 "CallEnqueueOnSubscribe"
+      visibility package 
+      nformals 1
+      formal name "T" type "" explicit_default_value ""
+        explicit_extends ""
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      classrelation 141294 // <realization>
+	relation 141294 -_-|>
+	  a public
+	    java "${type}<Response<T>>"
+	    classrelation_ref 141294 // <realization>
+	  b parent class_ref 143982 // OnSubscribe
+      end
+
+      classrelation 141422 // originalCall (<unidirectional association>)
+	relation 141422 --->
+	  a role_name "originalCall" const_relation private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type}<T> ${name}${value};
+"
+	    classrelation_ref 141422 // originalCall (<unidirectional association>)
+	  b parent class_ref 129262 // Call
+      end
+
+      operation 192878 "CallEnqueueOnSubscribe"
+	package explicit_return_type ""
+	nparams 1
+	  param inout name "originalCall" type class_ref 129262 // Call
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0}<T> ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 193006 "call"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "subscriber" explicit_type "Subscriber<? super Response<T>>"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+    end
+
+    class 145006 "CallExecuteOnSubscribe"
+      visibility package 
+      nformals 1
+      formal name "T" type "" explicit_default_value ""
+        explicit_extends ""
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      classrelation 141550 // <realization>
+	relation 141550 -_-|>
+	  a public
+	    java "${type}<Response<T>>"
+	    classrelation_ref 141550 // <realization>
+	  b parent class_ref 143982 // OnSubscribe
+      end
+
+      classrelation 141678 // originalCall (<unidirectional association>)
+	relation 141678 --->
+	  a role_name "originalCall" const_relation private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type}<T> ${name}${value};
+"
+	    classrelation_ref 141678 // originalCall (<unidirectional association>)
+	  b parent class_ref 129262 // Call
+      end
+
+      operation 193134 "CallExecuteOnSubscribe"
+	package explicit_return_type ""
+	nparams 1
+	  param inout name "originalCall" type class_ref 129262 // Call
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0}<T> ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 193262 "call"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "subscriber" explicit_type "Subscriber<? super Response<T>>"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+    end
+
+    class 145134 "HttpException"
+      visibility public 
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      java_annotation "@Deprecated
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment " @deprecated Use {@link retrofit2.HttpException}. "
+      classrelation 141806 // <generalisation>
+	relation 141806 ---|>
+	  a public
+	    java "${type}"
+	    classrelation_ref 141806 // <generalisation>
+	  b parent class_ref 130414 // HttpException
+      end
+
+      operation 193390 "HttpException"
+	public explicit_return_type ""
+	nparams 1
+	  param inout name "response" type class_ref 129518 // Response
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0}<?> ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+    end
+
+    class 145262 "Result"
+      visibility public 
+      nformals 1
+      formal name "T" type "" explicit_default_value ""
+        explicit_extends ""
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment " The result of executing an HTTP request. "
+      operation 193518 "error"
+	class_operation public return_type class_ref 145262 // Result
+	nparams 1
+	  param inout name "error" explicit_type "Throwable"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}<T> ${type}<T> ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@SuppressWarnings(\"ConstantConditions\")
+"
+	
+	
+	
+	comment " Guarding public API nullability."
+      end
+
+      operation 193646 "response"
+	class_operation public return_type class_ref 145262 // Result
+	nparams 1
+	  param inout name "response" type class_ref 129518 // Response
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}<T> ${type}<T> ${name}${(}${t0}<T> ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@SuppressWarnings(\"ConstantConditions\")
+"
+	
+	
+	
+	comment " Guarding public API nullability."
+      end
+
+      classrelation 141934 // response (<unidirectional association>)
+	relation 141934 --->
+	  a role_name "response" const_relation private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type}<T> ${name}${value};
+"
+	    java_annotation "@Nullable
+"
+	    classrelation_ref 141934 // response (<unidirectional association>)
+	  b parent class_ref 129518 // Response
+      end
+
+      attribute 143214 "error"
+	const_attribute private explicit_type "Throwable"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Nullable
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      operation 193774 "Result"
+	private explicit_return_type ""
+	nparams 2
+	  param inout name "response" type class_ref 129518 // Response
+	  param inout name "error" explicit_type "Throwable"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}@Nullable ${t0}<T> ${p0}, @Nullable ${t1} ${p1}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 193902 "response"
+	public return_type class_ref 129518 // Response
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type}<T> ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Nullable
+"
+	
+	
+	
+	comment "The response received from executing an HTTP request. Only present when {@link #isError()} is
+false, null otherwise."
+      end
+
+      operation 194030 "error"
+	public explicit_return_type "Throwable"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Nullable
+"
+	
+	
+	
+	comment "The error experienced while attempting to execute an HTTP request. Only present when {@link
+#isError()} is true, null otherwise.
+<p>
+If the error is an {@link IOException} then there was a problem with the transport to the
+remote server. Any other exception type indicates an unexpected failure and should be
+considered fatal (configuration error, programming error, etc.)."
+      end
+
+      operation 194158 "isError"
+	public explicit_return_type "boolean"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment " {@code true} if the request resulted in an error. See {@link #error()} for the cause. "
+      end
+
+      operation 194286 "toString"
+	public explicit_return_type "String"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+    end
+
+    class 145390 "ResultOnSubscribe"
+      visibility package 
+      nformals 1
+      formal name "T" type "" explicit_default_value ""
+        explicit_extends ""
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      classrelation 142062 // <realization>
+	relation 142062 -_-|>
+	  a public
+	    java "${type}<Result<T>>"
+	    classrelation_ref 142062 // <realization>
+	  b parent class_ref 143982 // OnSubscribe
+      end
+
+      classrelation 142190 // upstream (<unidirectional association>)
+	relation 142190 --->
+	  stereotype "OnSubscribe"
+	  a role_name "upstream" const_relation private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}<T>> ${name}${value};
+"
+	    classrelation_ref 142190 // upstream (<unidirectional association>)
+	  b parent class_ref 129518 // Response
+      end
+
+      operation 194414 "ResultOnSubscribe"
+	package explicit_return_type ""
+	nparams 1
+	  param inout name "upstream" explicit_type "OnSubscribe<Response<T>>"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 194542 "call"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "subscriber" explicit_type "Subscriber<? super Result<T>>"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      class 145518 "ResultSubscriber"
+	visibility private 
+	nformals 1
+	formal name "R" type "" explicit_default_value ""
+	  explicit_extends ""
+	cpp_decl ""
+	java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	classrelation 142318 // <realization>
+	  relation 142318 -_-|>
+	    a public
+	      java "${type}<Response<R>>"
+	      classrelation_ref 142318 // <realization>
+	    b parent class_ref 144238 // Subscriber
+	end
+
+	attribute 143342 "subscriber"
+	  const_attribute private explicit_type "? super Result<R>"
+	  stereotype "Subscriber"
+	  cpp_decl ""
+	  java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}> ${name}${value};
+"
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	end
+
+	operation 194670 "ResultSubscriber"
+	  package explicit_return_type ""
+	  nparams 1
+	    param inout name "subscriber" explicit_type "Subscriber<? super Result<R>>"
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  
+	  
+	  
+	end
+
+	operation 194798 "onNext"
+	  public explicit_return_type "void"
+	  nparams 1
+	    param inout name "response" type class_ref 129518 // Response
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0}<R> ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@Override
+"
+	  
+	  
+	  
+	end
+
+	operation 194926 "onError"
+	  public explicit_return_type "void"
+	  nparams 1
+	    param inout name "throwable" explicit_type "Throwable"
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@Override
+"
+	  
+	  
+	  
+	end
+
+	operation 195054 "onCompleted"
+	  public explicit_return_type "void"
+	  nparams 0
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@Override
+"
+	  
+	  
+	  
+	end
+      end
+    end
+
+    class 145646 "RxJavaCallAdapter"
+      visibility package 
+      nformals 1
+      formal name "R" type "" explicit_default_value ""
+        explicit_extends ""
+      nactuals 4
+      actual class class_ref 129774 // CallAdapter
+        rank 0 explicit_value ""
+      actual class class_ref 129774 // CallAdapter
+        rank 1 explicit_value ""
+      actual class class_ref 129774 // CallAdapter
+        rank 2 explicit_value ""
+      actual class class_ref 129774 // CallAdapter
+        rank 3 explicit_value ""
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      classrelation 142446 // <realization>
+	relation 142446 -_-|>
+	  stereotype "bind"
+	  a public
+	    java "${type}"
+	    classrelation_ref 142446 // <realization>
+	  b parent class_ref 129774 // CallAdapter
+      end
+
+      attribute 143470 "responseType"
+	const_attribute private explicit_type "Type"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 143598 "scheduler"
+	const_attribute private explicit_type "Scheduler"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Nullable
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 143726 "isAsync"
+	const_attribute private explicit_type "boolean"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 143854 "isResult"
+	const_attribute private explicit_type "boolean"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 143982 "isBody"
+	const_attribute private explicit_type "boolean"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 144110 "isSingle"
+	const_attribute private explicit_type "boolean"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 144238 "isCompletable"
+	const_attribute private explicit_type "boolean"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      operation 195182 "RxJavaCallAdapter"
+	package explicit_return_type ""
+	nparams 7
+	  param inout name "responseType" explicit_type "Type"
+	  param inout name "scheduler" explicit_type "Scheduler"
+	  param inout name "isAsync" explicit_type "boolean"
+	  param inout name "isResult" explicit_type "boolean"
+	  param inout name "isBody" explicit_type "boolean"
+	  param inout name "isSingle" explicit_type "boolean"
+	  param inout name "isCompletable" explicit_type "boolean"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}, @Nullable ${t1} ${p1}, ${t2} ${p2}, ${t3} ${p3}, ${t4} ${p4}, ${t5} ${p5}, ${t6} ${p6}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 195310 "responseType"
+	public explicit_return_type "Type"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 195438 "adapt"
+	public explicit_return_type "Object"
+	nparams 1
+	  param inout name "call" type class_ref 129262 // Call
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0}<R> ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+    end
+
+    class 145774 "RxJavaCallAdapterFactory"
+      visibility public 
+      nactuals 4
+      actual class class_ref 129774 // CallAdapter
+        rank 0 explicit_value ""
+      actual class class_ref 129774 // CallAdapter
+        rank 1 explicit_value ""
+      actual class class_ref 129774 // CallAdapter
+        rank 2 explicit_value ""
+      actual class class_ref 129774 // CallAdapter
+        rank 3 explicit_value ""
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "A {@linkplain CallAdapter.Factory call adapter} which uses RxJava for creating observables.
+<p>
+Adding this class to {@link Retrofit} allows you to return an {@link Observable}, {@link Single},
+or {@link Completable} from service methods.
+<pre><code>
+interface MyService {
+  &#64;GET(\"user/me\")
+  Observable&lt;User&gt; getUser()
+}
+</code></pre>
+There are three configurations supported for the {@code Observable} or {@code Single} type
+parameter:
+<ul>
+<li>Direct body (e.g., {@code Observable<User>}) calls {@code onNext} with the deserialized body
+for 2XX responses and calls {@code onError} with {@link HttpException} for non-2XX responses and
+{@link IOException} for network errors.</li>
+<li>Response wrapped body (e.g., {@code Observable<Response<User>>}) calls {@code onNext}
+with a {@link Response} object for all HTTP responses and calls {@code onError} with
+{@link IOException} for network errors</li>
+<li>Result wrapped body (e.g., {@code Observable<Result<User>>}) calls {@code onNext} with a
+{@link Result} object for all HTTP responses and errors.</li>
+</ul>
+<p>
+<em>Note:</em> Support for {@link Single} and {@link Completable} is experimental and subject
+to backwards-incompatible changes at any time since both of these types are not considered
+stable by RxJava."
+      classrelation 142574 // <generalisation>
+	relation 142574 ---|>
+	  a public
+	    java "${type}"
+	    classrelation_ref 142574 // <generalisation>
+	  b parent class_ref 129902 // Factory
+      end
+
+      operation 195566 "create"
+	class_operation public return_type class_ref 145774 // RxJavaCallAdapterFactory
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Returns an instance which creates synchronous observables that do not operate on any scheduler
+by default."
+      end
+
+      operation 195694 "createAsync"
+	class_operation public return_type class_ref 145774 // RxJavaCallAdapterFactory
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Returns an instance which creates asynchronous observables. Applying
+{@link Observable#subscribeOn} has no effect on stream types created by this factory."
+      end
+
+      operation 195822 "createWithScheduler"
+	class_operation public return_type class_ref 145774 // RxJavaCallAdapterFactory
+	nparams 1
+	  param inout name "scheduler" explicit_type "Scheduler"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@SuppressWarnings(\"ConstantConditions\")
+"
+	
+	
+	
+	comment "Returns an instance which creates synchronous observables that
+{@linkplain Observable#subscribeOn(Scheduler) subscribe on} {@code scheduler} by default.
+
+ Guarding public API nullability."
+      end
+
+      attribute 144366 "scheduler"
+	const_attribute private explicit_type "Scheduler"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Nullable
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 144494 "isAsync"
+	const_attribute private explicit_type "boolean"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      operation 195950 "RxJavaCallAdapterFactory"
+	private explicit_return_type ""
+	nparams 2
+	  param inout name "scheduler" explicit_type "Scheduler"
+	  param inout name "isAsync" explicit_type "boolean"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}@Nullable ${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 196078 "get"
+	public return_type class_ref 129774 // CallAdapter
+	nparams 3
+	  param inout name "returnType" explicit_type "Type"
+	  param inout name "annotations" explicit_type "Annotation"
+	  param inout name "retrofit" type class_ref 128494 // Retrofit
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type}<?, ?> ${name}${(}${t0} ${p0}, ${t1}[] ${p1}, ${t2} ${p2}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+    end
+
+    class 145902 "AsyncTest"
+      visibility public 
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      attribute 144622 "server"
+	const_attribute public explicit_type "MockWebServer"
+	init_value " new MockWebServer()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 144750 "pluginsReset"
+	const_attribute public explicit_type "TestRule"
+	init_value " new RxJavaPluginsResetRule()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      class 146030 "Service"
+	visibility package stereotype "interface"
+	cpp_decl ""
+	java_decl "${comment}${@}${visibility}interface ${name}${extends} {
+${members}}
+"
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	operation 196206 "completable"
+	  public explicit_return_type "Completable"
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+      end
+
+      classrelation 142702 // service (<unidirectional association>)
+	relation 142702 --->
+	  a role_name "service" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 142702 // service (<unidirectional association>)
+	  b parent class_ref 146030 // Service
+      end
+
+      operation 196334 "setUp"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Before
+"
+	
+	
+	
+      end
+
+      operation 196462 "success"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 1
+	  explicit_exception "InterruptedException"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 196590 "failure"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 1
+	  explicit_exception "InterruptedException"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 196718 "throwingInOnCompleteDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 1
+	  explicit_exception "InterruptedException"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 196846 "bodyThrowingInOnErrorDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 1
+	  explicit_exception "InterruptedException"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 196974 "bodyThrowingInOnSafeSubscriberErrorDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 1
+	  explicit_exception "InterruptedException"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+    end
+
+    class 146158 "CancelDisposeTest"
+      visibility public 
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      attribute 144878 "server"
+	const_attribute public explicit_type "MockWebServer"
+	init_value " new MockWebServer()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      class 146286 "Service"
+	visibility package stereotype "interface"
+	cpp_decl ""
+	java_decl "${comment}${@}${visibility}interface ${name}${extends} {
+${members}}
+"
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	operation 197102 "go"
+	  public explicit_return_type "Observable<String>"
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+      end
+
+      attribute 145006 "client"
+	const_attribute private explicit_type "OkHttpClient"
+	init_value " new OkHttpClient()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      classrelation 142830 // service (<unidirectional association>)
+	relation 142830 --->
+	  a role_name "service" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 142830 // service (<unidirectional association>)
+	  b parent class_ref 146286 // Service
+      end
+
+      operation 197230 "setUp"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Before
+"
+	
+	
+	
+      end
+
+      operation 197358 "disposeCancelsCall"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 197486 "cancelDoesNotDispose"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+    end
+
+    class 146414 "CompletableTest"
+      visibility public 
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      attribute 145134 "server"
+	const_attribute public explicit_type "MockWebServer"
+	init_value " new MockWebServer()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 145262 "pluginsReset"
+	const_attribute public explicit_type "TestRule"
+	init_value " new RxJavaPluginsResetRule()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      classrelation 142958 // subscriberRule (<unidirectional association>)
+	relation 142958 --->
+	  a role_name "subscriberRule" init_value " new RecordingSubscriber.Rule()" const_relation public
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    java_annotation "@Rule
+"
+	    classrelation_ref 142958 // subscriberRule (<unidirectional association>)
+	  b parent class_ref 146670 // Rule
+      end
+
+      class 146798 "Service"
+	visibility package stereotype "interface"
+	cpp_decl ""
+	java_decl "${comment}${@}${visibility}interface ${name}${extends} {
+${members}}
+"
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	operation 197614 "completable"
+	  public explicit_return_type "Completable"
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+      end
+
+      classrelation 143086 // service (<unidirectional association>)
+	relation 143086 --->
+	  a role_name "service" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 143086 // service (<unidirectional association>)
+	  b parent class_ref 146798 // Service
+      end
+
+      operation 197742 "setUp"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Before
+"
+	
+	
+	
+      end
+
+      operation 197870 "completableSuccess200"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 197998 "completableSuccess404"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 198126 "completableFailure"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+    end
+
+    class 146542 "RecordingSubscriber"
+      visibility package 
+      nformals 1
+      formal name "T" type "" explicit_default_value ""
+        explicit_extends ""
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment " A test {@link Subscriber} and JUnit rule which guarantees all events are asserted. "
+      class 146670 "Rule"
+	visibility public 
+	cpp_decl ""
+	final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	classrelation 145774 // <realization>
+	  relation 145774 -_-|>
+	    a public
+	      java "${type}"
+	      classrelation_ref 145774 // <realization>
+	    b parent class_ref 149230 // TestRule
+	end
+
+	classrelation 145902 // subscribers (<unidirectional association>)
+	  relation 145902 --->
+	    stereotype "List"
+	    a role_name "subscribers" init_value " new ArrayList<>()" const_relation package
+	      java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}<?>> ${name}${value};
+"
+	      classrelation_ref 145902 // subscribers (<unidirectional association>)
+	    b parent class_ref 146542 // RecordingSubscriber
+	end
+
+	operation 209646 "create"
+	  public return_type class_ref 146542 // RecordingSubscriber
+	  nparams 0
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}<T> ${type}<T> ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  
+	  
+	  
+	end
+
+	operation 209774 "createWithInitialRequest"
+	  public return_type class_ref 146542 // RecordingSubscriber
+	  nparams 1
+	    param in name "initialRequest" explicit_type "long"
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}<T> ${type}<T> ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  
+	  
+	  
+	end
+
+	operation 209902 "apply"
+	  public explicit_return_type "Statement"
+	  nparams 2
+	    param in name "base" explicit_type "Statement"
+	    param inout name "description" explicit_type "Description"
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}final ${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@Override
+"
+	  
+	  
+	  
+	end
+      end
+
+      classrelation 145646 // <realization>
+	relation 145646 -_-|>
+	  a public
+	    java "${type}<T>"
+	    classrelation_ref 145646 // <realization>
+	  b parent class_ref 144238 // Subscriber
+      end
+
+      attribute 147310 "initialRequest"
+	const_attribute private explicit_type "long"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 147438 "events"
+	const_attribute private explicit_type "Notification<T>"
+	init_value " new ArrayDeque<>()"
+	stereotype "Deque"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}> ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      operation 207598 "RecordingSubscriber"
+	private explicit_return_type ""
+	nparams 1
+	  param in name "initialRequest" explicit_type "long"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 207726 "onStart"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 207854 "onNext"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "value" explicit_type "T"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 207982 "onCompleted"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 208110 "onError"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "e" explicit_type "Throwable"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 208238 "takeNotification"
+	private explicit_return_type "Notification<T>"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 208366 "takeValue"
+	public explicit_return_type "T"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 208494 "takeError"
+	public explicit_return_type "Throwable"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 208622 "assertAnyValue"
+	public return_type class_ref 146542 // RecordingSubscriber
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type}<T> ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 208750 "assertValue"
+	public return_type class_ref 146542 // RecordingSubscriber
+	nparams 1
+	  param inout name "value" explicit_type "T"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type}<T> ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 208878 "assertCompleted"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 209006 "assertError"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "throwable" explicit_type "Throwable"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 209134 "assertError"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "errorClass" explicit_type "Class<? extends Throwable>"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 209262 "assertError"
+	public explicit_return_type "void"
+	nparams 2
+	  param inout name "errorClass" explicit_type "Class<? extends Throwable>"
+	  param in name "message" explicit_type "String"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 209390 "assertNoEvents"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 209518 "requestMore"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "amount" explicit_type "long"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+    end
+
+    class 146926 "CompletableThrowingSafeSubscriberTest"
+      visibility public 
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      attribute 145390 "server"
+	const_attribute public explicit_type "MockWebServer"
+	init_value " new MockWebServer()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 145518 "resetRule"
+	const_attribute public explicit_type "TestRule"
+	init_value " new RxJavaPluginsResetRule()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      classrelation 143214 // subscriberRule (<unidirectional association>)
+	relation 143214 --->
+	  a role_name "subscriberRule" init_value " new RecordingSubscriber.Rule()" const_relation public
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    java_annotation "@Rule
+"
+	    classrelation_ref 143214 // subscriberRule (<unidirectional association>)
+	  b parent class_ref 146670 // Rule
+      end
+
+      class 147054 "Service"
+	visibility package stereotype "interface"
+	cpp_decl ""
+	java_decl "${comment}${@}${visibility}interface ${name}${extends} {
+${members}}
+"
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	operation 198254 "completable"
+	  public explicit_return_type "Completable"
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+      end
+
+      classrelation 143342 // service (<unidirectional association>)
+	relation 143342 --->
+	  a role_name "service" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 143342 // service (<unidirectional association>)
+	  b parent class_ref 147054 // Service
+      end
+
+      operation 198382 "setUp"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Before
+"
+	
+	
+	
+      end
+
+      operation 198510 "throwingInOnCompleteDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 198638 "bodyThrowingInOnErrorDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      class 147182 "ForwardingCompletableObserver"
+	abstract visibility package 
+	cpp_decl ""
+	java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	classrelation 143470 // <realization>
+	  relation 143470 -_-|>
+	    a public
+	      java "${type}"
+	      classrelation_ref 143470 // <realization>
+	    b parent class_ref 147310 // CompletableSubscriber
+	end
+
+	classrelation 143598 // delegate (<unidirectional association>)
+	  relation 143598 --->
+	    a role_name "delegate" const_relation private
+	      java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type}<Void> ${name}${value};
+"
+	      classrelation_ref 143598 // delegate (<unidirectional association>)
+	    b parent class_ref 146542 // RecordingSubscriber
+	end
+
+	operation 198766 "ForwardingCompletableObserver"
+	  package explicit_return_type ""
+	  nparams 1
+	    param inout name "delegate" type class_ref 146542 // RecordingSubscriber
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0}<Void> ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  
+	  
+	  
+	end
+
+	operation 198894 "onSubscribe"
+	  public explicit_return_type "void"
+	  nparams 1
+	    param inout name "d" explicit_type "Subscription"
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@Override
+"
+	  
+	  
+	  
+	end
+
+	operation 199022 "onCompleted"
+	  public explicit_return_type "void"
+	  nparams 0
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@Override
+"
+	  
+	  
+	  
+	end
+
+	operation 199150 "onError"
+	  public explicit_return_type "void"
+	  nparams 1
+	    param inout name "throwable" explicit_type "Throwable"
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@Override
+"
+	  
+	  
+	  
+	end
+      end
+    end
+
+    class 147438 "CompletableThrowingTest"
+      visibility public 
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      attribute 145646 "server"
+	const_attribute public explicit_type "MockWebServer"
+	init_value " new MockWebServer()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 145774 "resetRule"
+	const_attribute public explicit_type "TestRule"
+	init_value " new RxJavaPluginsResetRule()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      classrelation 143726 // subscriberRule (<unidirectional association>)
+	relation 143726 --->
+	  a role_name "subscriberRule" init_value " new RecordingSubscriber.Rule()" const_relation public
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    java_annotation "@Rule
+"
+	    classrelation_ref 143726 // subscriberRule (<unidirectional association>)
+	  b parent class_ref 146670 // Rule
+      end
+
+      class 147566 "Service"
+	visibility package stereotype "interface"
+	cpp_decl ""
+	java_decl "${comment}${@}${visibility}interface ${name}${extends} {
+${members}}
+"
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	operation 199278 "completable"
+	  public explicit_return_type "Completable"
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+      end
+
+      classrelation 143854 // service (<unidirectional association>)
+	relation 143854 --->
+	  a role_name "service" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 143854 // service (<unidirectional association>)
+	  b parent class_ref 147566 // Service
+      end
+
+      operation 199406 "setUp"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Before
+"
+	
+	
+	
+      end
+
+      operation 199534 "throwingInOnCompleteDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 199662 "bodyThrowingInOnErrorDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      class 147694 "ForwardingCompletableObserver"
+	abstract visibility package 
+	cpp_decl ""
+	java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	classrelation 143982 // <realization>
+	  relation 143982 -_-|>
+	    a public
+	      java "${type}"
+	      classrelation_ref 143982 // <realization>
+	    b parent class_ref 147310 // CompletableSubscriber
+	end
+
+	classrelation 144110 // delegate (<unidirectional association>)
+	  relation 144110 --->
+	    a role_name "delegate" const_relation private
+	      java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type}<Void> ${name}${value};
+"
+	      classrelation_ref 144110 // delegate (<unidirectional association>)
+	    b parent class_ref 146542 // RecordingSubscriber
+	end
+
+	operation 199790 "ForwardingCompletableObserver"
+	  package explicit_return_type ""
+	  nparams 1
+	    param inout name "delegate" type class_ref 146542 // RecordingSubscriber
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0}<Void> ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  
+	  
+	  
+	end
+
+	operation 199918 "onSubscribe"
+	  public explicit_return_type "void"
+	  nparams 1
+	    param inout name "d" explicit_type "Subscription"
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@Override
+"
+	  
+	  
+	  
+	end
+
+	operation 200046 "onCompleted"
+	  public explicit_return_type "void"
+	  nparams 0
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@Override
+"
+	  
+	  
+	  
+	end
+
+	operation 200174 "onError"
+	  public explicit_return_type "void"
+	  nparams 1
+	    param inout name "throwable" explicit_type "Throwable"
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@Override
+"
+	  
+	  
+	  
+	end
+      end
+    end
+
+    class 147822 "CompletableWithSchedulerTest"
+      visibility public 
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      attribute 145902 "server"
+	const_attribute public explicit_type "MockWebServer"
+	init_value " new MockWebServer()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      classrelation 144238 // subscriberRule (<unidirectional association>)
+	relation 144238 --->
+	  a role_name "subscriberRule" init_value " new RecordingSubscriber.Rule()" const_relation public
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    java_annotation "@Rule
+"
+	    classrelation_ref 144238 // subscriberRule (<unidirectional association>)
+	  b parent class_ref 146670 // Rule
+      end
+
+      class 147950 "Service"
+	visibility package stereotype "interface"
+	cpp_decl ""
+	java_decl "${comment}${@}${visibility}interface ${name}${extends} {
+${members}}
+"
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	operation 200302 "completable"
+	  public explicit_return_type "Completable"
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+      end
+
+      attribute 146030 "scheduler"
+	const_attribute private explicit_type "TestScheduler"
+	init_value " new TestScheduler()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      classrelation 144366 // service (<unidirectional association>)
+	relation 144366 --->
+	  a role_name "service" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 144366 // service (<unidirectional association>)
+	  b parent class_ref 147950 // Service
+      end
+
+      operation 200430 "setUp"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Before
+"
+	
+	
+	
+      end
+
+      operation 200558 "completableUsesScheduler"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+    end
+
+    class 148078 "ForwardingSubscriber"
+      abstract visibility package 
+      nformals 1
+      formal name "T" type "" explicit_default_value ""
+        explicit_extends ""
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      classrelation 144494 // <realization>
+	relation 144494 -_-|>
+	  a public
+	    java "${type}<T>"
+	    classrelation_ref 144494 // <realization>
+	  b parent class_ref 144238 // Subscriber
+      end
+
+      attribute 146158 "delegate"
+	const_attribute private explicit_type "T"
+	stereotype "Subscriber"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}> ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      operation 200686 "ForwardingSubscriber"
+	package explicit_return_type ""
+	nparams 1
+	  param inout name "delegate" explicit_type "Subscriber<T>"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 200814 "onNext"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "value" explicit_type "T"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 200942 "onCompleted"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 201070 "onError"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "throwable" explicit_type "Throwable"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+    end
+
+    class 148206 "ObservableTest"
+      visibility public 
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      attribute 146286 "server"
+	const_attribute public explicit_type "MockWebServer"
+	init_value " new MockWebServer()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 146414 "pluginsReset"
+	const_attribute public explicit_type "TestRule"
+	init_value " new RxJavaPluginsResetRule()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      classrelation 144622 // subscriberRule (<unidirectional association>)
+	relation 144622 --->
+	  a role_name "subscriberRule" init_value " new RecordingSubscriber.Rule()" const_relation public
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    java_annotation "@Rule
+"
+	    classrelation_ref 144622 // subscriberRule (<unidirectional association>)
+	  b parent class_ref 146670 // Rule
+      end
+
+      class 148334 "Service"
+	visibility package stereotype "interface"
+	cpp_decl ""
+	java_decl "${comment}${@}${visibility}interface ${name}${extends} {
+${members}}
+"
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	operation 201198 "body"
+	  public explicit_return_type "Observable<String>"
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+
+	operation 201326 "response"
+	  public return_type class_ref 129518 // Response
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}Observable<${type}<String>> ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+
+	operation 201454 "result"
+	  public return_type class_ref 145262 // Result
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}Observable<${type}<String>> ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+      end
+
+      classrelation 144750 // service (<unidirectional association>)
+	relation 144750 --->
+	  a role_name "service" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 144750 // service (<unidirectional association>)
+	  b parent class_ref 148334 // Service
+      end
+
+      operation 201582 "setUp"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Before
+"
+	
+	
+	
+      end
+
+      operation 201710 "bodySuccess200"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 201838 "bodySuccess404"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 201966 "bodyFailure"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 202094 "bodyRespectsBackpressure"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 202222 "responseSuccess200"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 202350 "responseSuccess404"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 1
+	  explicit_exception "IOException"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 202478 "responseFailure"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 202606 "responseRespectsBackpressure"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 202734 "responseUnsubscribedDoesNotCallCompleted"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 1
+	  explicit_exception "InterruptedException"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 202862 "resultSuccess200"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 202990 "resultSuccess404"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 1
+	  explicit_exception "IOException"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 203118 "resultFailure"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 203246 "resultRespectsBackpressure"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+    end
+
+    class 148462 "ObservableThrowingSafeSubscriberTest"
+      visibility public 
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      attribute 146542 "server"
+	const_attribute public explicit_type "MockWebServer"
+	init_value " new MockWebServer()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 146670 "resetRule"
+	const_attribute public explicit_type "TestRule"
+	init_value " new RxJavaPluginsResetRule()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      classrelation 144878 // subscriberRule (<unidirectional association>)
+	relation 144878 --->
+	  a role_name "subscriberRule" init_value " new RecordingSubscriber.Rule()" const_relation public
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    java_annotation "@Rule
+"
+	    classrelation_ref 144878 // subscriberRule (<unidirectional association>)
+	  b parent class_ref 146670 // Rule
+      end
+
+      class 148590 "Service"
+	visibility package stereotype "interface"
+	cpp_decl ""
+	java_decl "${comment}${@}${visibility}interface ${name}${extends} {
+${members}}
+"
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	operation 203374 "body"
+	  public explicit_return_type "Observable<String>"
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+
+	operation 203502 "response"
+	  public return_type class_ref 129518 // Response
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}Observable<${type}<String>> ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+
+	operation 203630 "result"
+	  public return_type class_ref 145262 // Result
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}Observable<${type}<String>> ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+      end
+
+      classrelation 145006 // service (<unidirectional association>)
+	relation 145006 --->
+	  a role_name "service" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 145006 // service (<unidirectional association>)
+	  b parent class_ref 148590 // Service
+      end
+
+      operation 203758 "setUp"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Before
+"
+	
+	
+	
+      end
+
+      operation 203886 "bodyThrowingInOnNextDeliveredToError"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 204014 "bodyThrowingInOnCompleteDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 204142 "bodyThrowingInOnErrorDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 204270 "responseThrowingInOnNextDeliveredToError"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 204398 "responseThrowingInOnCompleteDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 204526 "responseThrowingInOnErrorDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 204654 "resultThrowingInOnNextDeliveredToError"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 204782 "resultThrowingInOnCompletedDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 204910 "resultThrowingInOnErrorDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+    end
+
+    class 148718 "ObservableThrowingTest"
+      visibility public 
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      attribute 146798 "server"
+	const_attribute public explicit_type "MockWebServer"
+	init_value " new MockWebServer()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 146926 "resetRule"
+	const_attribute public explicit_type "TestRule"
+	init_value " new RxJavaPluginsResetRule()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      classrelation 145134 // subscriberRule (<unidirectional association>)
+	relation 145134 --->
+	  a role_name "subscriberRule" init_value " new RecordingSubscriber.Rule()" const_relation public
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    java_annotation "@Rule
+"
+	    classrelation_ref 145134 // subscriberRule (<unidirectional association>)
+	  b parent class_ref 146670 // Rule
+      end
+
+      class 148846 "Service"
+	visibility package stereotype "interface"
+	cpp_decl ""
+	java_decl "${comment}${@}${visibility}interface ${name}${extends} {
+${members}}
+"
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	operation 205038 "body"
+	  public explicit_return_type "Observable<String>"
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+
+	operation 205166 "response"
+	  public return_type class_ref 129518 // Response
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}Observable<${type}<String>> ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+
+	operation 205294 "result"
+	  public return_type class_ref 145262 // Result
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}Observable<${type}<String>> ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+      end
+
+      classrelation 145262 // service (<unidirectional association>)
+	relation 145262 --->
+	  a role_name "service" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 145262 // service (<unidirectional association>)
+	  b parent class_ref 148846 // Service
+      end
+
+      operation 205422 "setUp"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Before
+"
+	
+	
+	
+      end
+
+      operation 205550 "bodyThrowingInOnNextDeliveredToError"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 205678 "bodyThrowingInOnCompleteDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 205806 "bodyThrowingInOnErrorDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 205934 "responseThrowingInOnNextDeliveredToError"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 206062 "responseThrowingInOnCompleteDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 206190 "responseThrowingInOnErrorDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 206318 "resultThrowingInOnNextDeliveredToError"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 206446 "resultThrowingInOnCompletedDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 206574 "resultThrowingInOnErrorDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+    end
+
+    class 148974 "ObservableWithSchedulerTest"
+      visibility public 
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      attribute 147054 "server"
+	const_attribute public explicit_type "MockWebServer"
+	init_value " new MockWebServer()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      classrelation 145390 // subscriberRule (<unidirectional association>)
+	relation 145390 --->
+	  a role_name "subscriberRule" init_value " new RecordingSubscriber.Rule()" const_relation public
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    java_annotation "@Rule
+"
+	    classrelation_ref 145390 // subscriberRule (<unidirectional association>)
+	  b parent class_ref 146670 // Rule
+      end
+
+      class 149102 "Service"
+	visibility package stereotype "interface"
+	cpp_decl ""
+	java_decl "${comment}${@}${visibility}interface ${name}${extends} {
+${members}}
+"
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	operation 206702 "body"
+	  public explicit_return_type "Observable<String>"
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+
+	operation 206830 "response"
+	  public return_type class_ref 129518 // Response
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}Observable<${type}<String>> ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+
+	operation 206958 "result"
+	  public return_type class_ref 145262 // Result
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}Observable<${type}<String>> ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+      end
+
+      attribute 147182 "scheduler"
+	const_attribute private explicit_type "TestScheduler"
+	init_value " new TestScheduler()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      classrelation 145518 // service (<unidirectional association>)
+	relation 145518 --->
+	  a role_name "service" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 145518 // service (<unidirectional association>)
+	  b parent class_ref 149102 // Service
+      end
+
+      operation 207086 "setUp"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Before
+"
+	
+	
+	
+      end
+
+      operation 207214 "bodyUsesScheduler"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 207342 "responseUsesScheduler"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 207470 "resultUsesScheduler"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+    end
+
+    class 149358 "ResultTest"
+      visibility public 
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      operation 210030 "response"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 210158 "nullResponseThrows"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 210286 "error"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 210414 "nullErrorThrows"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+    end
+
+    class 149486 "RxJavaCallAdapterFactoryTest"
+      visibility public 
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      attribute 147566 "NO_ANNOTATIONS"
+	class_attribute const_attribute private explicit_type "Annotation"
+	multiplicity "[]"
+	init_value " new Annotation[0]"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type}${multiplicity} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      classrelation 146030 // factory (<unidirectional association>)
+	relation 146030 --->
+	  a role_name "factory" init_value " RxJavaCallAdapterFactory.create()" const_relation private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 146030 // factory (<unidirectional association>)
+	  b parent class_ref 129902 // Factory
+      end
+
+      classrelation 146158 // retrofit (<unidirectional association>)
+	relation 146158 --->
+	  a role_name "retrofit" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 146158 // retrofit (<unidirectional association>)
+	  b parent class_ref 128494 // Retrofit
+      end
+
+      operation 210542 "setUp"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Before
+"
+	
+	
+	
+      end
+
+      operation 210670 "nullSchedulerThrows"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 210798 "nonRxJavaTypeReturnsNull"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 210926 "responseTypes"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 211054 "rawBodyTypeThrows"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 211182 "rawResponseTypeThrows"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 211310 "rawResultTypeThrows"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+    end
+
+    class 149614 "RxJavaPluginsResetRule"
+      visibility package 
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment " A JUnit @Rule which resets RxJava's plugins before and after each test. "
+      classrelation 146286 // <realization>
+	relation 146286 -_-|>
+	  a public
+	    java "${type}"
+	    classrelation_ref 146286 // <realization>
+	  b parent class_ref 149230 // TestRule
+      end
+
+      operation 211438 "apply"
+	public explicit_return_type "Statement"
+	nparams 2
+	  param in name "base" explicit_type "Statement"
+	  param inout name "description" explicit_type "Description"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}final ${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+    end
+
+    class 149742 "SingleTest"
+      visibility public 
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      attribute 147694 "server"
+	const_attribute public explicit_type "MockWebServer"
+	init_value " new MockWebServer()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 147822 "pluginsReset"
+	const_attribute public explicit_type "TestRule"
+	init_value " new RxJavaPluginsResetRule()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      classrelation 146414 // subscriberRule (<unidirectional association>)
+	relation 146414 --->
+	  a role_name "subscriberRule" init_value " new RecordingSubscriber.Rule()" const_relation public
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    java_annotation "@Rule
+"
+	    classrelation_ref 146414 // subscriberRule (<unidirectional association>)
+	  b parent class_ref 146670 // Rule
+      end
+
+      class 149870 "Service"
+	visibility package stereotype "interface"
+	cpp_decl ""
+	java_decl "${comment}${@}${visibility}interface ${name}${extends} {
+${members}}
+"
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	operation 211566 "body"
+	  public explicit_return_type "Single<String>"
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+
+	operation 211694 "response"
+	  public return_type class_ref 129518 // Response
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}Single<${type}<String>> ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+
+	operation 211822 "result"
+	  public return_type class_ref 145262 // Result
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}Single<${type}<String>> ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+      end
+
+      classrelation 146542 // service (<unidirectional association>)
+	relation 146542 --->
+	  a role_name "service" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 146542 // service (<unidirectional association>)
+	  b parent class_ref 149870 // Service
+      end
+
+      operation 211950 "setUp"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Before
+"
+	
+	
+	
+      end
+
+      operation 212078 "bodySuccess200"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 212206 "bodySuccess404"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 212334 "bodyFailure"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 212462 "bodyThrowingInOnNextDeliveredToError"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 212590 "responseSuccess200"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 212718 "responseSuccess404"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 1
+	  explicit_exception "IOException"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 212846 "responseFailure"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 212974 "responseThrowingInOnNextDeliveredToError"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 213102 "resultSuccess200"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 213230 "resultSuccess404"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 1
+	  explicit_exception "IOException"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 213358 "resultFailure"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 213486 "resultThrowingInOnNextDeliveredToError"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+    end
+
+    class 149998 "SingleThrowingTest"
+      visibility public 
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      attribute 147950 "server"
+	const_attribute public explicit_type "MockWebServer"
+	init_value " new MockWebServer()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 148078 "resetRule"
+	const_attribute public explicit_type "TestRule"
+	init_value " new RxJavaPluginsResetRule()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      classrelation 146670 // subscriberRule (<unidirectional association>)
+	relation 146670 --->
+	  a role_name "subscriberRule" init_value " new RecordingSubscriber.Rule()" const_relation public
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    java_annotation "@Rule
+"
+	    classrelation_ref 146670 // subscriberRule (<unidirectional association>)
+	  b parent class_ref 146670 // Rule
+      end
+
+      class 150126 "Service"
+	visibility package stereotype "interface"
+	cpp_decl ""
+	java_decl "${comment}${@}${visibility}interface ${name}${extends} {
+${members}}
+"
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	operation 213614 "body"
+	  public explicit_return_type "Single<String>"
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+
+	operation 213742 "response"
+	  public return_type class_ref 129518 // Response
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}Single<${type}<String>> ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+
+	operation 213870 "result"
+	  public return_type class_ref 145262 // Result
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}Single<${type}<String>> ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+      end
+
+      classrelation 146798 // service (<unidirectional association>)
+	relation 146798 --->
+	  a role_name "service" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 146798 // service (<unidirectional association>)
+	  b parent class_ref 150126 // Service
+      end
+
+      operation 213998 "setUp"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Before
+"
+	
+	
+	
+      end
+
+      operation 214126 "bodyThrowingInOnSuccessDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 214254 "bodyThrowingInOnErrorDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 214382 "responseThrowingInOnSuccessDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 214510 "responseThrowingInOnErrorDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 214638 "resultThrowingInOnSuccessDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 214766 "resultThrowingInOnErrorDeliveredToPlugin"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Ignore(\"Single's contract is onNext|onError so we have no way of triggering this case\")
+  @Test
+"
+	
+	
+	
+      end
+
+      class 150254 "ForwardingObserver"
+	abstract visibility private 
+	nformals 1
+	formal name "T" type "" explicit_default_value ""
+	  explicit_extends ""
+	cpp_decl ""
+	java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	classrelation 146926 // <realization>
+	  relation 146926 -_-|>
+	    a public
+	      java "${type}<T>"
+	      classrelation_ref 146926 // <realization>
+	    b parent class_ref 150382 // SingleSubscriber
+	end
+
+	attribute 148206 "delegate"
+	  const_attribute private explicit_type "T"
+	  stereotype "Subscriber"
+	  cpp_decl ""
+	  java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}> ${name}${value};
+"
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	end
+
+	operation 214894 "ForwardingObserver"
+	  package explicit_return_type ""
+	  nparams 1
+	    param inout name "delegate" explicit_type "Subscriber<T>"
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  
+	  
+	  
+	end
+
+	operation 215022 "onSuccess"
+	  public explicit_return_type "void"
+	  nparams 1
+	    param inout name "value" explicit_type "T"
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@Override
+"
+	  
+	  
+	  
+	end
+
+	operation 215150 "onError"
+	  public explicit_return_type "void"
+	  nparams 1
+	    param inout name "throwable" explicit_type "Throwable"
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@Override
+"
+	  
+	  
+	  
+	end
+      end
+    end
+
+    class 150510 "SingleWithSchedulerTest"
+      visibility public 
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      attribute 148334 "server"
+	const_attribute public explicit_type "MockWebServer"
+	init_value " new MockWebServer()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      classrelation 147054 // subscriberRule (<unidirectional association>)
+	relation 147054 --->
+	  a role_name "subscriberRule" init_value " new RecordingSubscriber.Rule()" const_relation public
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    java_annotation "@Rule
+"
+	    classrelation_ref 147054 // subscriberRule (<unidirectional association>)
+	  b parent class_ref 146670 // Rule
+      end
+
+      class 150638 "Service"
+	visibility package stereotype "interface"
+	cpp_decl ""
+	java_decl "${comment}${@}${visibility}interface ${name}${extends} {
+${members}}
+"
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	operation 215278 "body"
+	  public explicit_return_type "Single<String>"
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+
+	operation 215406 "response"
+	  public return_type class_ref 129518 // Response
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}Single<${type}<String>> ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+
+	operation 215534 "result"
+	  public return_type class_ref 145262 // Result
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}Single<${type}<String>> ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+      end
+
+      attribute 148462 "scheduler"
+	const_attribute private explicit_type "TestScheduler"
+	init_value " new TestScheduler()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      classrelation 147182 // service (<unidirectional association>)
+	relation 147182 --->
+	  a role_name "service" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 147182 // service (<unidirectional association>)
+	  b parent class_ref 150638 // Service
+      end
+
+      operation 215662 "setUp"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Before
+"
+	
+	
+	
+      end
+
+      operation 215790 "bodyUsesScheduler"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 215918 "responseUsesScheduler"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 216046 "resultUsesScheduler"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+    end
+
+    class 150766 "StringConverterFactory"
+      visibility package 
+      nactuals 4
+      actual class class_ref 128238 // Converter
+        rank 0 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 1 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 2 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 3 explicit_value ""
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      classrelation 147310 // <generalisation>
+	relation 147310 ---|>
+	  a public
+	    java "${type}"
+	    classrelation_ref 147310 // <generalisation>
+	  b parent class_ref 128366 // Factory
+      end
+
+      operation 216174 "responseBodyConverter"
+	public return_type class_ref 128238 // Converter
+	nparams 3
+	  param inout name "type" explicit_type "Type"
+	  param inout name "annotations" explicit_type "Annotation"
+	  param inout name "retrofit" type class_ref 128494 // Retrofit
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type}<ResponseBody, ?> ${name}${(}${t0} ${p0}, ${t1}[] ${p1}, ${t2} ${p2}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 216302 "requestBodyConverter"
+	public return_type class_ref 128238 // Converter
+	nparams 4
+	  param inout name "type" explicit_type "Type"
+	  param inout name "parameterAnnotations" explicit_type "Annotation"
+	  param inout name "methodAnnotations" explicit_type "Annotation"
+	  param inout name "retrofit" type class_ref 128494 // Retrofit
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type}<?, RequestBody> ${name}${(}${t0} ${p0}, ${t1}[] ${p1}, ${t2}[] ${p2}, ${t3} ${p3}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+    end
+  end
+
+  deploymentview 128750 "rxjava"
+    //deployment diagram settings
+    package_name_in_tab default show_context default write_horizontally default auto_label_position default draw_all_relations default shadow default
+    draw_component_as_icon default show_component_req_prov default show_component_rea default show_stereotype_properties default
+    artifact 136430 "BodyOnSubscribe"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import retrofit2.Response;
+import rx.Observable.OnSubscribe;
+import rx.Subscriber;
+import rx.exceptions.CompositeException;
+import rx.exceptions.Exceptions;
+import rx.exceptions.OnCompletedFailedException;
+import rx.exceptions.OnErrorFailedException;
+import rx.exceptions.OnErrorNotImplementedException;
+import rx.plugins.RxJavaPlugins;
+${definition}"
+      associated_classes
+	class_ref 143854 // BodyOnSubscribe
+      end
+      comment "Copyright (C) 2016 Jake Wharton
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 136558 "CallArbiter"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.util.concurrent.atomic.AtomicInteger;
+import retrofit2.Call;
+import retrofit2.Response;
+import rx.Producer;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.exceptions.CompositeException;
+import rx.exceptions.Exceptions;
+import rx.exceptions.OnCompletedFailedException;
+import rx.exceptions.OnErrorFailedException;
+import rx.exceptions.OnErrorNotImplementedException;
+import rx.plugins.RxJavaPlugins;
+${definition}"
+      associated_classes
+	class_ref 144366 // CallArbiter
+      end
+      comment "Copyright (C) 2016 Jake Wharton
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 136686 "CallEnqueueOnSubscribe"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import rx.Observable.OnSubscribe;
+import rx.Subscriber;
+import rx.exceptions.Exceptions;
+${definition}"
+      associated_classes
+	class_ref 144878 // CallEnqueueOnSubscribe
+      end
+      comment "Copyright (C) 2016 Jake Wharton
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 136814 "CallExecuteOnSubscribe"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import retrofit2.Call;
+import retrofit2.Response;
+import rx.Observable.OnSubscribe;
+import rx.Subscriber;
+import rx.exceptions.Exceptions;
+${definition}"
+      associated_classes
+	class_ref 145006 // CallExecuteOnSubscribe
+      end
+      comment "Copyright (C) 2016 Jake Wharton
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 136942 "HttpException"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import retrofit2.Response;
+${definition}"
+      associated_classes
+	class_ref 145134 // HttpException
+      end
+    end
+
+    artifact 137070 "Result"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.io.IOException;
+import javax.annotation.Nullable;
+import retrofit2.Response;
+${definition}"
+      associated_classes
+	class_ref 145262 // Result
+      end
+      comment "Copyright (C) 2015 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 137198 "ResultOnSubscribe"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import retrofit2.Response;
+import rx.Observable.OnSubscribe;
+import rx.Subscriber;
+import rx.exceptions.CompositeException;
+import rx.exceptions.Exceptions;
+import rx.exceptions.OnCompletedFailedException;
+import rx.exceptions.OnErrorFailedException;
+import rx.exceptions.OnErrorNotImplementedException;
+import rx.plugins.RxJavaPlugins;
+${definition}"
+      associated_classes
+	class_ref 145390 // ResultOnSubscribe
+      end
+      comment "Copyright (C) 2016 Jake Wharton
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 137326 "RxJavaCallAdapter"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.reflect.Type;
+import javax.annotation.Nullable;
+import retrofit2.Call;
+import retrofit2.CallAdapter;
+import retrofit2.Response;
+import rx.Observable;
+import rx.Observable.OnSubscribe;
+import rx.Scheduler;
+${definition}"
+      associated_classes
+	class_ref 145646 // RxJavaCallAdapter
+      end
+      comment "Copyright (C) 2016 Jake Wharton
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 137454 "RxJavaCallAdapterFactory"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import javax.annotation.Nullable;
+import retrofit2.CallAdapter;
+import retrofit2.HttpException;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import rx.Completable;
+import rx.Observable;
+import rx.Scheduler;
+import rx.Single;
+${definition}"
+      associated_classes
+	class_ref 145774 // RxJavaCallAdapterFactory
+      end
+      comment "Copyright (C) 2015 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 137582 "AsyncTest"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicReference;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestRule;
+import retrofit2.Retrofit;
+import retrofit2.http.GET;
+import rx.Completable;
+import rx.exceptions.CompositeException;
+import rx.exceptions.Exceptions;
+import rx.exceptions.OnErrorFailedException;
+import rx.observers.AsyncCompletableSubscriber;
+import rx.observers.TestSubscriber;
+import rx.plugins.RxJavaErrorHandler;
+import rx.plugins.RxJavaPlugins;
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static okhttp3.mockwebserver.SocketPolicy.DISCONNECT_AFTER_REQUEST;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+${definition}"
+      associated_classes
+	class_ref 145902 // AsyncTest
+      end
+      comment "Copyright (C) 2017 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 137710 "CancelDisposeTest"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.util.List;
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.mockwebserver.MockWebServer;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import retrofit2.Retrofit;
+import retrofit2.http.GET;
+import rx.Observable;
+import rx.Subscription;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+${definition}"
+      associated_classes
+	class_ref 146158 // CancelDisposeTest
+      end
+      comment "Copyright (C) 2018 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 137838 "CompletableTest"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.io.IOException;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestRule;
+import retrofit2.Retrofit;
+import retrofit2.http.GET;
+import rx.Completable;
+import static okhttp3.mockwebserver.SocketPolicy.DISCONNECT_AFTER_REQUEST;
+${definition}"
+      associated_classes
+	class_ref 146414 // CompletableTest
+      end
+      comment "Copyright (C) 2016 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 137966 "CompletableThrowingSafeSubscriberTest"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.util.concurrent.atomic.AtomicReference;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestRule;
+import retrofit2.Retrofit;
+import retrofit2.http.GET;
+import rx.Completable;
+import rx.CompletableSubscriber;
+import rx.Subscription;
+import rx.exceptions.CompositeException;
+import rx.exceptions.Exceptions;
+import rx.exceptions.OnCompletedFailedException;
+import rx.exceptions.OnErrorFailedException;
+import rx.plugins.RxJavaErrorHandler;
+import rx.plugins.RxJavaPlugins;
+import static org.assertj.core.api.Assertions.assertThat;
+${definition}"
+      associated_classes
+	class_ref 146926 // CompletableThrowingSafeSubscriberTest
+      end
+      comment "Copyright (C) 2016 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 138094 "CompletableThrowingTest"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestRule;
+import retrofit2.Retrofit;
+import retrofit2.http.GET;
+import rx.Completable;
+import rx.CompletableSubscriber;
+import rx.Subscription;
+import rx.exceptions.CompositeException;
+import rx.exceptions.Exceptions;
+import rx.plugins.RxJavaErrorHandler;
+import rx.plugins.RxJavaPlugins;
+import static org.assertj.core.api.Assertions.assertThat;
+${definition}"
+      associated_classes
+	class_ref 147438 // CompletableThrowingTest
+      end
+      comment "Copyright (C) 2016 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 138222 "CompletableWithSchedulerTest"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import retrofit2.Retrofit;
+import retrofit2.http.GET;
+import rx.Completable;
+import rx.schedulers.TestScheduler;
+${definition}"
+      associated_classes
+	class_ref 147822 // CompletableWithSchedulerTest
+      end
+      comment "Copyright (C) 2016 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 138350 "ForwardingSubscriber"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import rx.Subscriber;
+${definition}"
+      associated_classes
+	class_ref 148078 // ForwardingSubscriber
+      end
+      comment "Copyright (C) 2016 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 138478 "ObservableTest"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.io.IOException;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestRule;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.http.GET;
+import rx.Observable;
+import rx.functions.Action1;
+import static okhttp3.mockwebserver.SocketPolicy.DISCONNECT_AFTER_REQUEST;
+import static org.assertj.core.api.Assertions.assertThat;
+${definition}"
+      associated_classes
+	class_ref 148206 // ObservableTest
+      end
+      comment "Copyright (C) 2015 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 138606 "ObservableThrowingSafeSubscriberTest"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.util.concurrent.atomic.AtomicReference;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestRule;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.http.GET;
+import rx.Observable;
+import rx.exceptions.CompositeException;
+import rx.exceptions.Exceptions;
+import rx.exceptions.OnCompletedFailedException;
+import rx.exceptions.OnErrorFailedException;
+import rx.plugins.RxJavaErrorHandler;
+import rx.plugins.RxJavaPlugins;
+import static okhttp3.mockwebserver.SocketPolicy.DISCONNECT_AFTER_REQUEST;
+import static org.assertj.core.api.Assertions.assertThat;
+${definition}"
+      associated_classes
+	class_ref 148462 // ObservableThrowingSafeSubscriberTest
+      end
+      comment "Copyright (C) 2015 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 138734 "ObservableThrowingTest"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.util.concurrent.atomic.AtomicReference;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestRule;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.http.GET;
+import rx.Observable;
+import rx.exceptions.CompositeException;
+import rx.exceptions.Exceptions;
+import rx.plugins.RxJavaErrorHandler;
+import rx.plugins.RxJavaPlugins;
+import static okhttp3.mockwebserver.SocketPolicy.DISCONNECT_AFTER_REQUEST;
+import static org.assertj.core.api.Assertions.assertThat;
+${definition}"
+      associated_classes
+	class_ref 148718 // ObservableThrowingTest
+      end
+      comment "Copyright (C) 2015 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 138862 "ObservableWithSchedulerTest"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.http.GET;
+import rx.Observable;
+import rx.schedulers.TestScheduler;
+${definition}"
+      associated_classes
+	class_ref 148974 // ObservableWithSchedulerTest
+      end
+      comment "Copyright (C) 2016 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 138990 "RecordingSubscriber"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
+import org.junit.rules.TestRule;
+import org.junit.runner.Description;
+import org.junit.runners.model.Statement;
+import rx.Notification;
+import rx.Subscriber;
+import static org.assertj.core.api.Assertions.assertThat;
+${definition}"
+      associated_classes
+	class_ref 146542 // RecordingSubscriber
+      end
+      comment "Copyright (C) 2016 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 139118 "ResultTest"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.io.IOException;
+import org.junit.Test;
+import retrofit2.Response;
+import retrofit2.adapter.rxjava.Result;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+${definition}"
+      associated_classes
+	class_ref 149358 // ResultTest
+      end
+      comment "Copyright (C) 2015 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 139246 "RxJavaCallAdapterFactoryTest"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import com.google.common.reflect.TypeToken;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
+import java.util.List;
+import org.junit.Before;
+import org.junit.Test;
+import retrofit2.CallAdapter;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import rx.Observable;
+import rx.Single;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+${definition}"
+      associated_classes
+	class_ref 149486 // RxJavaCallAdapterFactoryTest
+      end
+      comment "Copyright (C) 2015 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 139374 "RxJavaPluginsResetRule"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import org.junit.rules.TestRule;
+import org.junit.runner.Description;
+import org.junit.runners.model.Statement;
+import rx.plugins.RxJavaPlugins;
+${definition}"
+      associated_classes
+	class_ref 149614 // RxJavaPluginsResetRule
+      end
+      comment "Copyright (C) 2016 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 139502 "SingleTest"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.io.IOException;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestRule;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.http.GET;
+import rx.Single;
+import static okhttp3.mockwebserver.SocketPolicy.DISCONNECT_AFTER_REQUEST;
+import static org.assertj.core.api.Assertions.assertThat;
+${definition}"
+      associated_classes
+	class_ref 149742 // SingleTest
+      end
+      comment "Copyright (C) 2015 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 139630 "SingleThrowingTest"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.util.concurrent.atomic.AtomicReference;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestRule;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.http.GET;
+import rx.Single;
+import rx.SingleSubscriber;
+import rx.Subscriber;
+import rx.exceptions.CompositeException;
+import rx.exceptions.Exceptions;
+import rx.plugins.RxJavaErrorHandler;
+import rx.plugins.RxJavaPlugins;
+import static okhttp3.mockwebserver.SocketPolicy.DISCONNECT_AFTER_REQUEST;
+import static org.assertj.core.api.Assertions.assertThat;
+${definition}"
+      associated_classes
+	class_ref 149998 // SingleThrowingTest
+      end
+      comment "Copyright (C) 2015 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 139758 "SingleWithSchedulerTest"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.http.GET;
+import rx.Single;
+import rx.schedulers.TestScheduler;
+${definition}"
+      associated_classes
+	class_ref 150510 // SingleWithSchedulerTest
+      end
+      comment "Copyright (C) 2016 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 139886 "StringConverterFactory"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Converter;
+import retrofit2.Retrofit;
+${definition}"
+      associated_classes
+	class_ref 150766 // StringConverterFactory
+      end
+      comment "Copyright (C) 2015 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+  end
+end

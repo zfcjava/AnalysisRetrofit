@@ -1,0 +1,8 @@
+class MoshiRequestBodyConverter
+!!!272494.java!!!	MoshiRequestBodyConverter(inout adapter : JsonAdapter<T>)
+    this.adapter = adapter;
+!!!272622.java!!!	convert(inout value : T) : RequestBody
+    Buffer buffer = new Buffer();
+    JsonWriter writer = JsonWriter.of(buffer);
+    adapter.toJson(writer, value);
+    return RequestBody.create(MEDIA_TYPE, buffer.readByteString());

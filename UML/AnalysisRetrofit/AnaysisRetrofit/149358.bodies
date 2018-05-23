@@ -1,0 +1,27 @@
+class ResultTest
+!!!210030.java!!!	response() : void
+    Response<String> response = Response.success("Hi");
+    Result<String> result = Result.response(response);
+    assertThat(result.isError()).isFalse();
+    assertThat(result.error()).isNull();
+    assertThat(result.response()).isSameAs(response);
+!!!210158.java!!!	nullResponseThrows() : void
+    try {
+      Result.response(null);
+      fail();
+    } catch (NullPointerException e) {
+      assertThat(e).hasMessage("response == null");
+    }
+!!!210286.java!!!	error() : void
+    Throwable error = new IOException();
+    Result<Object> result = Result.error(error);
+    assertThat(result.isError()).isTrue();
+    assertThat(result.error()).isSameAs(error);
+    assertThat(result.response()).isNull();
+!!!210414.java!!!	nullErrorThrows() : void
+    try {
+      Result.error(null);
+      fail();
+    } catch (NullPointerException e) {
+      assertThat(e).hasMessage("error == null");
+    }

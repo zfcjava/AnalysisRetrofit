@@ -1,0 +1,24 @@
+class ExceptionCatchingRequestBody
+!!!135406.java!!!	ExceptionCatchingRequestBody(inout delegate : ResponseBody)
+      this.delegate = delegate;
+!!!135534.java!!!	contentType() : MediaType
+      return delegate.contentType();
+!!!135662.java!!!	contentLength() : long
+      return delegate.contentLength();
+!!!135790.java!!!	source() : BufferedSource
+      return Okio.buffer(new ForwardingSource(delegate.source()) {
+        @Override public long read(Buffer sink, long byteCount) throws IOException {
+          try {
+            return super.read(sink, byteCount);
+          } catch (IOException e) {
+            thrownException = e;
+            throw e;
+          }
+        }
+      });
+!!!135918.java!!!	close() : void
+      delegate.close();
+!!!136046.java!!!	throwIfCaught() : void
+      if (thrownException != null) {
+        throw thrownException;
+      }

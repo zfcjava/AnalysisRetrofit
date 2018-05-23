@@ -1,0 +1,14 @@
+class Rule
+!!!241006.java!!!	create() : RecordingCompletableObserver
+      RecordingCompletableObserver subscriber = new RecordingCompletableObserver();
+      subscribers.add(subscriber);
+      return subscriber;
+!!!241134.java!!!	apply(in base : Statement, inout description : Description) : Statement
+      return new Statement() {
+        @Override public void evaluate() throws Throwable {
+          base.evaluate();
+          for (RecordingCompletableObserver subscriber : subscribers) {
+            subscriber.assertNoEvents();
+          }
+        }
+      };

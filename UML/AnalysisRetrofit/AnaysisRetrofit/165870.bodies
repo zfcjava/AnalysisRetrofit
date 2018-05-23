@@ -1,0 +1,50 @@
+class MoshiConverterFactory
+!!!271342.java!!!	create() : MoshiConverterFactory
+    return create(new Moshi.Builder().build());
+!!!271470.java!!!	create(inout moshi : Moshi) : MoshiConverterFactory
+    if (moshi == null) throw new NullPointerException("moshi == null");
+    return new MoshiConverterFactory(moshi, false, false, false);
+!!!271598.java!!!	MoshiConverterFactory(inout moshi : Moshi, inout lenient : boolean, inout failOnUnknown : boolean, inout serializeNulls : boolean)
+    this.moshi = moshi;
+    this.lenient = lenient;
+    this.failOnUnknown = failOnUnknown;
+    this.serializeNulls = serializeNulls;
+!!!271726.java!!!	asLenient() : MoshiConverterFactory
+    return new MoshiConverterFactory(moshi, true, failOnUnknown, serializeNulls);
+!!!271854.java!!!	failOnUnknown() : MoshiConverterFactory
+    return new MoshiConverterFactory(moshi, lenient, true, serializeNulls);
+!!!271982.java!!!	withNullSerialization() : MoshiConverterFactory
+    return new MoshiConverterFactory(moshi, lenient, failOnUnknown, true);
+!!!272110.java!!!	responseBodyConverter(inout type : Type, inout annotations : Annotation, inout retrofit : Retrofit) : Converter
+    JsonAdapter<?> adapter = moshi.adapter(type, jsonAnnotations(annotations));
+    if (lenient) {
+      adapter = adapter.lenient();
+    }
+    if (failOnUnknown) {
+      adapter = adapter.failOnUnknown();
+    }
+    if (serializeNulls) {
+      adapter = adapter.serializeNulls();
+    }
+    return new MoshiResponseBodyConverter<>(adapter);
+!!!272238.java!!!	requestBodyConverter(inout type : Type, inout parameterAnnotations : Annotation, inout methodAnnotations : Annotation, inout retrofit : Retrofit) : Converter
+    JsonAdapter<?> adapter = moshi.adapter(type, jsonAnnotations(parameterAnnotations));
+    if (lenient) {
+      adapter = adapter.lenient();
+    }
+    if (failOnUnknown) {
+      adapter = adapter.failOnUnknown();
+    }
+    if (serializeNulls) {
+      adapter = adapter.serializeNulls();
+    }
+    return new MoshiRequestBodyConverter<>(adapter);
+!!!272366.java!!!	jsonAnnotations(inout annotations : Annotation) : Set<? extends Annotation>
+    Set<Annotation> result = null;
+    for (Annotation annotation : annotations) {
+      if (annotation.annotationType().isAnnotationPresent(JsonQualifier.class)) {
+        if (result == null) result = new LinkedHashSet<>();
+        result.add(annotation);
+      }
+    }
+    return result != null ? unmodifiableSet(result) : Collections.<Annotation>emptySet();

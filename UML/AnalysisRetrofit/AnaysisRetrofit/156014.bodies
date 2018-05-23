@@ -1,0 +1,14 @@
+class Rule
+!!!243054.java!!!	create() : RecordingMaybeObserver
+      RecordingMaybeObserver<T> subscriber = new RecordingMaybeObserver<>();
+      subscribers.add(subscriber);
+      return subscriber;
+!!!243182.java!!!	apply(in base : Statement, inout description : Description) : Statement
+      return new Statement() {
+        @Override public void evaluate() throws Throwable {
+          base.evaluate();
+          for (RecordingMaybeObserver<?> subscriber : subscribers) {
+            subscriber.assertNoEvents();
+          }
+        }
+      };

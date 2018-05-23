@@ -1,0 +1,3 @@
+class RequestBodyConverter
+!!!129262.java!!!	convert(inout value : RequestBody) : RequestBody
+      return value;

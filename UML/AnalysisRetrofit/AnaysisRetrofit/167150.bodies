@@ -1,0 +1,6 @@
+class PhoneProtos
+!!!275566.java!!!	registerAllExtensions(inout registry : com.google.protobuf.ExtensionRegistryLite) : void
+    registry.add(retrofit2.converter.protobuf.PhoneProtos.voicemail);
+!!!275694.java!!!	registerAllExtensions(inout registry : com.google.protobuf.ExtensionRegistry) : void
+    registerAllExtensions(
+        (com.google.protobuf.ExtensionRegistryLite) registry);

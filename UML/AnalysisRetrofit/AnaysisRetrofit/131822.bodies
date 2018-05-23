@@ -1,0 +1,11 @@
+class Path
+!!!136942.java!!!	Path(in name : String, inout valueConverter : Converter, inout encoded : boolean)
+      this.name = checkNotNull(name, "name == null");
+      this.valueConverter = valueConverter;
+      this.encoded = encoded;
+!!!137070.java!!!	apply(inout builder : RequestBuilder, inout value : T) : void
+      if (value == null) {
+        throw new IllegalArgumentException(
+            "Path parameter \"" + name + "\" value must not be null.");
+      }
+      builder.addPathParam(name, valueConverter.convert(value), encoded);

@@ -1,0 +1,56 @@
+class CompletableThrowingSafeSubscriberTest
+!!!198382.java!!!	setUp() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+        .build();
+    service = retrofit.create(Service.class);
+!!!198510.java!!!	throwingInOnCompleteDeliveredToPlugin() : void
+    server.enqueue(new MockResponse());
+
+    final AtomicReference<Throwable> pluginRef = new AtomicReference<>();
+    RxJavaPlugins.getInstance().registerErrorHandler(new RxJavaErrorHandler() {
+      @Override public void handleError(Throwable throwable) {
+        if (throwable instanceof OnCompletedFailedException) {
+          if (!pluginRef.compareAndSet(null, throwable)) {
+            throw Exceptions.propagate(throwable); // Don't swallow secondary errors!
+          }
+        }
+      }
+    });
+
+    RecordingSubscriber<Void> observer = subscriberRule.create();
+    final RuntimeException e = new RuntimeException();
+    service.completable().subscribe(new ForwardingCompletableObserver(observer) {
+      @Override public void onCompleted() {
+        throw e;
+      }
+    });
+
+    assertThat(pluginRef.get().getCause()).isSameAs(e);
+!!!198638.java!!!	bodyThrowingInOnErrorDeliveredToPlugin() : void
+    server.enqueue(new MockResponse().setResponseCode(404));
+
+    final AtomicReference<Throwable> pluginRef = new AtomicReference<>();
+    RxJavaPlugins.getInstance().registerErrorHandler(new RxJavaErrorHandler() {
+      @Override public void handleError(Throwable throwable) {
+        if (throwable instanceof OnErrorFailedException) {
+          if (!pluginRef.compareAndSet(null, throwable)) {
+            throw Exceptions.propagate(throwable); // Don't swallow secondary errors!
+          }
+        }
+      }
+    });
+
+    RecordingSubscriber<Void> observer = subscriberRule.create();
+    final RuntimeException e = new RuntimeException();
+    final AtomicReference<Throwable> errorRef = new AtomicReference<>();
+    service.completable().subscribe(new ForwardingCompletableObserver(observer) {
+      @Override public void onError(Throwable throwable) {
+        errorRef.set(throwable);
+        throw e;
+      }
+    });
+
+    CompositeException composite = (CompositeException) pluginRef.get().getCause();
+    assertThat(composite.getExceptions()).containsExactly(errorRef.get(), e);

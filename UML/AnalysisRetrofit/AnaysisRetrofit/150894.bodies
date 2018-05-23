@@ -1,0 +1,5 @@
+class BodyObservable
+!!!216430.java!!!	BodyObservable(inout upstream : Observable<Response<T>>)
+    this.upstream = upstream;
+!!!216558.java!!!	subscribeActual(inout observer : Observer<? super T>) : void
+    upstream.subscribe(new BodyObserver<T>(observer));

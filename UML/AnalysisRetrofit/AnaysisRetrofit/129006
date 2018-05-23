@@ -1,0 +1,1814 @@
+format 76
+"http" // retrofit::retrofit::src::main::java::retrofit2::http
+  revision 1
+  modified_by 110 "Administrator"
+  // class settings
+  //class diagram settings
+  draw_all_relations default hide_attributes default hide_operations default hide_getset_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_context default show_members_multiplicity default show_members_initialization default show_attribute_modifiers default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_relation_modifiers default show_relation_visibility default show_infonote default shadow default show_stereotype_properties default
+  //use case diagram settings
+  package_name_in_tab default show_context default auto_label_position default draw_all_relations default class_drawing_mode default shadow default show_stereotype_properties default
+  //sequence diagram settings
+  show_full_operations_definition default write_horizontally default class_drawing_mode default drawing_language default draw_all_relations default shadow default show_stereotype_properties default show_class_context_mode default show_msg_context_mode default
+  //collaboration diagram settings
+  show_full_operations_definition default show_hierarchical_rank default write_horizontally default class_drawing_mode default drawing_language default package_name_in_tab default show_context default show_msg_context default draw_all_relations default shadow default show_stereotype_properties default
+  //object diagram settings
+   write_horizontally default package_name_in_tab default show_context default auto_label_position default draw_all_relations default shadow default show_stereotype_properties default
+  //component diagram settings
+  package_name_in_tab default show_context default auto_label_position default draw_all_relations default shadow default
+  draw_component_as_icon default show_component_req_prov default show_component_rea default show_stereotype_properties default
+  //deployment diagram settings
+  package_name_in_tab default show_context default write_horizontally default auto_label_position default draw_all_relations default shadow default
+  draw_component_as_icon default show_component_req_prov default show_component_rea default show_stereotype_properties default
+  //state diagram settings
+  package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations default shadow default
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  //activity diagram settings
+  package_name_in_tab default show_context default show_opaque_action_definition default auto_label_position default write_flow_label_horizontally default draw_all_relations default shadow default
+  show_infonote default drawing_language default show_stereotype_properties default
+  
+  java_dir "e:/android2018/AnalysisRetrofit/source/retrofit/retrofit/src/main/java/retrofit2/http/"
+  java_package "retrofit2.http"
+  classview 128366 "http"
+    //class diagram settings
+    draw_all_relations default hide_attributes default hide_operations default hide_getset_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_context default show_members_multiplicity default show_members_initialization default show_attribute_modifiers default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_relation_modifiers default show_relation_visibility default show_infonote default shadow default show_stereotype_properties default
+    //collaboration diagram settings
+    show_full_operations_definition default show_hierarchical_rank default write_horizontally default class_drawing_mode default drawing_language default package_name_in_tab default show_context default show_msg_context default draw_all_relations default shadow default show_stereotype_properties default
+    //object diagram settings
+     write_horizontally default package_name_in_tab default show_context default auto_label_position default draw_all_relations default shadow default show_stereotype_properties default
+    //sequence diagram settings
+    show_full_operations_definition default write_horizontally default class_drawing_mode default drawing_language default draw_all_relations default shadow default show_stereotype_properties default show_class_context_mode default show_msg_context_mode default
+    //state diagram settings
+    package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations default shadow default
+    show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+    //class settings
+    //activity diagram settings
+    package_name_in_tab default show_context default show_opaque_action_definition default auto_label_position default write_flow_label_horizontally default draw_all_relations default shadow default
+    show_infonote default drawing_language default show_stereotype_properties default
+    class 135278 "Body"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Target(PARAMETER)
+@Retention(RUNTIME)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "Use this annotation on a service method param when you want to directly control the request body
+of a POST/PUT request (instead of sending in as request parameters or form-style request
+body). The object will be serialized using the {@link Retrofit Retrofit} instance
+{@link Converter Converter} and the result will be set directly as the
+request body.
+<p>
+Body parameters may not be {@code null}."
+    end
+
+    class 135406 "DELETE"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Target(METHOD)
+@Retention(RUNTIME)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment " Make a DELETE request. "
+      operation 156526 "value"
+	public explicit_return_type "String"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)} default\"\"${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "A relative or absolute path, or full URL of the endpoint. This value is optional if the first
+parameter of the method is annotated with {@link Url @Url}.
+<p>
+See {@linkplain retrofit2.Retrofit.Builder#baseUrl(HttpUrl) base URL} for details of how
+this is resolved against a base URL to create the full endpoint URL."
+      end
+    end
+
+    class 135534 "Field"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Target(PARAMETER)
+@Retention(RUNTIME)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "Named pair for a form-encoded request.
+<p>
+Values are converted to strings using {@link Retrofit#stringConverter(Type, Annotation[])}
+(or {@link Object#toString()}, if no matching string converter is installed)
+and then form URL encoded.
+{@code null} values are ignored. Passing a {@link java.util.List List} or array will result in a
+field pair for each non-{@code null} item.
+<p>
+Simple Example:
+<pre><code>
+&#64;FormUrlEncoded
+&#64;POST(\"/\")
+Call&lt;ResponseBody&gt; example(
+    &#64;Field(\"name\") String name,
+    &#64;Field(\"occupation\") String occupation);
+</code></pre>
+Calling with {@code foo.example(\"Bob Smith\", \"President\")} yields a request body of
+{@code name=Bob+Smith&occupation=President}.
+<p>
+Array/Varargs Example:
+<pre><code>
+&#64;FormUrlEncoded
+&#64;POST(\"/list\")
+Call&lt;ResponseBody&gt; example(@Field(\"name\") String... names);
+</code></pre>
+Calling with {@code foo.example(\"Bob Smith\", \"Jane Doe\")} yields a request body of
+{@code name=Bob+Smith&name=Jane+Doe}.
+
+@see FormUrlEncoded
+@see FieldMap"
+      operation 156654 "value"
+	public explicit_return_type "String"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 156782 "encoded"
+	public explicit_return_type "boolean"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)} defaultfalse${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment " Specifies whether the {@linkplain #value() name} and value are already URL encoded. "
+      end
+    end
+
+    class 135662 "FieldMap"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Target(PARAMETER)
+@Retention(RUNTIME)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "Named key/value pairs for a form-encoded request.
+<p>
+Simple Example:
+<pre><code>
+&#64;FormUrlEncoded
+&#64;POST(\"/things\")
+Call&lt;ResponseBody&gt; things(@FieldMap Map&lt;String, String&gt; fields);
+</code></pre>
+Calling with {@code foo.things(ImmutableMap.of(\"foo\", \"bar\", \"kit\", \"kat\")} yields a request
+body of {@code foo=bar&kit=kat}.
+<p>
+A {@code null} value for the map, as a key, or as a value is not allowed.
+
+@see FormUrlEncoded
+@see Field"
+      operation 156910 "encoded"
+	public explicit_return_type "boolean"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)} defaultfalse${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment " Specifies whether the names and values are already URL encoded. "
+      end
+    end
+
+    class 135790 "FormUrlEncoded"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Target(METHOD)
+@Retention(RUNTIME)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "Denotes that the request body will use form URL encoding. Fields should be declared as
+parameters and annotated with {@link Field @Field}.
+<p>
+Requests made with this annotation will have {@code application/x-www-form-urlencoded} MIME
+type. Field names and values will be UTF-8 encoded before being URI-encoded in accordance to
+<a href=\"http://tools.ietf.org/html/rfc3986\">RFC-3986</a>."
+    end
+
+    class 135918 "GET"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Target(METHOD)
+@Retention(RUNTIME)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment " Make a GET request. "
+      operation 157038 "value"
+	public explicit_return_type "String"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)} default\"\"${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "A relative or absolute path, or full URL of the endpoint. This value is optional if the first
+parameter of the method is annotated with {@link Url @Url}.
+<p>
+See {@linkplain retrofit2.Retrofit.Builder#baseUrl(HttpUrl) base URL} for details of how
+this is resolved against a base URL to create the full endpoint URL."
+      end
+    end
+
+    class 136046 "HEAD"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Target(METHOD)
+@Retention(RUNTIME)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment " Make a HEAD request. "
+      operation 157166 "value"
+	public explicit_return_type "String"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)} default\"\"${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "A relative or absolute path, or full URL of the endpoint. This value is optional if the first
+parameter of the method is annotated with {@link Url @Url}.
+<p>
+See {@linkplain retrofit2.Retrofit.Builder#baseUrl(HttpUrl) base URL} for details of how
+this is resolved against a base URL to create the full endpoint URL."
+      end
+    end
+
+    class 136174 "Header"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Retention(RUNTIME)
+@Target(PARAMETER)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "Replaces the header with the value of its target.
+<pre><code>
+&#64;GET(\"/\")
+Call&lt;ResponseBody&gt; foo(@Header(\"Accept-Language\") String lang);
+</code></pre>
+Header parameters may be {@code null} which will omit them from the request. Passing a
+{@link java.util.List List} or array will result in a header for each non-{@code null} item.
+<p>
+<strong>Note:</strong> Headers do not overwrite each other. All headers with the same name will
+be included in the request.
+
+@see Headers
+@see HeaderMap"
+      operation 157294 "value"
+	public explicit_return_type "String"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+    end
+
+    class 136302 "HeaderMap"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Target(PARAMETER)
+@Retention(RUNTIME)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "Adds headers specified in the {@link Map}.
+<p>
+Values are converted to strings using {@link Retrofit#stringConverter(Type, Annotation[])}
+(or {@link Object#toString()}, if no matching string converter is installed).
+<p>
+Simple Example:
+<pre>
+&#64;GET(\"/search\")
+void list(@HeaderMap Map&lt;String, String&gt; headers);
+
+...
+
+// The following call yields /search with headers
+// Accept: text/plain and Accept-Charset: utf-8
+foo.list(ImmutableMap.of(\"Accept\", \"text/plain\", \"Accept-Charset\", \"utf-8\"));
+</pre>
+
+@see Header
+@see Headers"
+    end
+
+    class 136430 "Headers"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Target(METHOD)
+@Retention(RUNTIME)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "Adds headers literally supplied in the {@code value}.
+<pre><code>
+&#64;Headers(\"Cache-Control: max-age=640000\")
+&#64;GET(\"/\")
+...
+
+&#64;Headers({
+  \"X-Foo: Bar\",
+  \"X-Ping: Pong\"
+})
+&#64;GET(\"/\")
+...
+</code></pre>
+<strong>Note:</strong> Headers do not overwrite each other. All headers with the same name will
+be included in the request.
+
+@see Header
+@see HeaderMap"
+      operation 157422 "value"
+	public explicit_return_type "String"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type}[] ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+    end
+
+    class 136558 "HTTP"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Target(METHOD)
+@Retention(RUNTIME)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "Use a custom HTTP verb for a request.
+<pre><code>
+interface Service {
+  &#064;HTTP(method = \"CUSTOM\", path = \"custom/endpoint/\")
+  Call&lt;ResponseBody&gt; customEndpoint();
+}
+</code></pre>
+This annotation can also used for sending {@code DELETE} with a request body:
+<pre><code>
+interface Service {
+  &#064;HTTP(method = \"DELETE\", path = \"remove/\", hasBody = true)
+  Call&lt;ResponseBody&gt; deleteObject(@Body RequestBody object);
+}
+</code></pre>"
+      operation 157550 "method"
+	public explicit_return_type "String"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 157678 "path"
+	public explicit_return_type "String"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)} default\"\"${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "A relative or absolute path, or full URL of the endpoint. This value is optional if the first
+parameter of the method is annotated with {@link Url @Url}.
+<p>
+See {@linkplain retrofit2.Retrofit.Builder#baseUrl(HttpUrl) base URL} for details of how
+this is resolved against a base URL to create the full endpoint URL."
+      end
+
+      operation 157806 "hasBody"
+	public explicit_return_type "boolean"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)} defaultfalse${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+    end
+
+    class 136686 "Multipart"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Target(METHOD)
+@Retention(RUNTIME)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "Denotes that the request body is multi-part. Parts should be declared as parameters and
+annotated with {@link Part @Part}."
+    end
+
+    class 136814 "OPTIONS"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Target(METHOD)
+@Retention(RUNTIME)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment " Make an OPTIONS request. "
+      operation 157934 "value"
+	public explicit_return_type "String"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)} default\"\"${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "A relative or absolute path, or full URL of the endpoint. This value is optional if the first
+parameter of the method is annotated with {@link Url @Url}.
+<p>
+See {@linkplain retrofit2.Retrofit.Builder#baseUrl(HttpUrl) base URL} for details of how
+this is resolved against a base URL to create the full endpoint URL."
+      end
+    end
+
+    class 136942 "Part"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Target(PARAMETER)
+@Retention(RUNTIME)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "Denotes a single part of a multi-part request.
+<p>
+The parameter type on which this annotation exists will be processed in one of three ways:
+<ul>
+<li>If the type is {@link okhttp3.MultipartBody.Part} the contents will be used directly. Omit
+the name from the annotation (i.e., {@code @Part MultipartBody.Part part}).</li>
+<li>If the type is {@link okhttp3.RequestBody RequestBody} the value will be used
+directly with its content type. Supply the part name in the annotation (e.g.,
+{@code @Part(\"foo\") RequestBody foo}).</li>
+<li>Other object types will be converted to an appropriate representation by using
+{@linkplain Converter a converter}. Supply the part name in the annotation (e.g.,
+{@code @Part(\"foo\") Image photo}).</li>
+</ul>
+<p>
+Values may be {@code null} which will omit them from the request body.
+<p>
+<pre><code>
+&#64;Multipart
+&#64;POST(\"/\")
+Call&lt;ResponseBody&gt; example(
+    &#64;Part(\"description\") String description,
+    &#64;Part(value = \"image\", encoding = \"8-bit\") RequestBody image);
+</code></pre>
+<p>
+Part parameters may not be {@code null}."
+      operation 158062 "value"
+	public explicit_return_type "String"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)} default\"\"${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "The name of the part. Required for all parameter types except
+{@link okhttp3.MultipartBody.Part}."
+      end
+
+      operation 158190 "encoding"
+	public explicit_return_type "String"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)} default\"binary\"${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment " The {@code Content-Transfer-Encoding} of this part. "
+      end
+    end
+
+    class 137070 "PartMap"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Target(PARAMETER)
+@Retention(RUNTIME)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "Denotes name and value parts of a multi-part request.
+<p>
+Values of the map on which this annotation exists will be processed in one of two ways:
+<ul>
+<li>If the type is {@link okhttp3.RequestBody RequestBody} the value will be used
+directly with its content type.</li>
+<li>Other object types will be converted to an appropriate representation by using
+{@linkplain Converter a converter}.</li>
+</ul>
+<p>
+<pre><code>
+&#64;Multipart
+&#64;POST(\"/upload\")
+Call&lt;ResponseBody&gt; upload(
+    &#64;Part(\"file\") RequestBody file,
+    &#64;PartMap Map&lt;String, RequestBody&gt; params);
+</code></pre>
+<p>
+A {@code null} value for the map, as a key, or as a value is not allowed.
+
+@see Multipart
+@see Part"
+      operation 158318 "encoding"
+	public explicit_return_type "String"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)} default\"binary\"${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment " The {@code Content-Transfer-Encoding} of the parts. "
+      end
+    end
+
+    class 137198 "PATCH"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Target(METHOD)
+@Retention(RUNTIME)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment " Make a PATCH request. "
+      operation 158446 "value"
+	public explicit_return_type "String"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)} default\"\"${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "A relative or absolute path, or full URL of the endpoint. This value is optional if the first
+parameter of the method is annotated with {@link Url @Url}.
+<p>
+See {@linkplain retrofit2.Retrofit.Builder#baseUrl(HttpUrl) base URL} for details of how
+this is resolved against a base URL to create the full endpoint URL."
+      end
+    end
+
+    class 137326 "Path"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Retention(RUNTIME)
+@Target(PARAMETER)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "Named replacement in a URL path segment. Values are converted to strings using
+{@link Retrofit#stringConverter(Type, Annotation[])} (or {@link Object#toString()},
+if no matching string converter is installed) and then URL encoded.
+<p>
+Simple example:
+<pre><code>
+&#64;GET(\"/image/{id}\")
+Call&lt;ResponseBody&gt; example(@Path(\"id\") int id);
+</code></pre>
+Calling with {@code foo.example(1)} yields {@code /image/1}.
+<p>
+Values are URL encoded by default. Disable with {@code encoded=true}.
+<pre><code>
+&#64;GET(\"/user/{name}\")
+Call&lt;ResponseBody&gt; encoded(@Path(\"name\") String name);
+
+&#64;GET(\"/user/{name}\")
+Call&lt;ResponseBody&gt; notEncoded(@Path(value=\"name\", encoded=true) String name);
+</code></pre>
+Calling {@code foo.encoded(\"John+Doe\")} yields {@code /user/John%2BDoe} whereas
+{@code foo.notEncoded(\"John+Doe\")} yields {@code /user/John+Doe}.
+<p>
+Path parameters may not be {@code null}."
+      operation 158574 "value"
+	public explicit_return_type "String"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 158702 "encoded"
+	public explicit_return_type "boolean"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)} defaultfalse${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Specifies whether the argument value to the annotated method parameter is already URL encoded."
+      end
+    end
+
+    class 137454 "POST"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Target(METHOD)
+@Retention(RUNTIME)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment " Make a POST request. "
+      operation 158830 "value"
+	public explicit_return_type "String"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)} default\"\"${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "A relative or absolute path, or full URL of the endpoint. This value is optional if the first
+parameter of the method is annotated with {@link Url @Url}.
+<p>
+See {@linkplain retrofit2.Retrofit.Builder#baseUrl(HttpUrl) base URL} for details of how
+this is resolved against a base URL to create the full endpoint URL."
+      end
+    end
+
+    class 137582 "PUT"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Target(METHOD)
+@Retention(RUNTIME)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment " Make a PUT request. "
+      operation 158958 "value"
+	public explicit_return_type "String"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)} default\"\"${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "A relative or absolute path, or full URL of the endpoint. This value is optional if the first
+parameter of the method is annotated with {@link Url @Url}.
+<p>
+See {@linkplain retrofit2.Retrofit.Builder#baseUrl(HttpUrl) base URL} for details of how
+this is resolved against a base URL to create the full endpoint URL."
+      end
+    end
+
+    class 137710 "Query"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Target(PARAMETER)
+@Retention(RUNTIME)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "Query parameter appended to the URL.
+<p>
+Values are converted to strings using {@link Retrofit#stringConverter(Type, Annotation[])}
+(or {@link Object#toString()}, if no matching string converter is installed)
+and then URL encoded.
+{@code null} values are ignored. Passing a {@link java.util.List List} or array will result in a
+query parameter for each non-{@code null} item.
+<p>
+Simple Example:
+<pre><code>
+&#64;GET(\"/friends\")
+Call&lt;ResponseBody&gt; friends(@Query(\"page\") int page);
+</code></pre>
+Calling with {@code foo.friends(1)} yields {@code /friends?page=1}.
+<p>
+Example with {@code null}:
+<pre><code>
+&#64;GET(\"/friends\")
+Call&lt;ResponseBody&gt; friends(@Query(\"group\") String group);
+</code></pre>
+Calling with {@code foo.friends(null)} yields {@code /friends}.
+<p>
+Array/Varargs Example:
+<pre><code>
+&#64;GET(\"/friends\")
+Call&lt;ResponseBody&gt; friends(@Query(\"group\") String... groups);
+</code></pre>
+Calling with {@code foo.friends(\"coworker\", \"bowling\")} yields
+{@code /friends?group=coworker&group=bowling}.
+<p>
+Parameter names and values are URL encoded by default. Specify {@link #encoded() encoded=true}
+to change this behavior.
+<pre><code>
+&#64;GET(\"/friends\")
+Call&lt;ResponseBody&gt; friends(@Query(value=\"group\", encoded=true) String group);
+</code></pre>
+Calling with {@code foo.friends(\"foo+bar\"))} yields {@code /friends?group=foo+bar}.
+
+@see QueryMap
+@see QueryName"
+      operation 159086 "value"
+	public explicit_return_type "String"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment " The query parameter name. "
+      end
+
+      operation 159214 "encoded"
+	public explicit_return_type "boolean"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)} defaultfalse${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Specifies whether the parameter {@linkplain #value() name} and value are already URL encoded."
+      end
+    end
+
+    class 137838 "QueryMap"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Target(PARAMETER)
+@Retention(RUNTIME)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "Query parameter keys and values appended to the URL.
+<p>
+Values are converted to strings using {@link Retrofit#stringConverter(Type, Annotation[])}
+(or {@link Object#toString()}, if no matching string converter is installed).
+<p>
+Simple Example:
+<pre><code>
+&#64;GET(\"/friends\")
+Call&lt;ResponseBody&gt; friends(@QueryMap Map&lt;String, String&gt; filters);
+</code></pre>
+Calling with {@code foo.friends(ImmutableMap.of(\"group\", \"coworker\", \"age\", \"42\"))} yields
+{@code /friends?group=coworker&age=42}.
+<p>
+Map keys and values representing parameter values are URL encoded by default. Specify
+{@link #encoded() encoded=true} to change this behavior.
+<pre><code>
+&#64;GET(\"/friends\")
+Call&lt;ResponseBody&gt; friends(@QueryMap(encoded=true) Map&lt;String, String&gt; filters);
+</code></pre>
+Calling with {@code foo.list(ImmutableMap.of(\"group\", \"coworker+bowling\"))} yields
+{@code /friends?group=coworker+bowling}.
+<p>
+A {@code null} value for the map, as a key, or as a value is not allowed.
+
+@see Query
+@see QueryName"
+      operation 159342 "encoded"
+	public explicit_return_type "boolean"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)} defaultfalse${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment " Specifies whether parameter names and values are already URL encoded. "
+      end
+    end
+
+    class 137966 "QueryName"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Target(PARAMETER)
+@Retention(RUNTIME)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "Query parameter appended to the URL that has no value.
+<p>
+Passing a {@link java.util.List List} or array will result in a query parameter for each
+non-{@code null} item.
+<p>
+Simple Example:
+<pre><code>
+&#64;GET(\"/friends\")
+Call&lt;ResponseBody&gt; friends(@QueryName String filter);
+</code></pre>
+Calling with {@code foo.friends(\"contains(Bob)\")} yields {@code /friends?contains(Bob)}.
+<p>
+Array/Varargs Example:
+<pre><code>
+&#64;GET(\"/friends\")
+Call&lt;ResponseBody&gt; friends(@QueryName String... filters);
+</code></pre>
+Calling with {@code foo.friends(\"contains(Bob)\", \"age(42)\")} yields
+{@code /friends?contains(Bob)&age(42)}.
+<p>
+Parameter names are URL encoded by default. Specify {@link #encoded() encoded=true} to change
+this behavior.
+<pre><code>
+&#64;GET(\"/friends\")
+Call&lt;ResponseBody&gt; friends(@QueryName(encoded=true) String filter);
+</code></pre>
+Calling with {@code foo.friends(\"name+age\"))} yields {@code /friends?name+age}.
+
+@see Query
+@see QueryMap"
+      operation 159470 "encoded"
+	public explicit_return_type "boolean"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)} defaultfalse${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Specifies whether the parameter is already URL encoded."
+      end
+    end
+
+    class 138094 "Streaming"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Target(METHOD)
+@Retention(RUNTIME)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "Treat the response body on methods returning {@link okhttp3.Response Response} as is,
+i.e. without converting {@link okhttp3.Response#body() body()} to {@code byte[]}."
+    end
+
+    class 138222 "Url"
+      visibility public stereotype "@interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}@interface ${name}${extends} {
+${members}}
+"
+      java_annotation "@Documented
+@Target(PARAMETER)
+@Retention(RUNTIME)
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "URL resolved against the {@linkplain Retrofit#baseUrl() base URL}.
+<pre><code>
+&#64;GET
+Call&lt;ResponseBody&gt; list(@Url String url);
+</code></pre>
+<p>
+See {@linkplain retrofit2.Retrofit.Builder#baseUrl(HttpUrl) base URL} for details of how
+the value will be resolved against a base URL to create the full endpoint URL."
+    end
+  end
+
+  deploymentview 128238 "http"
+    //deployment diagram settings
+    package_name_in_tab default show_context default write_horizontally default auto_label_position default draw_all_relations default shadow default
+    draw_component_as_icon default show_component_req_prov default show_component_rea default show_stereotype_properties default
+    artifact 130158 "Body"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import retrofit2.Converter;
+import retrofit2.Retrofit;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 135278 // Body
+      end
+      comment "Copyright (C) 2011 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 130286 "DELETE"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import okhttp3.HttpUrl;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 135406 // DELETE
+      end
+      comment "Copyright (C) 2013 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 130414 "Field"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Annotation;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import java.lang.reflect.Type;
+import retrofit2.Retrofit;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 135534 // Field
+      end
+      comment "Copyright (C) 2013 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 130542 "FieldMap"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 135662 // FieldMap
+      end
+      comment "Copyright (C) 2014 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 130670 "FormUrlEncoded"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 135790 // FormUrlEncoded
+      end
+      comment "Copyright (C) 2013 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 130798 "GET"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import okhttp3.HttpUrl;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 135918 // GET
+      end
+      comment "Copyright (C) 2013 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 130926 "HEAD"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import okhttp3.HttpUrl;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 136046 // HEAD
+      end
+      comment "Copyright (C) 2013 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 131054 "Header"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 136174 // Header
+      end
+      comment "Copyright (C) 2013 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 131182 "HeaderMap"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Annotation;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import java.lang.reflect.Type;
+import java.util.Map;
+import retrofit2.Retrofit;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 136302 // HeaderMap
+      end
+      comment "Copyright (C) 2016 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 131310 "Headers"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 136430 // Headers
+      end
+      comment "Copyright (C) 2013 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 131438 "HTTP"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import okhttp3.HttpUrl;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 136558 // HTTP
+      end
+      comment "Copyright (C) 2013 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 131566 "Multipart"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 136686 // Multipart
+      end
+      comment "Copyright (C) 2013 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 131694 "OPTIONS"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import okhttp3.HttpUrl;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 136814 // OPTIONS
+      end
+      comment "Copyright (C) 2015 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 131822 "Part"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import retrofit2.Converter;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 136942 // Part
+      end
+      comment "Copyright (C) 2013 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 131950 "PartMap"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import retrofit2.Converter;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 137070 // PartMap
+      end
+      comment "Copyright (C) 2014 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 132078 "PATCH"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import okhttp3.HttpUrl;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 137198 // PATCH
+      end
+      comment "Copyright (C) 2013 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 132206 "Path"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Annotation;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import java.lang.reflect.Type;
+import retrofit2.Retrofit;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 137326 // Path
+      end
+      comment "Copyright (C) 2013 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 132334 "POST"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import okhttp3.HttpUrl;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 137454 // POST
+      end
+      comment "Copyright (C) 2013 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 132462 "PUT"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import okhttp3.HttpUrl;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 137582 // PUT
+      end
+      comment "Copyright (C) 2013 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 132590 "Query"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Annotation;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import java.lang.reflect.Type;
+import retrofit2.Retrofit;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 137710 // Query
+      end
+      comment "Copyright (C) 2013 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 132718 "QueryMap"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Annotation;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import java.lang.reflect.Type;
+import retrofit2.Retrofit;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 137838 // QueryMap
+      end
+      comment "Copyright (C) 2014 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 132846 "QueryName"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 137966 // QueryName
+      end
+      comment "Copyright (C) 2013 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 132974 "Streaming"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 138094 // Streaming
+      end
+      comment "Copyright (C) 2014 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 133102 "Url"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import okhttp3.HttpUrl;
+import retrofit2.Retrofit;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+${definition}"
+      associated_classes
+	class_ref 138222 // Url
+      end
+      comment "Copyright (C) 2015 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+  end
+end

@@ -1,0 +1,35 @@
+class SingleWithSchedulerTest
+!!!255214.java!!!	setUp() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(new StringConverterFactory())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(scheduler))
+        .build();
+    service = retrofit.create(Service.class);
+!!!255342.java!!!	bodyUsesScheduler() : void
+    server.enqueue(new MockResponse());
+
+    RecordingSingleObserver<Object> observer = observerRule.create();
+    service.body().subscribe(observer);
+    observer.assertNoEvents();
+
+    scheduler.triggerActions();
+    observer.assertAnyValue();
+!!!255470.java!!!	responseUsesScheduler() : void
+    server.enqueue(new MockResponse());
+
+    RecordingSingleObserver<Object> observer = observerRule.create();
+    service.response().subscribe(observer);
+    observer.assertNoEvents();
+
+    scheduler.triggerActions();
+    observer.assertAnyValue();
+!!!255598.java!!!	resultUsesScheduler() : void
+    server.enqueue(new MockResponse());
+
+    RecordingSingleObserver<Object> observer = observerRule.create();
+    service.result().subscribe(observer);
+    observer.assertNoEvents();
+
+    scheduler.triggerActions();
+    observer.assertAnyValue();

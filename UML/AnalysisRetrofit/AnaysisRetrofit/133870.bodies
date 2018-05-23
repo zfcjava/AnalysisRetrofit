@@ -1,0 +1,10 @@
+class ContentTypeOverridingRequestBody
+!!!142702.java!!!	ContentTypeOverridingRequestBody(inout delegate : RequestBody, inout contentType : MediaType)
+      this.delegate = delegate;
+      this.contentType = contentType;
+!!!142830.java!!!	contentType() : MediaType
+      return contentType;
+!!!142958.java!!!	contentLength() : long
+      return delegate.contentLength();
+!!!143086.java!!!	writeTo(inout sink : BufferedSink) : void
+      delegate.writeTo(sink);

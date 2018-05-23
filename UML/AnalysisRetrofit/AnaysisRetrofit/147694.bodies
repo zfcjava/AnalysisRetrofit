@@ -1,0 +1,7 @@
+class ForwardingCompletableObserver
+!!!199790.java!!!	ForwardingCompletableObserver(inout delegate : RecordingSubscriber)
+      this.delegate = delegate;
+!!!200046.java!!!	onCompleted() : void
+      delegate.onCompleted();
+!!!200174.java!!!	onError(inout throwable : Throwable) : void
+      delegate.onError(throwable);

@@ -1,0 +1,21 @@
+class CancelDisposeTest
+!!!222574.java!!!	setUp() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(new StringConverterFactory())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
+        .callFactory(client)
+        .build();
+    service = retrofit.create(Service.class);
+!!!222702.java!!!	disposeCancelsCall() : void
+    Disposable disposable = service.go().subscribe();
+    List<Call> calls = client.dispatcher().runningCalls();
+    assertEquals(1, calls.size());
+    disposable.dispose();
+    assertTrue(calls.get(0).isCanceled());
+!!!222830.java!!!	cancelDoesNotDispose() : void
+    Disposable disposable = service.go().subscribe();
+    List<Call> calls = client.dispatcher().runningCalls();
+    assertEquals(1, calls.size());
+    calls.get(0).cancel();
+    assertFalse(disposable.isDisposed());

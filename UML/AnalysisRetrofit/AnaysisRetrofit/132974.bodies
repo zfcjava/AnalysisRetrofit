@@ -1,0 +1,26 @@
+class PartMap
+!!!139246.java!!!	PartMap(inout valueConverter : Converter, in transferEncoding : String)
+      this.valueConverter = valueConverter;
+      this.transferEncoding = transferEncoding;
+!!!139374.java!!!	apply(inout builder : RequestBuilder, inout value : Map<String, T>) : void
+      if (value == null) {
+        throw new IllegalArgumentException("Part map was null.");
+      }
+
+      for (Map.Entry<String, T> entry : value.entrySet()) {
+        String entryKey = entry.getKey();
+        if (entryKey == null) {
+          throw new IllegalArgumentException("Part map contained null key.");
+        }
+        T entryValue = entry.getValue();
+        if (entryValue == null) {
+          throw new IllegalArgumentException(
+              "Part map contained null value for key '" + entryKey + "'.");
+        }
+
+        Headers headers = Headers.of(
+            "Content-Disposition", "form-data; name=\"" + entryKey + "\"",
+            "Content-Transfer-Encoding", transferEncoding);
+
+        builder.addPart(headers, valueConverter.convert(entryValue));
+      }

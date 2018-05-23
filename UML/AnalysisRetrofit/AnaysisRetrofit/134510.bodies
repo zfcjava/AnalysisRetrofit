@@ -1,0 +1,35 @@
+class ParameterizedTypeImpl
+!!!154094.java!!!	ParameterizedTypeImpl(inout ownerType : Type, inout rawType : Type, inout  : Type...typeArguments)
+      // Require an owner type if the raw type needs it.
+      if (rawType instanceof Class<?>
+          && (ownerType == null) != (((Class<?>) rawType).getEnclosingClass() == null)) {
+        throw new IllegalArgumentException();
+      }
+
+      for (Type typeArgument : typeArguments) {
+        checkNotNull(typeArgument, "typeArgument == null");
+        checkNotPrimitive(typeArgument);
+      }
+
+      this.ownerType = ownerType;
+      this.rawType = rawType;
+      this.typeArguments = typeArguments.clone();
+!!!154222.java!!!	getActualTypeArguments() : Type
+      return typeArguments.clone();
+!!!154350.java!!!	getRawType() : Type
+      return rawType;
+!!!154478.java!!!	getOwnerType() : Type
+      return ownerType;
+!!!154606.java!!!	equals(inout other : Object) : boolean
+      return other instanceof ParameterizedType && Utils.equals(this, (ParameterizedType) other);
+!!!154734.java!!!	hashCode() : int
+      return Arrays.hashCode(typeArguments) ^ rawType.hashCode() ^ hashCodeOrZero(ownerType);
+!!!154862.java!!!	toString() : String
+      if (typeArguments.length == 0) return typeToString(rawType);
+      StringBuilder result = new StringBuilder(30 * (typeArguments.length + 1));
+      result.append(typeToString(rawType));
+      result.append("<").append(typeToString(typeArguments[0]));
+      for (int i = 1; i < typeArguments.length; i++) {
+        result.append(", ").append(typeToString(typeArguments[i]));
+      }
+      return result.append(">").toString();

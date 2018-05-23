@@ -1,0 +1,7 @@
+class NullObjectConverterFactory
+!!!184174.java!!!	stringConverter(inout type : Type, inout annotations : Annotation, inout retrofit : Retrofit) : Converter
+    return new Converter<Object, String>() {
+      @Override public String convert(Object value) throws IOException {
+        return null;
+      }
+    };

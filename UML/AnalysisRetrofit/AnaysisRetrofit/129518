@@ -1,0 +1,887 @@
+format 76
+"java8" // retrofit::retrofit::src::main::java::retrofit2::adapter::java8
+  revision 1
+  modified_by 110 "Administrator"
+  // class settings
+  //class diagram settings
+  draw_all_relations default hide_attributes default hide_operations default hide_getset_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_context default show_members_multiplicity default show_members_initialization default show_attribute_modifiers default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_relation_modifiers default show_relation_visibility default show_infonote default shadow default show_stereotype_properties default
+  //use case diagram settings
+  package_name_in_tab default show_context default auto_label_position default draw_all_relations default class_drawing_mode default shadow default show_stereotype_properties default
+  //sequence diagram settings
+  show_full_operations_definition default write_horizontally default class_drawing_mode default drawing_language default draw_all_relations default shadow default show_stereotype_properties default show_class_context_mode default show_msg_context_mode default
+  //collaboration diagram settings
+  show_full_operations_definition default show_hierarchical_rank default write_horizontally default class_drawing_mode default drawing_language default package_name_in_tab default show_context default show_msg_context default draw_all_relations default shadow default show_stereotype_properties default
+  //object diagram settings
+   write_horizontally default package_name_in_tab default show_context default auto_label_position default draw_all_relations default shadow default show_stereotype_properties default
+  //component diagram settings
+  package_name_in_tab default show_context default auto_label_position default draw_all_relations default shadow default
+  draw_component_as_icon default show_component_req_prov default show_component_rea default show_stereotype_properties default
+  //deployment diagram settings
+  package_name_in_tab default show_context default write_horizontally default auto_label_position default draw_all_relations default shadow default
+  draw_component_as_icon default show_component_req_prov default show_component_rea default show_stereotype_properties default
+  //state diagram settings
+  package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations default shadow default
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  //activity diagram settings
+  package_name_in_tab default show_context default show_opaque_action_definition default auto_label_position default write_flow_label_horizontally default draw_all_relations default shadow default
+  show_infonote default drawing_language default show_stereotype_properties default
+  
+  java_dir "e:/android2018/AnalysisRetrofit/source/retrofit/retrofit-adapters/java8/src/main/java/retrofit2/adapter/java8/"
+  java_package "retrofit2.adapter.java8"
+  classview 128750 "java8"
+    //class diagram settings
+    draw_all_relations default hide_attributes default hide_operations default hide_getset_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_context default show_members_multiplicity default show_members_initialization default show_attribute_modifiers default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_relation_modifiers default show_relation_visibility default show_infonote default shadow default show_stereotype_properties default
+    //collaboration diagram settings
+    show_full_operations_definition default show_hierarchical_rank default write_horizontally default class_drawing_mode default drawing_language default package_name_in_tab default show_context default show_msg_context default draw_all_relations default shadow default show_stereotype_properties default
+    //object diagram settings
+     write_horizontally default package_name_in_tab default show_context default auto_label_position default draw_all_relations default shadow default show_stereotype_properties default
+    //sequence diagram settings
+    show_full_operations_definition default write_horizontally default class_drawing_mode default drawing_language default draw_all_relations default shadow default show_stereotype_properties default show_class_context_mode default show_msg_context_mode default
+    //state diagram settings
+    package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations default shadow default
+    show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+    //class settings
+    //activity diagram settings
+    package_name_in_tab default show_context default show_opaque_action_definition default auto_label_position default write_flow_label_horizontally default draw_all_relations default shadow default
+    show_infonote default drawing_language default show_stereotype_properties default
+    class 142830 "HttpException"
+      visibility public 
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      java_annotation "@Deprecated
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment " @deprecated Use {@link retrofit2.HttpException}. "
+      classrelation 139246 // <generalisation>
+	relation 139246 ---|>
+	  a public
+	    java "${type}"
+	    classrelation_ref 139246 // <generalisation>
+	  b parent class_ref 130414 // HttpException
+      end
+
+      operation 187886 "HttpException"
+	public explicit_return_type ""
+	nparams 1
+	  param inout name "response" type class_ref 129518 // Response
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0}<?> ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+    end
+
+    class 142958 "Java8CallAdapterFactory"
+      visibility public 
+      nactuals 4
+      actual class class_ref 129774 // CallAdapter
+        rank 0 explicit_value ""
+      actual class class_ref 129774 // CallAdapter
+        rank 1 explicit_value ""
+      actual class class_ref 129774 // CallAdapter
+        rank 2 explicit_value ""
+      actual class class_ref 129774 // CallAdapter
+        rank 3 explicit_value ""
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "A {@linkplain CallAdapter.Factory call adapter} which creates Java 8 futures.
+<p>
+Adding this class to {@link Retrofit} allows you to return {@link CompletableFuture} from
+service methods.
+<pre><code>
+interface MyService {
+  &#64;GET(\"user/me\")
+  CompletableFuture&lt;User&gt; getUser()
+}
+</code></pre>
+There are two configurations supported for the {@code CompletableFuture} type parameter:
+<ul>
+<li>Direct body (e.g., {@code CompletableFuture<User>}) returns the deserialized body for 2XX
+responses, sets {@link retrofit2.HttpException HttpException} errors for non-2XX responses, and
+sets {@link IOException} for network errors.</li>
+<li>Response wrapped body (e.g., {@code CompletableFuture<Response<User>>}) returns a
+{@link Response} object for all HTTP responses and sets {@link IOException} for network
+errors</li>
+</ul>"
+      classrelation 139374 // <generalisation>
+	relation 139374 ---|>
+	  a public
+	    java "${type}"
+	    classrelation_ref 139374 // <generalisation>
+	  b parent class_ref 129902 // Factory
+      end
+
+      operation 188014 "create"
+	class_operation public return_type class_ref 142958 // Java8CallAdapterFactory
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 188142 "Java8CallAdapterFactory"
+	private explicit_return_type ""
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 188270 "get"
+	public return_type class_ref 129774 // CallAdapter
+	nparams 3
+	  param inout name "returnType" explicit_type "Type"
+	  param inout name "annotations" explicit_type "Annotation"
+	  param inout name "retrofit" type class_ref 128494 // Retrofit
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type}<?, ?> ${name}${(}${t0} ${p0}, ${t1}[] ${p1}, ${t2} ${p2}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      class 143086 "BodyCallAdapter"
+	visibility private 
+	nformals 1
+	formal name "R" type "" explicit_default_value ""
+	  explicit_extends ""
+	nactuals 4
+	actual class class_ref 129774 // CallAdapter
+	  rank 0 explicit_value ""
+	actual class class_ref 129774 // CallAdapter
+	  rank 1 explicit_value ""
+	actual class class_ref 129774 // CallAdapter
+	  rank 2 explicit_value ""
+	actual class class_ref 129774 // CallAdapter
+	  rank 3 explicit_value ""
+	cpp_decl ""
+	final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	classrelation 139502 // <realization>
+	  relation 139502 -_-|>
+	    stereotype "bind"
+	    a public
+	      java "${type}"
+	      classrelation_ref 139502 // <realization>
+	    b parent class_ref 129774 // CallAdapter
+	end
+
+	attribute 141550 "responseType"
+	  const_attribute private explicit_type "Type"
+	  cpp_decl ""
+	  java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	end
+
+	operation 188398 "BodyCallAdapter"
+	  package explicit_return_type ""
+	  nparams 1
+	    param inout name "responseType" explicit_type "Type"
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  
+	  
+	  
+	end
+
+	operation 188526 "responseType"
+	  public explicit_return_type "Type"
+	  nparams 0
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@Override
+"
+	  
+	  
+	  
+	end
+
+	operation 188654 "adapt"
+	  public explicit_return_type "CompletableFuture<R>"
+	  nparams 1
+	    param in name "call" type class_ref 129262 // Call
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}final ${t0}<R> ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@Override
+"
+	  
+	  
+	  
+	end
+      end
+
+      class 143214 "ResponseCallAdapter"
+	visibility private 
+	nformals 1
+	formal name "R" type "" explicit_default_value ""
+	  explicit_extends ""
+	nactuals 4
+	actual class class_ref 129774 // CallAdapter
+	  rank 0 explicit_value ""
+	actual class class_ref 129774 // CallAdapter
+	  rank 1 explicit_value ""
+	actual class class_ref 129774 // CallAdapter
+	  rank 2 explicit_value ""
+	actual class class_ref 129774 // CallAdapter
+	  rank 3 explicit_value ""
+	cpp_decl ""
+	final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	classrelation 139630 // <realization>
+	  relation 139630 -_-|>
+	    stereotype "bind"
+	    a public
+	      java "${type}"
+	      classrelation_ref 139630 // <realization>
+	    b parent class_ref 129774 // CallAdapter
+	end
+
+	attribute 141678 "responseType"
+	  const_attribute private explicit_type "Type"
+	  cpp_decl ""
+	  java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	end
+
+	operation 188782 "ResponseCallAdapter"
+	  package explicit_return_type ""
+	  nparams 1
+	    param inout name "responseType" explicit_type "Type"
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  
+	  
+	  
+	end
+
+	operation 188910 "responseType"
+	  public explicit_return_type "Type"
+	  nparams 0
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@Override
+"
+	  
+	  
+	  
+	end
+
+	operation 189038 "adapt"
+	  public return_type class_ref 129518 // Response
+	  nparams 1
+	    param in name "call" type class_ref 129262 // Call
+	  
+	  preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}CompletableFuture<${type}<R>> ${name}${(}final ${t0}<R> ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@Override
+"
+	  
+	  
+	  
+	end
+      end
+    end
+
+    class 143342 "CompletableFutureTest"
+      visibility public 
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      attribute 141806 "server"
+	const_attribute public explicit_type "MockWebServer"
+	init_value " new MockWebServer()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      class 143470 "Service"
+	visibility package stereotype "interface"
+	cpp_decl ""
+	java_decl "${comment}${@}${visibility}interface ${name}${extends} {
+${members}}
+"
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	operation 189166 "body"
+	  public explicit_return_type "CompletableFuture<String>"
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+
+	operation 189294 "response"
+	  public return_type class_ref 129518 // Response
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}CompletableFuture<${type}<String>> ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+      end
+
+      classrelation 139758 // service (<unidirectional association>)
+	relation 139758 --->
+	  a role_name "service" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 139758 // service (<unidirectional association>)
+	  b parent class_ref 143470 // Service
+      end
+
+      operation 189422 "setUp"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Before
+"
+	
+	
+	
+      end
+
+      operation 189550 "bodySuccess200"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 189678 "bodySuccess404"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 189806 "bodyFailure"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 189934 "responseSuccess200"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 190062 "responseSuccess404"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 190190 "responseFailure"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+    end
+
+    class 143598 "Java8CallAdapterFactoryTest"
+      visibility public 
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      attribute 141934 "NO_ANNOTATIONS"
+	class_attribute const_attribute private explicit_type "Annotation"
+	multiplicity "[]"
+	init_value " new Annotation[0]"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type}${multiplicity} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 142062 "server"
+	const_attribute public explicit_type "MockWebServer"
+	init_value " new MockWebServer()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      classrelation 139886 // factory (<unidirectional association>)
+	relation 139886 --->
+	  a role_name "factory" init_value " Java8CallAdapterFactory.create()" const_relation private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 139886 // factory (<unidirectional association>)
+	  b parent class_ref 129902 // Factory
+      end
+
+      classrelation 140014 // retrofit (<unidirectional association>)
+	relation 140014 --->
+	  a role_name "retrofit" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 140014 // retrofit (<unidirectional association>)
+	  b parent class_ref 128494 // Retrofit
+      end
+
+      operation 190318 "setUp"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Before
+"
+	
+	
+	
+      end
+
+      operation 190446 "responseType"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 190574 "nonListenableFutureReturnsNull"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 190702 "rawTypeThrows"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 190830 "rawResponseTypeThrows"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+    end
+
+    class 143726 "StringConverterFactory"
+      visibility package 
+      nactuals 4
+      actual class class_ref 128238 // Converter
+        rank 0 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 1 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 2 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 3 explicit_value ""
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      classrelation 140142 // <generalisation>
+	relation 140142 ---|>
+	  a public
+	    java "${type}"
+	    classrelation_ref 140142 // <generalisation>
+	  b parent class_ref 128366 // Factory
+      end
+
+      operation 190958 "responseBodyConverter"
+	public return_type class_ref 128238 // Converter
+	nparams 3
+	  param inout name "type" explicit_type "Type"
+	  param inout name "annotations" explicit_type "Annotation"
+	  param inout name "retrofit" type class_ref 128494 // Retrofit
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type}<ResponseBody, ?> ${name}${(}${t0} ${p0}, ${t1}[] ${p1}, ${t2} ${p2}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 191086 "requestBodyConverter"
+	public return_type class_ref 128238 // Converter
+	nparams 4
+	  param inout name "type" explicit_type "Type"
+	  param inout name "parameterAnnotations" explicit_type "Annotation"
+	  param inout name "methodAnnotations" explicit_type "Annotation"
+	  param inout name "retrofit" type class_ref 128494 // Retrofit
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type}<?, RequestBody> ${name}${(}${t0} ${p0}, ${t1}[] ${p1}, ${t2}[] ${p2}, ${t3} ${p3}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+    end
+  end
+
+  deploymentview 128622 "java8"
+    //deployment diagram settings
+    package_name_in_tab default show_context default write_horizontally default auto_label_position default draw_all_relations default shadow default
+    draw_component_as_icon default show_component_req_prov default show_component_rea default show_stereotype_properties default
+    artifact 135790 "HttpException"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import retrofit2.Response;
+${definition}"
+      associated_classes
+	class_ref 142830 // HttpException
+      end
+      comment "Copyright (C) 2016 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 135918 "Java8CallAdapterFactory"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.concurrent.CompletableFuture;
+import retrofit2.Call;
+import retrofit2.CallAdapter;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+${definition}"
+      associated_classes
+	class_ref 142958 // Java8CallAdapterFactory
+      end
+      comment "Copyright (C) 2016 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 136046 "CompletableFutureTest"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.http.GET;
+import static okhttp3.mockwebserver.SocketPolicy.DISCONNECT_AFTER_REQUEST;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+${definition}"
+      associated_classes
+	class_ref 143342 // CompletableFutureTest
+      end
+      comment "Copyright (C) 2016 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 136174 "Java8CallAdapterFactoryTest"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import com.google.common.reflect.TypeToken;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import okhttp3.mockwebserver.MockWebServer;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import retrofit2.CallAdapter;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+${definition}"
+      associated_classes
+	class_ref 143598 // Java8CallAdapterFactoryTest
+      end
+      comment "Copyright (C) 2016 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 136302 "StringConverterFactory"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Converter;
+import retrofit2.Retrofit;
+${definition}"
+      associated_classes
+	class_ref 143726 // StringConverterFactory
+      end
+      comment "Copyright (C) 2016 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+  end
+end

@@ -1,0 +1,3 @@
+class ToStringConverter
+!!!129646.java!!!	convert(inout value : Object) : String
+      return value.toString();

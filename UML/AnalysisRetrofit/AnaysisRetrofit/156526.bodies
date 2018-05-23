@@ -1,0 +1,11 @@
+class ForwardingObserver
+!!!233198.java!!!	ForwardingObserver(inout delegate : MaybeObserver<T>)
+      this.delegate = delegate;
+!!!233326.java!!!	onSubscribe(inout disposable : Disposable) : void
+      delegate.onSubscribe(disposable);
+!!!233454.java!!!	onSuccess(inout value : T) : void
+      delegate.onSuccess(value);
+!!!233582.java!!!	onError(inout throwable : Throwable) : void
+      delegate.onError(throwable);
+!!!233710.java!!!	onComplete() : void
+      delegate.onComplete();

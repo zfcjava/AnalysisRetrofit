@@ -1,0 +1,12 @@
+class PhoneNumber
+!!!270830.java!!!	PhoneNumber()
+    this("", Type.OTHER);
+!!!270958.java!!!	PhoneNumber(in number : String, inout type : Type)
+    this.number = number;
+    this.type = type;
+!!!271086.java!!!	equals(inout o : Object) : boolean
+    return o instanceof PhoneNumber
+        && ((PhoneNumber) o).number.equals(number)
+        && ((PhoneNumber) o).type.equals(type);
+!!!271214.java!!!	hashCode() : int
+    return Arrays.asList(number, type).hashCode();

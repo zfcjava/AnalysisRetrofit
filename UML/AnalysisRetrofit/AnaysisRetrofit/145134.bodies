@@ -1,0 +1,3 @@
+class HttpException
+!!!193390.java!!!	HttpException(inout response : Response)
+    super(response);

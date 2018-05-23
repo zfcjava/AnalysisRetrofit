@@ -1,0 +1,16 @@
+class Rule
+!!!209646.java!!!	create() : RecordingSubscriber
+      return createWithInitialRequest(Long.MAX_VALUE);
+!!!209774.java!!!	createWithInitialRequest(in initialRequest : long) : RecordingSubscriber
+      RecordingSubscriber<T> subscriber = new RecordingSubscriber<>(initialRequest);
+      subscribers.add(subscriber);
+      return subscriber;
+!!!209902.java!!!	apply(in base : Statement, inout description : Description) : Statement
+      return new Statement() {
+        @Override public void evaluate() throws Throwable {
+          base.evaluate();
+          for (RecordingSubscriber<?> subscriber : subscribers) {
+            subscriber.assertNoEvents();
+          }
+        }
+      };

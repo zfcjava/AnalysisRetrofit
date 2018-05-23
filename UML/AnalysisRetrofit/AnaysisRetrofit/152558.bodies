@@ -1,0 +1,44 @@
+class RxJava2CallAdapter
+!!!220654.java!!!	RxJava2CallAdapter(inout responseType : Type, inout scheduler : Scheduler, inout isAsync : boolean, inout isResult : boolean, inout isBody : boolean, inout isFlowable : boolean, inout isSingle : boolean, inout isMaybe : boolean, inout isCompletable : boolean)
+    this.responseType = responseType;
+    this.scheduler = scheduler;
+    this.isAsync = isAsync;
+    this.isResult = isResult;
+    this.isBody = isBody;
+    this.isFlowable = isFlowable;
+    this.isSingle = isSingle;
+    this.isMaybe = isMaybe;
+    this.isCompletable = isCompletable;
+!!!220782.java!!!	responseType() : Type
+    return responseType;
+!!!220910.java!!!	adapt(inout call : Call) : Object
+    Observable<Response<R>> responseObservable = isAsync
+        ? new CallEnqueueObservable<>(call)
+        : new CallExecuteObservable<>(call);
+
+    Observable<?> observable;
+    if (isResult) {
+      observable = new ResultObservable<>(responseObservable);
+    } else if (isBody) {
+      observable = new BodyObservable<>(responseObservable);
+    } else {
+      observable = responseObservable;
+    }
+
+    if (scheduler != null) {
+      observable = observable.subscribeOn(scheduler);
+    }
+
+    if (isFlowable) {
+      return observable.toFlowable(BackpressureStrategy.LATEST);
+    }
+    if (isSingle) {
+      return observable.singleOrError();
+    }
+    if (isMaybe) {
+      return observable.singleElement();
+    }
+    if (isCompletable) {
+      return observable.ignoreElements();
+    }
+    return observable;

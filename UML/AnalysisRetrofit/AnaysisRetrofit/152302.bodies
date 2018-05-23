@@ -1,0 +1,5 @@
+class ResultObservable
+!!!219758.java!!!	ResultObservable(inout upstream : Observable<Response<T>>)
+    this.upstream = upstream;
+!!!219886.java!!!	subscribeActual(inout observer : Observer<? super Result<T>>) : void
+    upstream.subscribe(new ResultObserver<T>(observer));

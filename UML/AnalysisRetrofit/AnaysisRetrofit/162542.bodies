@@ -1,0 +1,19 @@
+class GuavaOptionalConverterFactoryTest
+!!!263278.java!!!	setUp() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(GuavaOptionalConverterFactory.create())
+        .addConverterFactory(new AlwaysNullConverterFactory())
+        .build();
+    service = retrofit.create(Service.class);
+!!!263406.java!!!	optional() : void
+    server.enqueue(new MockResponse());
+
+    Optional<Object> optional = service.optional().execute().body();
+    assertThat(optional).isNotNull();
+    assertThat(optional.isPresent()).isFalse();
+!!!263534.java!!!	onlyMatchesOptional() : void
+    server.enqueue(new MockResponse());
+
+    Object body = service.object().execute().body();
+    assertThat(body).isNull();

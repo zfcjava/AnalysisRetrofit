@@ -1,0 +1,12 @@
+class GuavaOptionalConverterFactory
+!!!262254.java!!!	create() : GuavaOptionalConverterFactory
+    return new GuavaOptionalConverterFactory();
+!!!262510.java!!!	responseBodyConverter(inout type : Type, inout annotations : Annotation, inout retrofit : Retrofit) : Converter
+    if (getRawType(type) != Optional.class) {
+      return null;
+    }
+
+    Type innerType = getParameterUpperBound(0, (ParameterizedType) type);
+    Converter<ResponseBody, Object> delegate =
+        retrofit.nextResponseBodyConverter(this, innerType, annotations);
+    return new OptionalConverter<>(delegate);

@@ -1,0 +1,42 @@
+class JacksonConverterFactoryTest
+!!!266094.java!!!	setUp() : void
+    SimpleModule module = new SimpleModule();
+    module.addSerializer(AnInterface.class, new AnInterfaceSerializer());
+    module.addDeserializer(AnInterface.class, new AnInterfaceDeserializer());
+    ObjectMapper mapper = new ObjectMapper();
+    mapper.registerModule(module);
+    mapper.configure(MapperFeature.AUTO_DETECT_GETTERS, false);
+    mapper.configure(MapperFeature.AUTO_DETECT_SETTERS, false);
+    mapper.configure(MapperFeature.AUTO_DETECT_IS_GETTERS, false);
+    mapper.setVisibilityChecker(mapper.getSerializationConfig()
+        .getDefaultVisibilityChecker()
+        .withFieldVisibility(JsonAutoDetect.Visibility.ANY));
+
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(JacksonConverterFactory.create(mapper))
+        .build();
+    service = retrofit.create(Service.class);
+!!!266222.java!!!	anInterface() : void
+    server.enqueue(new MockResponse().setBody("{\"name\":\"value\"}"));
+
+    Call<AnInterface> call = service.anInterface(new AnImplementation("value"));
+    Response<AnInterface> response = call.execute();
+    AnInterface body = response.body();
+    assertThat(body.getName()).isEqualTo("value");
+
+    RecordedRequest request = server.takeRequest();
+    assertThat(request.getBody().readUtf8()).isEqualTo("{\"name\":\"value\"}");
+    assertThat(request.getHeader("Content-Type")).isEqualTo("application/json; charset=UTF-8");
+!!!266350.java!!!	anImplementation() : void
+    server.enqueue(new MockResponse().setBody("{\"theName\":\"value\"}"));
+
+    Call<AnImplementation> call = service.anImplementation(new AnImplementation("value"));
+    Response<AnImplementation> response = call.execute();
+    AnImplementation body = response.body();
+    assertThat(body.theName).isEqualTo("value");
+
+    RecordedRequest request = server.takeRequest();
+    // TODO figure out how to get Jackson to stop using AnInterface's serializer here.
+    assertThat(request.getBody().readUtf8()).isEqualTo("{\"name\":\"value\"}");
+    assertThat(request.getHeader("Content-Type")).isEqualTo("application/json; charset=UTF-8");

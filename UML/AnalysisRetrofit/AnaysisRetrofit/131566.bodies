@@ -1,0 +1,4 @@
+class RelativeUrl
+!!!136558.java!!!	apply(inout builder : RequestBuilder, inout value : Object) : void
+      checkNotNull(value, "@Url parameter is null.");
+      builder.setRelativeUrl(value);

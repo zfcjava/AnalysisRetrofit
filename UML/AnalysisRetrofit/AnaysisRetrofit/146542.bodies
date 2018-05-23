@@ -1,0 +1,56 @@
+class RecordingSubscriber
+!!!207598.java!!!	RecordingSubscriber(in initialRequest : long)
+    this.initialRequest = initialRequest;
+!!!207726.java!!!	onStart() : void
+    request(initialRequest);
+!!!207854.java!!!	onNext(inout value : T) : void
+    events.add(Notification.createOnNext(value));
+!!!207982.java!!!	onCompleted() : void
+    events.add(Notification.<T>createOnCompleted());
+!!!208110.java!!!	onError(inout e : Throwable) : void
+    events.add(Notification.<T>createOnError(e));
+!!!208238.java!!!	takeNotification() : Notification<T>
+    Notification<T> notification = events.pollFirst();
+    if (notification == null) {
+      throw new AssertionError("No event found!");
+    }
+    return notification;
+!!!208366.java!!!	takeValue() : T
+    Notification<T> notification = takeNotification();
+    assertThat(notification.isOnNext())
+        .overridingErrorMessage("Expected onNext event but was %s", notification)
+        .isTrue();
+    return notification.getValue();
+!!!208494.java!!!	takeError() : Throwable
+    Notification<T> notification = takeNotification();
+    assertThat(notification.isOnError())
+        .overridingErrorMessage("Expected onError event but was %s", notification)
+        .isTrue();
+    return notification.getThrowable();
+!!!208622.java!!!	assertAnyValue() : RecordingSubscriber
+    takeValue();
+    return this;
+!!!208750.java!!!	assertValue(inout value : T) : RecordingSubscriber
+    assertThat(takeValue()).isEqualTo(value);
+    return this;
+!!!208878.java!!!	assertCompleted() : void
+    Notification<T> notification = takeNotification();
+    assertThat(notification.isOnCompleted())
+        .overridingErrorMessage("Expected onCompleted event but was %s", notification)
+        .isTrue();
+    assertNoEvents();
+!!!209006.java!!!	assertError(inout throwable : Throwable) : void
+    assertThat(takeError()).isEqualTo(throwable);
+!!!209134.java!!!	assertError(inout errorClass : Class<? extends Throwable>) : void
+    assertError(errorClass, null);
+!!!209262.java!!!	assertError(inout errorClass : Class<? extends Throwable>, in message : String) : void
+    Throwable throwable = takeError();
+    assertThat(throwable).isInstanceOf(errorClass);
+    if (message != null) {
+      assertThat(throwable).hasMessage(message);
+    }
+    assertNoEvents();
+!!!209390.java!!!	assertNoEvents() : void
+    assertThat(events).as("Unconsumed events found!").isEmpty();
+!!!209518.java!!!	requestMore(in amount : long) : void
+    request(amount);

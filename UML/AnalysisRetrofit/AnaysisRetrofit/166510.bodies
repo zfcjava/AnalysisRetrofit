@@ -1,0 +1,4 @@
+class ProtoRequestBodyConverter
+!!!274926.java!!!	convert(inout value : T) : RequestBody
+    byte[] bytes = value.toByteArray();
+    return RequestBody.create(MEDIA_TYPE, bytes);

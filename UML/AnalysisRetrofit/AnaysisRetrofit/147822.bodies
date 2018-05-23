@@ -1,0 +1,16 @@
+class CompletableWithSchedulerTest
+!!!200430.java!!!	setUp() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(scheduler))
+        .build();
+    service = retrofit.create(Service.class);
+!!!200558.java!!!	completableUsesScheduler() : void
+    server.enqueue(new MockResponse().setBody("Hi"));
+
+    RecordingSubscriber<String> subscriber = subscriberRule.create();
+    service.completable().unsafeSubscribe(subscriber);
+    subscriber.assertNoEvents();
+
+    scheduler.triggerActions();
+    subscriber.assertCompleted();

@@ -1,0 +1,11 @@
+class Factory
+!!!128238.java!!!	responseBodyConverter(inout type : Type, inout annotations : Annotation, inout retrofit : Retrofit) : Converter
+      return null;
+!!!128366.java!!!	requestBodyConverter(inout type : Type, inout parameterAnnotations : Annotation, inout methodAnnotations : Annotation, inout retrofit : Retrofit) : Converter
+      return null;
+!!!128494.java!!!	stringConverter(inout type : Type, inout annotations : Annotation, inout retrofit : Retrofit) : Converter
+      return null;
+!!!128622.java!!!	getParameterUpperBound(in index : int, inout type : ParameterizedType) : Type
+      return Utils.getParameterUpperBound(index, type);
+!!!128750.java!!!	getRawType(inout type : Type) : Class<?>
+      return Utils.getRawType(type);

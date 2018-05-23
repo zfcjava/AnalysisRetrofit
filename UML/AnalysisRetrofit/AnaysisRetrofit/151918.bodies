@@ -1,0 +1,8 @@
+class CallDisposable
+!!!218478.java!!!	CallDisposable(inout call : Call)
+      this.call = call;
+!!!218606.java!!!	dispose() : void
+      disposed = true;
+      call.cancel();
+!!!218734.java!!!	isDisposed() : boolean
+      return disposed;

@@ -1,0 +1,30 @@
+class BodyCallAdapter
+!!!188398.java!!!	BodyCallAdapter(inout responseType : Type)
+      this.responseType = responseType;
+!!!188526.java!!!	responseType() : Type
+      return responseType;
+!!!188654.java!!!	adapt(in call : Call) : CompletableFuture<R>
+      final CompletableFuture<R> future = new CompletableFuture<R>() {
+        @Override public boolean cancel(boolean mayInterruptIfRunning) {
+          if (mayInterruptIfRunning) {
+            call.cancel();
+          }
+          return super.cancel(mayInterruptIfRunning);
+        }
+      };
+
+      call.enqueue(new Callback<R>() {
+        @Override public void onResponse(Call<R> call, Response<R> response) {
+          if (response.isSuccessful()) {
+            future.complete(response.body());
+          } else {
+            future.completeExceptionally(new HttpException(response));
+          }
+        }
+
+        @Override public void onFailure(Call<R> call, Throwable t) {
+          future.completeExceptionally(t);
+        }
+      });
+
+      return future;

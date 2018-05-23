@@ -1,0 +1,3 @@
+class MainThreadExecutor
+!!!141038.java!!!	execute(inout r : Runnable) : void
+        handler.post(r);

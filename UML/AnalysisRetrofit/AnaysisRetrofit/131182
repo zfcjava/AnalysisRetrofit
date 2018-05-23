@@ -1,0 +1,487 @@
+format 76
+"guava" // retrofit::retrofit-converters::guava::src::main::java::retrofit::converter::guava
+  revision 1
+  modified_by 110 "Administrator"
+  // class settings
+  //class diagram settings
+  draw_all_relations default hide_attributes default hide_operations default hide_getset_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_context default show_members_multiplicity default show_members_initialization default show_attribute_modifiers default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_relation_modifiers default show_relation_visibility default show_infonote default shadow default show_stereotype_properties default
+  //use case diagram settings
+  package_name_in_tab default show_context default auto_label_position default draw_all_relations default class_drawing_mode default shadow default show_stereotype_properties default
+  //sequence diagram settings
+  show_full_operations_definition default write_horizontally default class_drawing_mode default drawing_language default draw_all_relations default shadow default show_stereotype_properties default show_class_context_mode default show_msg_context_mode default
+  //collaboration diagram settings
+  show_full_operations_definition default show_hierarchical_rank default write_horizontally default class_drawing_mode default drawing_language default package_name_in_tab default show_context default show_msg_context default draw_all_relations default shadow default show_stereotype_properties default
+  //object diagram settings
+   write_horizontally default package_name_in_tab default show_context default auto_label_position default draw_all_relations default shadow default show_stereotype_properties default
+  //component diagram settings
+  package_name_in_tab default show_context default auto_label_position default draw_all_relations default shadow default
+  draw_component_as_icon default show_component_req_prov default show_component_rea default show_stereotype_properties default
+  //deployment diagram settings
+  package_name_in_tab default show_context default write_horizontally default auto_label_position default draw_all_relations default shadow default
+  draw_component_as_icon default show_component_req_prov default show_component_rea default show_stereotype_properties default
+  //state diagram settings
+  package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations default shadow default
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  //activity diagram settings
+  package_name_in_tab default show_context default show_opaque_action_definition default auto_label_position default write_flow_label_horizontally default draw_all_relations default shadow default
+  show_infonote default drawing_language default show_stereotype_properties default
+  
+  java_dir "e:/android2018/AnalysisRetrofit/source/retrofit/retrofit-converters/guava/src/main/java/retrofit/converter/guava/"
+  java_package "retrofit.converter.guava"
+  classview 129390 "guava"
+    //class diagram settings
+    draw_all_relations default hide_attributes default hide_operations default hide_getset_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_context default show_members_multiplicity default show_members_initialization default show_attribute_modifiers default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_relation_modifiers default show_relation_visibility default show_infonote default shadow default show_stereotype_properties default
+    //collaboration diagram settings
+    show_full_operations_definition default show_hierarchical_rank default write_horizontally default class_drawing_mode default drawing_language default package_name_in_tab default show_context default show_msg_context default draw_all_relations default shadow default show_stereotype_properties default
+    //object diagram settings
+     write_horizontally default package_name_in_tab default show_context default auto_label_position default draw_all_relations default shadow default show_stereotype_properties default
+    //sequence diagram settings
+    show_full_operations_definition default write_horizontally default class_drawing_mode default drawing_language default draw_all_relations default shadow default show_stereotype_properties default show_class_context_mode default show_msg_context_mode default
+    //state diagram settings
+    package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations default shadow default
+    show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+    //class settings
+    //activity diagram settings
+    package_name_in_tab default show_context default show_opaque_action_definition default auto_label_position default write_flow_label_horizontally default draw_all_relations default shadow default
+    show_infonote default drawing_language default show_stereotype_properties default
+    class 162158 "GuavaOptionalConverterFactory"
+      visibility public 
+      nactuals 4
+      actual class class_ref 128238 // Converter
+        rank 0 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 1 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 2 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 3 explicit_value ""
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "A {@linkplain Converter.Factory converter} for {@code Optional<T>} which delegates to another
+converter to deserialize {@code T} and then wraps it into {@link Optional}."
+      classrelation 158830 // <generalisation>
+	relation 158830 ---|>
+	  a public
+	    java "${type}"
+	    classrelation_ref 158830 // <generalisation>
+	  b parent class_ref 128366 // Factory
+      end
+
+      operation 262254 "create"
+	class_operation public return_type class_ref 162158 // GuavaOptionalConverterFactory
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 262382 "GuavaOptionalConverterFactory"
+	private explicit_return_type ""
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 262510 "responseBodyConverter"
+	public return_type class_ref 128238 // Converter
+	nparams 3
+	  param inout name "type" explicit_type "Type"
+	  param inout name "annotations" explicit_type "Annotation"
+	  param inout name "retrofit" type class_ref 128494 // Retrofit
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type}<ResponseBody, ?> ${name}${(}${t0} ${p0}, ${t1}[] ${p1}, ${t2} ${p2}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Nullable @Override
+"
+	
+	
+	
+      end
+    end
+
+    class 162286 "OptionalConverter"
+      visibility package 
+      nformals 1
+      formal name "T" type "" explicit_default_value ""
+        explicit_extends ""
+      nactuals 4
+      actual class class_ref 128238 // Converter
+        rank 0 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 1 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 2 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 3 explicit_value ""
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      classrelation 158958 // <realization>
+	relation 158958 -_-|>
+	  stereotype "bind"
+	  a public
+	    java "${type}"
+	    classrelation_ref 158958 // <realization>
+	  b parent class_ref 128238 // Converter
+      end
+
+      classrelation 159086 // delegate (<unidirectional association>)
+	relation 159086 --->
+	  a role_name "delegate" const_relation private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type}<ResponseBody, T> ${name}${value};
+"
+	    classrelation_ref 159086 // delegate (<unidirectional association>)
+	  b parent class_ref 128238 // Converter
+      end
+
+      operation 262638 "OptionalConverter"
+	package explicit_return_type ""
+	nparams 1
+	  param inout name "delegate" type class_ref 128238 // Converter
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0}<ResponseBody, T> ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 262766 "convert"
+	public explicit_return_type "Optional<T>"
+	nparams 1
+	  param inout name "value" explicit_type "ResponseBody"
+	nexceptions 1
+	  explicit_exception "IOException"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+    end
+
+    class 162414 "AlwaysNullConverterFactory"
+      visibility package 
+      nactuals 4
+      actual class class_ref 128238 // Converter
+        rank 0 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 1 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 2 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 3 explicit_value ""
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      classrelation 159214 // <generalisation>
+	relation 159214 ---|>
+	  a public
+	    java "${type}"
+	    classrelation_ref 159214 // <generalisation>
+	  b parent class_ref 128366 // Factory
+      end
+
+      operation 262894 "responseBodyConverter"
+	public return_type class_ref 128238 // Converter
+	nparams 3
+	  param inout name "type" explicit_type "Type"
+	  param inout name "annotations" explicit_type "Annotation"
+	  param inout name "retrofit" type class_ref 128494 // Retrofit
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type}<ResponseBody, ?> ${name}${(}${t0} ${p0}, ${t1}[] ${p1}, ${t2} ${p2}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+    end
+
+    class 162542 "GuavaOptionalConverterFactoryTest"
+      visibility public 
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      class 162670 "Service"
+	visibility package stereotype "interface"
+	cpp_decl ""
+	java_decl "${comment}${@}${visibility}interface ${name}${extends} {
+${members}}
+"
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	operation 263022 "optional"
+	  public return_type class_ref 129262 // Call
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type}<Optional<Object>> ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+
+	operation 263150 "object"
+	  public return_type class_ref 129262 // Call
+	  nparams 0
+	  
+	  java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type}<Object> ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	  java_annotation "@GET(\"/\")
+"
+	  
+	  
+	  
+	end
+      end
+
+      attribute 158190 "server"
+	const_attribute public explicit_type "MockWebServer"
+	init_value " new MockWebServer()"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	java_annotation "@Rule
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      classrelation 159342 // service (<unidirectional association>)
+	relation 159342 --->
+	  a role_name "service" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 159342 // service (<unidirectional association>)
+	  b parent class_ref 162670 // Service
+      end
+
+      operation 263278 "setUp"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Before
+"
+	
+	
+	
+      end
+
+      operation 263406 "optional"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 1
+	  explicit_exception "IOException"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 263534 "onlyMatchesOptional"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 1
+	  explicit_exception "IOException"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+    end
+  end
+
+  deploymentview 129262 "guava"
+    //deployment diagram settings
+    package_name_in_tab default show_context default write_horizontally default auto_label_position default draw_all_relations default shadow default
+    draw_component_as_icon default show_component_req_prov default show_component_rea default show_stereotype_properties default
+    artifact 145646 "GuavaOptionalConverterFactory"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import com.google.common.base.Optional;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import javax.annotation.Nullable;
+import okhttp3.ResponseBody;
+import retrofit2.Converter;
+import retrofit2.Retrofit;
+${definition}"
+      associated_classes
+	class_ref 162158 // GuavaOptionalConverterFactory
+      end
+      comment "Copyright (C) 2017 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 145774 "OptionalConverter"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import com.google.common.base.Optional;
+import java.io.IOException;
+import okhttp3.ResponseBody;
+import retrofit2.Converter;
+${definition}"
+      associated_classes
+	class_ref 162286 // OptionalConverter
+      end
+      comment "Copyright (C) 2017 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 145902 "AlwaysNullConverterFactory"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
+import okhttp3.ResponseBody;
+import retrofit2.Converter;
+import retrofit2.Retrofit;
+${definition}"
+      associated_classes
+	class_ref 162414 // AlwaysNullConverterFactory
+      end
+      comment "Copyright (C) 2017 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 146030 "GuavaOptionalConverterFactoryTest"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import com.google.common.base.Optional;
+import java.io.IOException;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.http.GET;
+import static org.assertj.core.api.Assertions.assertThat;
+${definition}"
+      associated_classes
+	class_ref 162542 // GuavaOptionalConverterFactoryTest
+      end
+      comment "Copyright (C) 2017 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+  end
+end

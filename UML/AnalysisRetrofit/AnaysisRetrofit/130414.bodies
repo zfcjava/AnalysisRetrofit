@@ -1,0 +1,15 @@
+class HttpException
+!!!132974.java!!!	getMessage(inout response : Response) : String
+    checkNotNull(response, "response == null");
+    return "HTTP " + response.code() + " " + response.message();
+!!!133102.java!!!	HttpException(inout response : Response)
+    super(getMessage(response));
+    this.code = response.code();
+    this.message = response.message();
+    this.response = response;
+!!!133230.java!!!	code() : int
+    return code;
+!!!133358.java!!!	message() : String
+    return message;
+!!!133486.java!!!	response() : Response
+    return response;

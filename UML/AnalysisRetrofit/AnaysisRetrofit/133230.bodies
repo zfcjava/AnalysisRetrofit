@@ -1,0 +1,28 @@
+class Platform
+!!!139758.java!!!	get() : Platform
+    return PLATFORM;
+!!!139886.java!!!	findPlatform() : Platform
+    try {
+      Class.forName("android.os.Build");
+      if (Build.VERSION.SDK_INT != 0) {
+        return new Android();
+      }
+    } catch (ClassNotFoundException ignored) {
+    }
+    try {
+      Class.forName("java.util.Optional");
+      return new Java8();
+    } catch (ClassNotFoundException ignored) {
+    }
+    return new Platform();
+!!!140014.java!!!	defaultCallbackExecutor() : Executor
+    return null;
+!!!140142.java!!!	defaultCallAdapterFactory(inout callbackExecutor : Executor) : CallAdapter::Factory
+    if (callbackExecutor != null) {
+      return new ExecutorCallAdapterFactory(callbackExecutor);
+    }
+    return DefaultCallAdapterFactory.INSTANCE;
+!!!140270.java!!!	isDefaultMethod(inout method : Method) : boolean
+    return false;
+!!!140398.java!!!	invokeDefaultMethod(inout method : Method, inout declaringClass : Class<?>, inout object : Object, inout  : Object...args) : Object
+    throw new UnsupportedOperationException();

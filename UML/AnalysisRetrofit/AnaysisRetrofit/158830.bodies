@@ -1,0 +1,12 @@
+class RxJavaPluginsResetRule
+!!!251246.java!!!	apply(in base : Statement, inout description : Description) : Statement
+    return new Statement() {
+      @Override public void evaluate() throws Throwable {
+        RxJavaPlugins.reset();
+        try {
+          base.evaluate();
+        } finally {
+          RxJavaPlugins.reset();
+        }
+      }
+    };

@@ -1,0 +1,120 @@
+class RxJavaCallAdapterFactoryTest
+!!!210542.java!!!	setUp() : void
+    retrofit = new Retrofit.Builder()
+        .baseUrl("http://localhost:1")
+        .addConverterFactory(new StringConverterFactory())
+        .addCallAdapterFactory(factory)
+        .build();
+!!!210670.java!!!	nullSchedulerThrows() : void
+    try {
+      RxJavaCallAdapterFactory.createWithScheduler(null);
+      fail();
+    } catch (NullPointerException e) {
+      assertThat(e).hasMessage("scheduler == null");
+    }
+!!!210798.java!!!	nonRxJavaTypeReturnsNull() : void
+    CallAdapter<?, ?> adapter = factory.get(String.class, NO_ANNOTATIONS, retrofit);
+    assertThat(adapter).isNull();
+!!!210926.java!!!	responseTypes() : void
+    Type oBodyClass = new TypeToken<Observable<String>>() {}.getType();
+    assertThat(factory.get(oBodyClass, NO_ANNOTATIONS, retrofit).responseType())
+        .isEqualTo(String.class);
+    Type sBodyClass = new TypeToken<Single<String>>() {}.getType();
+    assertThat(factory.get(sBodyClass, NO_ANNOTATIONS, retrofit).responseType())
+        .isEqualTo(String.class);
+
+    Type oBodyWildcard = new TypeToken<Observable<? extends String>>() {}.getType();
+    assertThat(factory.get(oBodyWildcard, NO_ANNOTATIONS, retrofit).responseType())
+        .isEqualTo(String.class);
+    Type sBodyWildcard = new TypeToken<Single<? extends String>>() {}.getType();
+    assertThat(factory.get(sBodyWildcard, NO_ANNOTATIONS, retrofit).responseType())
+        .isEqualTo(String.class);
+
+    Type oBodyGeneric = new TypeToken<Observable<List<String>>>() {}.getType();
+    assertThat(factory.get(oBodyGeneric, NO_ANNOTATIONS, retrofit).responseType())
+        .isEqualTo(new TypeToken<List<String>>() {}.getType());
+    Type sBodyGeneric = new TypeToken<Single<List<String>>>() {}.getType();
+    assertThat(factory.get(sBodyGeneric, NO_ANNOTATIONS, retrofit).responseType())
+        .isEqualTo(new TypeToken<List<String>>() {}.getType());
+
+    Type oResponseClass = new TypeToken<Observable<Response<String>>>() {}.getType();
+    assertThat(factory.get(oResponseClass, NO_ANNOTATIONS, retrofit).responseType())
+        .isEqualTo(String.class);
+    Type sResponseClass = new TypeToken<Single<Response<String>>>() {}.getType();
+    assertThat(factory.get(sResponseClass, NO_ANNOTATIONS, retrofit).responseType())
+        .isEqualTo(String.class);
+
+    Type oResponseWildcard = new TypeToken<Observable<Response<? extends String>>>() {}.getType();
+    assertThat(factory.get(oResponseWildcard, NO_ANNOTATIONS, retrofit).responseType())
+        .isEqualTo(String.class);
+    Type sResponseWildcard = new TypeToken<Single<Response<? extends String>>>() {}.getType();
+    assertThat(factory.get(sResponseWildcard, NO_ANNOTATIONS, retrofit).responseType())
+        .isEqualTo(String.class);
+
+    Type oResultClass = new TypeToken<Observable<Result<String>>>() {}.getType();
+    assertThat(factory.get(oResultClass, NO_ANNOTATIONS, retrofit).responseType())
+        .isEqualTo(String.class);
+    Type sResultClass = new TypeToken<Single<Result<String>>>() {}.getType();
+    assertThat(factory.get(sResultClass, NO_ANNOTATIONS, retrofit).responseType())
+        .isEqualTo(String.class);
+
+    Type oResultWildcard = new TypeToken<Observable<Result<? extends String>>>() {}.getType();
+    assertThat(factory.get(oResultWildcard, NO_ANNOTATIONS, retrofit).responseType())
+        .isEqualTo(String.class);
+    Type sResultWildcard = new TypeToken<Single<Result<? extends String>>>() {}.getType();
+    assertThat(factory.get(sResultWildcard, NO_ANNOTATIONS, retrofit).responseType())
+        .isEqualTo(String.class);
+!!!211054.java!!!	rawBodyTypeThrows() : void
+    Type observableType = new TypeToken<Observable>() {}.getType();
+    try {
+      factory.get(observableType, NO_ANNOTATIONS, retrofit);
+      fail();
+    } catch (IllegalStateException e) {
+      assertThat(e).hasMessage(
+          "Observable return type must be parameterized as Observable<Foo> or Observable<? extends Foo>");
+    }
+
+    Type singleType = new TypeToken<Single>() {}.getType();
+    try {
+      factory.get(singleType, NO_ANNOTATIONS, retrofit);
+      fail();
+    } catch (IllegalStateException e) {
+      assertThat(e).hasMessage(
+          "Single return type must be parameterized as Single<Foo> or Single<? extends Foo>");
+    }
+!!!211182.java!!!	rawResponseTypeThrows() : void
+    Type observableType = new TypeToken<Observable<Response>>() {}.getType();
+    try {
+      factory.get(observableType, NO_ANNOTATIONS, retrofit);
+      fail();
+    } catch (IllegalStateException e) {
+      assertThat(e).hasMessage(
+          "Response must be parameterized as Response<Foo> or Response<? extends Foo>");
+    }
+
+    Type singleType = new TypeToken<Single<Response>>() {}.getType();
+    try {
+      factory.get(singleType, NO_ANNOTATIONS, retrofit);
+      fail();
+    } catch (IllegalStateException e) {
+      assertThat(e).hasMessage(
+          "Response must be parameterized as Response<Foo> or Response<? extends Foo>");
+    }
+!!!211310.java!!!	rawResultTypeThrows() : void
+    Type observableType = new TypeToken<Observable<Result>>() {}.getType();
+    try {
+      factory.get(observableType, NO_ANNOTATIONS, retrofit);
+      fail();
+    } catch (IllegalStateException e) {
+      assertThat(e).hasMessage(
+          "Result must be parameterized as Result<Foo> or Result<? extends Foo>");
+    }
+
+    Type singleType = new TypeToken<Single<Result>>() {}.getType();
+    try {
+      factory.get(singleType, NO_ANNOTATIONS, retrofit);
+      fail();
+    } catch (IllegalStateException e) {
+      assertThat(e).hasMessage(
+          "Result must be parameterized as Result<Foo> or Result<? extends Foo>");
+    }

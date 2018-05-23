@@ -1,0 +1,86 @@
+class Builder
+!!!147182.java!!!	Builder(inout platform : Platform)
+      this.platform = platform;
+!!!147310.java!!!	Builder()
+      this(Platform.get());
+!!!147438.java!!!	Builder(inout retrofit : Retrofit)
+      platform = Platform.get();
+      callFactory = retrofit.callFactory;
+      baseUrl = retrofit.baseUrl;
+
+      converterFactories.addAll(retrofit.converterFactories);
+      // Remove the default BuiltInConverters instance added by build().
+      converterFactories.remove(0);
+
+      callAdapterFactories.addAll(retrofit.callAdapterFactories);
+      // Remove the default, platform-aware call adapter added by build().
+      callAdapterFactories.remove(callAdapterFactories.size() - 1);
+
+      callbackExecutor = retrofit.callbackExecutor;
+      validateEagerly = retrofit.validateEagerly;
+!!!147566.java!!!	client(inout client : OkHttpClient) : Retrofit::Builder
+      return callFactory(checkNotNull(client, "client == null"));
+!!!147694.java!!!	callFactory(inout factory : okhttp3.Call.Factory) : Retrofit::Builder
+      this.callFactory = checkNotNull(factory, "factory == null");
+      return this;
+!!!147822.java!!!	baseUrl(in baseUrl : String) : Retrofit::Builder
+      checkNotNull(baseUrl, "baseUrl == null");
+      HttpUrl httpUrl = HttpUrl.parse(baseUrl);
+      if (httpUrl == null) {
+        throw new IllegalArgumentException("Illegal URL: " + baseUrl);
+      }
+      return baseUrl(httpUrl);
+!!!147950.java!!!	baseUrl(inout baseUrl : HttpUrl) : Retrofit::Builder
+      checkNotNull(baseUrl, "baseUrl == null");
+      List<String> pathSegments = baseUrl.pathSegments();
+      if (!"".equals(pathSegments.get(pathSegments.size() - 1))) {
+        throw new IllegalArgumentException("baseUrl must end in /: " + baseUrl);
+      }
+      this.baseUrl = baseUrl;
+      return this;
+!!!148078.java!!!	addConverterFactory(inout factory : Converter::Factory) : Retrofit::Builder
+      converterFactories.add(checkNotNull(factory, "factory == null"));
+      return this;
+!!!148206.java!!!	addCallAdapterFactory(inout factory : CallAdapter::Factory) : Retrofit::Builder
+      callAdapterFactories.add(checkNotNull(factory, "factory == null"));
+      return this;
+!!!148334.java!!!	callbackExecutor(inout executor : Executor) : Retrofit::Builder
+      this.callbackExecutor = checkNotNull(executor, "executor == null");
+      return this;
+!!!148462.java!!!	callAdapterFactories() : CallAdapter::Factory
+      return this.callAdapterFactories;
+!!!148590.java!!!	converterFactories() : Converter::Factory
+      return this.converterFactories;
+!!!148718.java!!!	validateEagerly(inout validateEagerly : boolean) : Retrofit::Builder
+      this.validateEagerly = validateEagerly;
+      return this;
+!!!148846.java!!!	build() : Retrofit
+      if (baseUrl == null) {
+        throw new IllegalStateException("Base URL required.");
+      }
+
+      okhttp3.Call.Factory callFactory = this.callFactory;
+      if (callFactory == null) {
+        callFactory = new OkHttpClient();
+      }
+
+      Executor callbackExecutor = this.callbackExecutor;
+      if (callbackExecutor == null) {
+        callbackExecutor = platform.defaultCallbackExecutor();
+      }
+
+      // Make a defensive copy of the adapters and add the default Call adapter.
+      List<CallAdapter.Factory> callAdapterFactories = new ArrayList<>(this.callAdapterFactories);
+      callAdapterFactories.add(platform.defaultCallAdapterFactory(callbackExecutor));
+
+      // Make a defensive copy of the converters.
+      List<Converter.Factory> converterFactories =
+          new ArrayList<>(1 + this.converterFactories.size());
+
+      // Add the built-in converter factory first. This prevents overriding its behavior but also
+      // ensures correct behavior when using converters that consume all types.
+      converterFactories.add(new BuiltInConverters());
+      converterFactories.addAll(this.converterFactories);
+
+      return new Retrofit(callFactory, baseUrl, unmodifiableList(converterFactories),
+          unmodifiableList(callAdapterFactories), callbackExecutor, validateEagerly);

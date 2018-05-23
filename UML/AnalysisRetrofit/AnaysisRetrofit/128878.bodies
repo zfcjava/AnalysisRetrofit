@@ -1,0 +1,3 @@
+class StreamingResponseBodyConverter
+!!!129390.java!!!	convert(inout value : ResponseBody) : ResponseBody
+      return value;

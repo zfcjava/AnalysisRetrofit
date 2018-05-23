@@ -1,0 +1,74 @@
+class ObservableTest
+!!!235118.java!!!	setUp() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(new StringConverterFactory())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build();
+    service = retrofit.create(Service.class);
+!!!235246.java!!!	bodySuccess200() : void
+    server.enqueue(new MockResponse().setBody("Hi"));
+
+    RecordingObserver<String> observer = observerRule.create();
+    service.body().subscribe(observer);
+    observer.assertValue("Hi").assertComplete();
+!!!235374.java!!!	bodySuccess404() : void
+    server.enqueue(new MockResponse().setResponseCode(404));
+
+    RecordingObserver<String> observer = observerRule.create();
+    service.body().subscribe(observer);
+    // Required for backwards compatibility.
+    observer.assertError(HttpException.class, "HTTP 404 Client Error");
+!!!235502.java!!!	bodyFailure() : void
+    server.enqueue(new MockResponse().setSocketPolicy(DISCONNECT_AFTER_REQUEST));
+
+    RecordingObserver<String> observer = observerRule.create();
+    service.body().subscribe(observer);
+    observer.assertError(IOException.class);
+!!!235630.java!!!	responseSuccess200() : void
+    server.enqueue(new MockResponse());
+
+    RecordingObserver<Response<String>> observer = observerRule.create();
+    service.response().subscribe(observer);
+    assertThat(observer.takeValue().isSuccessful()).isTrue();
+    observer.assertComplete();
+!!!235758.java!!!	responseSuccess404() : void
+    server.enqueue(new MockResponse().setResponseCode(404));
+
+    RecordingObserver<Response<String>> observer = observerRule.create();
+    service.response().subscribe(observer);
+    assertThat(observer.takeValue().isSuccessful()).isFalse();
+    observer.assertComplete();
+!!!235886.java!!!	responseFailure() : void
+    server.enqueue(new MockResponse().setSocketPolicy(DISCONNECT_AFTER_REQUEST));
+
+    RecordingObserver<Response<String>> observer = observerRule.create();
+    service.response().subscribe(observer);
+    observer.assertError(IOException.class);
+!!!236014.java!!!	resultSuccess200() : void
+    server.enqueue(new MockResponse().setBody("Hi"));
+
+    RecordingObserver<Result<String>> observer = observerRule.create();
+    service.result().subscribe(observer);
+    Result<String> result = observer.takeValue();
+    assertThat(result.isError()).isFalse();
+    assertThat(result.response().isSuccessful()).isTrue();
+    observer.assertComplete();
+!!!236142.java!!!	resultSuccess404() : void
+    server.enqueue(new MockResponse().setResponseCode(404));
+
+    RecordingObserver<Result<String>> observer = observerRule.create();
+    service.result().subscribe(observer);
+    Result<String> result = observer.takeValue();
+    assertThat(result.isError()).isFalse();
+    assertThat(result.response().isSuccessful()).isFalse();
+    observer.assertComplete();
+!!!236270.java!!!	resultFailure() : void
+    server.enqueue(new MockResponse().setSocketPolicy(DISCONNECT_AFTER_REQUEST));
+
+    RecordingObserver<Result<String>> observer = observerRule.create();
+    service.result().subscribe(observer);
+    Result<String> result = observer.takeValue();
+    assertThat(result.isError()).isTrue();
+    assertThat(result.error()).isInstanceOf(IOException.class);
+    observer.assertComplete();

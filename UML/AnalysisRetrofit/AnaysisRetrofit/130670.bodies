@@ -1,0 +1,187 @@
+class OkHttpCall
+!!!133614.java!!!	OkHttpCall(inout serviceMethod : ServiceMethod, inout args : Object)
+    this.serviceMethod = serviceMethod;
+    this.args = args;
+!!!133742.java!!!	clone() : OkHttpCall
+    return new OkHttpCall<>(serviceMethod, args);
+!!!133870.java!!!	request() : Request
+    okhttp3.Call call = rawCall;
+    if (call != null) {
+      return call.request();
+    }
+    if (creationFailure != null) {
+      if (creationFailure instanceof IOException) {
+        throw new RuntimeException("Unable to create request.", creationFailure);
+      } else if (creationFailure instanceof RuntimeException) {
+        throw (RuntimeException) creationFailure;
+      } else {
+        throw (Error) creationFailure;
+      }
+    }
+    try {
+      return (rawCall = createRawCall()).request();
+    } catch (RuntimeException | Error e) {
+      throwIfFatal(e); // Do not assign a fatal error to creationFailure.
+      creationFailure = e;
+      throw e;
+    } catch (IOException e) {
+      creationFailure = e;
+      throw new RuntimeException("Unable to create request.", e);
+    }
+!!!133998.java!!!	enqueue(in callback : Callback) : void
+    checkNotNull(callback, "callback == null");
+
+    okhttp3.Call call;
+    Throwable failure;
+
+    synchronized (this) {
+      if (executed) throw new IllegalStateException("Already executed.");
+      executed = true;
+
+      call = rawCall;
+      failure = creationFailure;
+      if (call == null && failure == null) {
+        try {
+          call = rawCall = createRawCall();
+        } catch (Throwable t) {
+          throwIfFatal(t);
+          failure = creationFailure = t;
+        }
+      }
+    }
+
+    if (failure != null) {
+      callback.onFailure(this, failure);
+      return;
+    }
+
+    if (canceled) {
+      call.cancel();
+    }
+
+    call.enqueue(new okhttp3.Callback() {
+      @Override public void onResponse(okhttp3.Call call, okhttp3.Response rawResponse)
+          throws IOException {
+        Response<T> response;
+        try {
+          response = parseResponse(rawResponse);
+        } catch (Throwable e) {
+          callFailure(e);
+          return;
+        }
+        callSuccess(response);
+      }
+
+      @Override public void onFailure(okhttp3.Call call, IOException e) {
+        callFailure(e);
+      }
+
+      private void callFailure(Throwable e) {
+        try {
+          callback.onFailure(OkHttpCall.this, e);
+        } catch (Throwable t) {
+          t.printStackTrace();
+        }
+      }
+
+      private void callSuccess(Response<T> response) {
+        try {
+          callback.onResponse(OkHttpCall.this, response);
+        } catch (Throwable t) {
+          t.printStackTrace();
+        }
+      }
+    });
+!!!134126.java!!!	isExecuted() : boolean
+    return executed;
+!!!134254.java!!!	execute() : Response
+    okhttp3.Call call;
+
+    synchronized (this) {
+      if (executed) throw new IllegalStateException("Already executed.");
+      executed = true;
+
+      if (creationFailure != null) {
+        if (creationFailure instanceof IOException) {
+          throw (IOException) creationFailure;
+        } else if (creationFailure instanceof RuntimeException) {
+          throw (RuntimeException) creationFailure;
+        } else {
+          throw (Error) creationFailure;
+        }
+      }
+
+      call = rawCall;
+      if (call == null) {
+        try {
+          call = rawCall = createRawCall();
+        } catch (IOException | RuntimeException | Error e) {
+          throwIfFatal(e); //  Do not assign a fatal error to creationFailure.
+          creationFailure = e;
+          throw e;
+        }
+      }
+    }
+
+    if (canceled) {
+      call.cancel();
+    }
+
+    return parseResponse(call.execute());
+!!!134382.java!!!	createRawCall() : okhttp3.Call
+    okhttp3.Call call = serviceMethod.toCall(args);
+    if (call == null) {
+      throw new NullPointerException("Call.Factory returned null.");
+    }
+    return call;
+!!!134510.java!!!	parseResponse(inout rawResponse : okhttp3.Response) : Response
+    ResponseBody rawBody = rawResponse.body();
+
+    // Remove the body's source (the only stateful object) so we can pass the response along.
+    rawResponse = rawResponse.newBuilder()
+        .body(new NoContentResponseBody(rawBody.contentType(), rawBody.contentLength()))
+        .build();
+
+    int code = rawResponse.code();
+    if (code < 200 || code >= 300) {
+      try {
+        // Buffer the entire body to avoid future I/O.
+        ResponseBody bufferedBody = Utils.buffer(rawBody);
+        return Response.error(bufferedBody, rawResponse);
+      } finally {
+        rawBody.close();
+      }
+    }
+
+    if (code == 204 || code == 205) {
+      rawBody.close();
+      return Response.success(null, rawResponse);
+    }
+
+    ExceptionCatchingRequestBody catchingBody = new ExceptionCatchingRequestBody(rawBody);
+    try {
+      T body = serviceMethod.toResponse(catchingBody);
+      return Response.success(body, rawResponse);
+    } catch (RuntimeException e) {
+      // If the underlying source threw an exception, propagate that rather than indicating it was
+      // a runtime exception.
+      catchingBody.throwIfCaught();
+      throw e;
+    }
+!!!134638.java!!!	cancel() : void
+    canceled = true;
+
+    okhttp3.Call call;
+    synchronized (this) {
+      call = rawCall;
+    }
+    if (call != null) {
+      call.cancel();
+    }
+!!!134766.java!!!	isCanceled() : boolean
+    if (canceled) {
+      return true;
+    }
+    synchronized (this) {
+      return rawCall != null && rawCall.isCanceled();
+    }

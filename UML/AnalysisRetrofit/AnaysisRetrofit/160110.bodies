@@ -1,0 +1,19 @@
+class ResponseCallAdapter
+!!!256366.java!!!	ResponseCallAdapter(inout responseType : Type)
+    this.responseType = responseType;
+!!!256494.java!!!	responseType() : Type
+    return responseType;
+!!!256622.java!!!	adapt(inout call : Call) : Response
+    Promise<Response<T>> promise = Promise.apply();
+
+    call.enqueue(new Callback<T>() {
+      @Override public void onResponse(@Nonnull Call<T> call, @Nonnull Response<T> response) {
+        promise.success(response);
+      }
+
+      @Override public void onFailure(@Nonnull Call<T> call, @Nonnull Throwable t) {
+        promise.failure(t);
+      }
+    });
+
+    return promise.future();

@@ -1,0 +1,21 @@
+class Result
+!!!193518.java!!!	error(inout error : Throwable) : Result
+    if (error == null) throw new NullPointerException("error == null");
+    return new Result<>(null, error);
+!!!193646.java!!!	response(inout response : Response) : Result
+    if (response == null) throw new NullPointerException("response == null");
+    return new Result<>(response, null);
+!!!193774.java!!!	Result(inout response : Response, inout error : Throwable)
+    this.response = response;
+    this.error = error;
+!!!193902.java!!!	response() : Response
+    return response;
+!!!194030.java!!!	error() : Throwable
+    return error;
+!!!194158.java!!!	isError() : boolean
+    return error != null;
+!!!194286.java!!!	toString() : String
+    if (error != null) {
+      return "Result{isError=true, error=\"" + error + "\"}";
+    }
+    return "Result{isError=false, response=" + response + '}';

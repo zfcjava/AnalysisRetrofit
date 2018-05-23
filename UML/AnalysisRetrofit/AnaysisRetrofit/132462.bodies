@@ -1,0 +1,12 @@
+class Field
+!!!138222.java!!!	Field(in name : String, inout valueConverter : Converter, inout encoded : boolean)
+      this.name = checkNotNull(name, "name == null");
+      this.valueConverter = valueConverter;
+      this.encoded = encoded;
+!!!138350.java!!!	apply(inout builder : RequestBuilder, inout value : T) : void
+      if (value == null) return; // Skip null values.
+
+      String fieldValue = valueConverter.convert(value);
+      if (fieldValue == null) return; // Skip null converted values
+
+      builder.addFormField(name, fieldValue, encoded);

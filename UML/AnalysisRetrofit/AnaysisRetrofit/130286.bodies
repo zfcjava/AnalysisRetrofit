@@ -1,0 +1,41 @@
+class ExecutorCallbackCall
+!!!131950.java!!!	ExecutorCallbackCall(inout callbackExecutor : Executor, inout delegate : Call)
+      this.callbackExecutor = callbackExecutor;
+      this.delegate = delegate;
+!!!132078.java!!!	enqueue(in callback : Callback) : void
+      checkNotNull(callback, "callback == null");
+
+      delegate.enqueue(new Callback<T>() {
+        @Override public void onResponse(Call<T> call, final Response<T> response) {
+          callbackExecutor.execute(new Runnable() {
+            @Override public void run() {
+              if (delegate.isCanceled()) {
+                // Emulate OkHttp's behavior of throwing/delivering an IOException on cancellation.
+                callback.onFailure(ExecutorCallbackCall.this, new IOException("Canceled"));
+              } else {
+                callback.onResponse(ExecutorCallbackCall.this, response);
+              }
+            }
+          });
+        }
+
+        @Override public void onFailure(Call<T> call, final Throwable t) {
+          callbackExecutor.execute(new Runnable() {
+            @Override public void run() {
+              callback.onFailure(ExecutorCallbackCall.this, t);
+            }
+          });
+        }
+      });
+!!!132206.java!!!	isExecuted() : boolean
+      return delegate.isExecuted();
+!!!132334.java!!!	execute() : Response
+      return delegate.execute();
+!!!132462.java!!!	cancel() : void
+      delegate.cancel();
+!!!132590.java!!!	isCanceled() : boolean
+      return delegate.isCanceled();
+!!!132718.java!!!	clone() : Call
+      return new ExecutorCallbackCall<>(callbackExecutor, delegate.clone());
+!!!132846.java!!!	request() : Request
+      return delegate.request();

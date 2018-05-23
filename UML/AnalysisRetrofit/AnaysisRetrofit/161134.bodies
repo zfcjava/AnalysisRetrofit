@@ -1,0 +1,15 @@
+class GsonResponseBodyConverter
+!!!260078.java!!!	GsonResponseBodyConverter(inout gson : Gson, inout adapter : TypeAdapter<T>)
+    this.gson = gson;
+    this.adapter = adapter;
+!!!260206.java!!!	convert(inout value : ResponseBody) : T
+    JsonReader jsonReader = gson.newJsonReader(value.charStream());
+    try {
+      T result = adapter.read(jsonReader);
+      if (jsonReader.peek() != JsonToken.END_DOCUMENT) {
+        throw new JsonIOException("JSON document was not fully consumed.");
+      }
+      return result;
+    } finally {
+      value.close();
+    }

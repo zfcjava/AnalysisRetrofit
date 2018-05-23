@@ -1,0 +1,5 @@
+class ResultOnSubscribe
+!!!194414.java!!!	ResultOnSubscribe(inout upstream : OnSubscribe<Response<T>>)
+    this.upstream = upstream;
+!!!194542.java!!!	call(inout subscriber : Subscriber<? super Result<T>>) : void
+    upstream.call(new ResultSubscriber<T>(subscriber));

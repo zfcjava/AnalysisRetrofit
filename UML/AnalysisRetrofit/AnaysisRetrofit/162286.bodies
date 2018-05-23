@@ -1,0 +1,5 @@
+class OptionalConverter
+!!!262638.java!!!	OptionalConverter(inout delegate : Converter)
+    this.delegate = delegate;
+!!!262766.java!!!	convert(inout value : ResponseBody) : Optional<T>
+    return Optional.fromNullable(delegate.convert(value));

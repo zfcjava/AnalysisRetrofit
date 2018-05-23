@@ -1,0 +1,40 @@
+class CallCallback
+!!!217582.java!!!	CallCallback(inout call : Call, inout observer : Observer<? super Response<T>>)
+      this.call = call;
+      this.observer = observer;
+!!!217710.java!!!	onResponse(inout call : Call, inout response : Response) : void
+      if (disposed) return;
+
+      try {
+        observer.onNext(response);
+
+        if (!disposed) {
+          terminated = true;
+          observer.onComplete();
+        }
+      } catch (Throwable t) {
+        if (terminated) {
+          RxJavaPlugins.onError(t);
+        } else if (!disposed) {
+          try {
+            observer.onError(t);
+          } catch (Throwable inner) {
+            Exceptions.throwIfFatal(inner);
+            RxJavaPlugins.onError(new CompositeException(t, inner));
+          }
+        }
+      }
+!!!217838.java!!!	onFailure(inout call : Call, inout t : Throwable) : void
+      if (call.isCanceled()) return;
+
+      try {
+        observer.onError(t);
+      } catch (Throwable inner) {
+        Exceptions.throwIfFatal(inner);
+        RxJavaPlugins.onError(new CompositeException(t, inner));
+      }
+!!!217966.java!!!	dispose() : void
+      disposed = true;
+      call.cancel();
+!!!218094.java!!!	isDisposed() : boolean
+      return disposed;

@@ -1,0 +1,5 @@
+class BodyOnSubscribe
+!!!191214.java!!!	BodyOnSubscribe(inout upstream : OnSubscribe<Response<T>>)
+    this.upstream = upstream;
+!!!191342.java!!!	call(inout subscriber : Subscriber<? super T>) : void
+    upstream.call(new BodySubscriber<T>(subscriber));

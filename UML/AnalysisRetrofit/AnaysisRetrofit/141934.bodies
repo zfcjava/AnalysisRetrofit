@@ -1,0 +1,27 @@
+class BodyCallAdapter
+!!!184942.java!!!	BodyCallAdapter(inout responseType : Type)
+      this.responseType = responseType;
+!!!185070.java!!!	responseType() : Type
+      return responseType;
+!!!185198.java!!!	adapt(in call : Call) : ListenableFuture<R>
+      return new AbstractFuture<R>() {
+        {
+          call.enqueue(new Callback<R>() {
+            @Override public void onResponse(Call<R> call, Response<R> response) {
+              if (response.isSuccessful()) {
+                set(response.body());
+              } else {
+                setException(new HttpException(response));
+              }
+            }
+
+            @Override public void onFailure(Call<R> call, Throwable t) {
+              setException(t);
+            }
+          });
+        }
+
+        @Override protected void interruptTask() {
+          call.cancel();
+        }
+      };

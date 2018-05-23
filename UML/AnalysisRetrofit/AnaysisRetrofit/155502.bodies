@@ -1,0 +1,35 @@
+class FlowableWithSchedulerTest
+!!!229742.java!!!	setUp() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(new StringConverterFactory())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(scheduler))
+        .build();
+    service = retrofit.create(Service.class);
+!!!229870.java!!!	bodyUsesScheduler() : void
+    server.enqueue(new MockResponse());
+
+    RecordingSubscriber<Object> subscriber = subscriberRule.create();
+    service.body().subscribe(subscriber);
+    subscriber.assertNoEvents();
+
+    scheduler.triggerActions();
+    subscriber.assertAnyValue().assertComplete();
+!!!229998.java!!!	responseUsesScheduler() : void
+    server.enqueue(new MockResponse());
+
+    RecordingSubscriber<Object> subscriber = subscriberRule.create();
+    service.response().subscribe(subscriber);
+    subscriber.assertNoEvents();
+
+    scheduler.triggerActions();
+    subscriber.assertAnyValue().assertComplete();
+!!!230126.java!!!	resultUsesScheduler() : void
+    server.enqueue(new MockResponse());
+
+    RecordingSubscriber<Object> subscriber = subscriberRule.create();
+    service.result().subscribe(subscriber);
+    subscriber.assertNoEvents();
+
+    scheduler.triggerActions();
+    subscriber.assertAnyValue().assertComplete();

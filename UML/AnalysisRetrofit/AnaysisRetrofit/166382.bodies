@@ -1,0 +1,44 @@
+class ProtoConverterFactory
+!!!274286.java!!!	create() : ProtoConverterFactory
+    return new ProtoConverterFactory(null);
+!!!274414.java!!!	createWithRegistry(inout registry : ExtensionRegistryLite) : ProtoConverterFactory
+    return new ProtoConverterFactory(registry);
+!!!274542.java!!!	ProtoConverterFactory(inout registry : ExtensionRegistryLite)
+    this.registry = registry;
+!!!274670.java!!!	responseBodyConverter(inout type : Type, inout annotations : Annotation, inout retrofit : Retrofit) : Converter
+    if (!(type instanceof Class<?>)) {
+      return null;
+    }
+    Class<?> c = (Class<?>) type;
+    if (!MessageLite.class.isAssignableFrom(c)) {
+      return null;
+    }
+
+    Parser<MessageLite> parser;
+    try {
+      Method method = c.getDeclaredMethod("parser");
+      //noinspection unchecked
+      parser = (Parser<MessageLite>) method.invoke(null);
+    } catch (InvocationTargetException e) {
+      throw new RuntimeException(e.getCause());
+    } catch (NoSuchMethodException | IllegalAccessException ignored) {
+      // If the method is missing, fall back to original static field for pre-3.0 support.
+      try {
+        Field field = c.getDeclaredField("PARSER");
+        //noinspection unchecked
+        parser = (Parser<MessageLite>) field.get(null);
+      } catch (NoSuchFieldException | IllegalAccessException e) {
+        throw new IllegalArgumentException("Found a protobuf message but "
+            + c.getName()
+            + " had no parser() method or PARSER field.");
+      }
+    }
+    return new ProtoResponseBodyConverter<>(parser, registry);
+!!!274798.java!!!	requestBodyConverter(inout type : Type, inout parameterAnnotations : Annotation, inout methodAnnotations : Annotation, inout retrofit : Retrofit) : Converter
+    if (!(type instanceof Class<?>)) {
+      return null;
+    }
+    if (!MessageLite.class.isAssignableFrom((Class<?>) type)) {
+      return null;
+    }
+    return new ProtoRequestBodyConverter<>();

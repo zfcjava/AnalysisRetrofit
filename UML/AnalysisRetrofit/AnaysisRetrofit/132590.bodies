@@ -1,0 +1,33 @@
+class FieldMap
+!!!138478.java!!!	FieldMap(inout valueConverter : Converter, inout encoded : boolean)
+      this.valueConverter = valueConverter;
+      this.encoded = encoded;
+!!!138606.java!!!	apply(inout builder : RequestBuilder, inout value : Map<String, T>) : void
+      if (value == null) {
+        throw new IllegalArgumentException("Field map was null.");
+      }
+
+      for (Map.Entry<String, T> entry : value.entrySet()) {
+        String entryKey = entry.getKey();
+        if (entryKey == null) {
+          throw new IllegalArgumentException("Field map contained null key.");
+        }
+        T entryValue = entry.getValue();
+        if (entryValue == null) {
+          throw new IllegalArgumentException(
+              "Field map contained null value for key '" + entryKey + "'.");
+        }
+
+        String fieldEntry = valueConverter.convert(entryValue);
+        if (fieldEntry == null) {
+          throw new IllegalArgumentException("Field map value '"
+              + entryValue
+              + "' converted to null by "
+              + valueConverter.getClass().getName()
+              + " for key '"
+              + entryKey
+              + "'.");
+        }
+
+        builder.addFormField(entryKey, fieldEntry, encoded);
+      }

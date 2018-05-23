@@ -1,0 +1,30 @@
+class WildcardTypeImpl
+!!!155630.java!!!	WildcardTypeImpl(inout upperBounds : Type, inout lowerBounds : Type)
+      if (lowerBounds.length > 1) throw new IllegalArgumentException();
+      if (upperBounds.length != 1) throw new IllegalArgumentException();
+
+      if (lowerBounds.length == 1) {
+        if (lowerBounds[0] == null) throw new NullPointerException();
+        checkNotPrimitive(lowerBounds[0]);
+        if (upperBounds[0] != Object.class) throw new IllegalArgumentException();
+        this.lowerBound = lowerBounds[0];
+        this.upperBound = Object.class;
+      } else {
+        if (upperBounds[0] == null) throw new NullPointerException();
+        checkNotPrimitive(upperBounds[0]);
+        this.lowerBound = null;
+        this.upperBound = upperBounds[0];
+      }
+!!!155758.java!!!	getUpperBounds() : Type
+      return new Type[] { upperBound };
+!!!155886.java!!!	getLowerBounds() : Type
+      return lowerBound != null ? new Type[] { lowerBound } : EMPTY_TYPE_ARRAY;
+!!!156014.java!!!	equals(inout other : Object) : boolean
+      return other instanceof WildcardType && Utils.equals(this, (WildcardType) other);
+!!!156142.java!!!	hashCode() : int
+      // This equals Arrays.hashCode(getLowerBounds()) ^ Arrays.hashCode(getUpperBounds()).
+      return (lowerBound != null ? 31 + lowerBound.hashCode() : 1) ^ (31 + upperBound.hashCode());
+!!!156270.java!!!	toString() : String
+      if (lowerBound != null) return "? super " + typeToString(lowerBound);
+      if (upperBound == Object.class) return "?";
+      return "? extends " + typeToString(upperBound);

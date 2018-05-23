@@ -1,0 +1,22 @@
+class ResultObserver
+!!!220014.java!!!	ResultObserver(inout observer : Observer<? super Result<R>>)
+      this.observer = observer;
+!!!220142.java!!!	onSubscribe(inout disposable : Disposable) : void
+      observer.onSubscribe(disposable);
+!!!220270.java!!!	onNext(inout response : Response) : void
+      observer.onNext(Result.response(response));
+!!!220398.java!!!	onError(inout throwable : Throwable) : void
+      try {
+        observer.onNext(Result.<R>error(throwable));
+      } catch (Throwable t) {
+        try {
+          observer.onError(t);
+        } catch (Throwable inner) {
+          Exceptions.throwIfFatal(inner);
+          RxJavaPlugins.onError(new CompositeException(t, inner));
+        }
+        return;
+      }
+      observer.onComplete();
+!!!220526.java!!!	onComplete() : void
+      observer.onComplete();

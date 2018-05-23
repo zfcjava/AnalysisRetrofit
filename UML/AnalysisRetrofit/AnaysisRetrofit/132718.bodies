@@ -1,0 +1,14 @@
+class Part
+!!!138734.java!!!	Part(inout headers : Headers, inout converter : Converter)
+      this.headers = headers;
+      this.converter = converter;
+!!!138862.java!!!	apply(inout builder : RequestBuilder, inout value : T) : void
+      if (value == null) return; // Skip null values.
+
+      RequestBody body;
+      try {
+        body = converter.convert(value);
+      } catch (IOException e) {
+        throw new RuntimeException("Unable to convert " + value + " to RequestBody", e);
+      }
+      builder.addPart(headers, body);

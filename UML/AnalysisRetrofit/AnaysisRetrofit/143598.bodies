@@ -1,0 +1,50 @@
+class Java8CallAdapterFactoryTest
+!!!190318.java!!!	setUp() : void
+    retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(new StringConverterFactory())
+        .addCallAdapterFactory(factory)
+        .build();
+!!!190446.java!!!	responseType() : void
+    Type bodyClass = new TypeToken<CompletableFuture<String>>() {}.getType();
+    assertThat(factory.get(bodyClass, NO_ANNOTATIONS, retrofit).responseType())
+        .isEqualTo(String.class);
+    Type bodyWildcard = new TypeToken<CompletableFuture<? extends String>>() {}.getType();
+    assertThat(factory.get(bodyWildcard, NO_ANNOTATIONS, retrofit).responseType())
+        .isEqualTo(String.class);
+    Type bodyGeneric = new TypeToken<CompletableFuture<List<String>>>() {}.getType();
+    assertThat(factory.get(bodyGeneric, NO_ANNOTATIONS, retrofit).responseType())
+        .isEqualTo(new TypeToken<List<String>>() {}.getType());
+    Type responseClass = new TypeToken<CompletableFuture<Response<String>>>() {}.getType();
+    assertThat(factory.get(responseClass, NO_ANNOTATIONS, retrofit).responseType())
+        .isEqualTo(String.class);
+    Type responseWildcard = new TypeToken<CompletableFuture<Response<? extends String>>>() {}.getType();
+    assertThat(factory.get(responseWildcard, NO_ANNOTATIONS, retrofit).responseType())
+        .isEqualTo(String.class);
+    Type resultClass = new TypeToken<CompletableFuture<Response<String>>>() {}.getType();
+    assertThat(factory.get(resultClass, NO_ANNOTATIONS, retrofit).responseType())
+        .isEqualTo(String.class);
+    Type resultWildcard = new TypeToken<CompletableFuture<Response<? extends String>>>() {}.getType();
+    assertThat(factory.get(resultWildcard, NO_ANNOTATIONS, retrofit).responseType())
+        .isEqualTo(String.class);
+!!!190574.java!!!	nonListenableFutureReturnsNull() : void
+    CallAdapter<?, ?> adapter = factory.get(String.class, NO_ANNOTATIONS, retrofit);
+    assertThat(adapter).isNull();
+!!!190702.java!!!	rawTypeThrows() : void
+    Type observableType = new TypeToken<CompletableFuture>() {}.getType();
+    try {
+      factory.get(observableType, NO_ANNOTATIONS, retrofit);
+      fail();
+    } catch (IllegalStateException e) {
+      assertThat(e).hasMessage(
+          "CompletableFuture return type must be parameterized as CompletableFuture<Foo> or CompletableFuture<? extends Foo>");
+    }
+!!!190830.java!!!	rawResponseTypeThrows() : void
+    Type observableType = new TypeToken<CompletableFuture<Response>>() {}.getType();
+    try {
+      factory.get(observableType, NO_ANNOTATIONS, retrofit);
+      fail();
+    } catch (IllegalStateException e) {
+      assertThat(e).hasMessage(
+          "Response must be parameterized as Response<Foo> or Response<? extends Foo>");
+    }

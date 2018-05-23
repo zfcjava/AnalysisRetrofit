@@ -1,0 +1,19 @@
+class CallExecuteOnSubscribe
+!!!193134.java!!!	CallExecuteOnSubscribe(inout originalCall : Call)
+    this.originalCall = originalCall;
+!!!193262.java!!!	call(inout subscriber : Subscriber<? super Response<T>>) : void
+    // Since Call is a one-shot type, clone it for each new subscriber.
+    Call<T> call = originalCall.clone();
+    CallArbiter<T> arbiter = new CallArbiter<>(call, subscriber);
+    subscriber.add(arbiter);
+    subscriber.setProducer(arbiter);
+
+    Response<T> response;
+    try {
+      response = call.execute();
+    } catch (Throwable t) {
+      Exceptions.throwIfFatal(t);
+      arbiter.emitError(t);
+      return;
+    }
+    arbiter.emitResponse(response);

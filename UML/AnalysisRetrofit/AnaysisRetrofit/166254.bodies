@@ -1,0 +1,140 @@
+class MoshiConverterFactoryTest
+!!!273006.java!!!	setUp() : void
+    Moshi moshi = new Moshi.Builder()
+        .add(new JsonAdapter.Factory() {
+          @Override public JsonAdapter<?> create(Type type, Set<? extends Annotation> annotations,
+              Moshi moshi) {
+            for (Annotation annotation : annotations) {
+              if (!annotation.annotationType().isAnnotationPresent(JsonQualifier.class)) {
+                throw new AssertionError("Non-@JsonQualifier annotation: " + annotation);
+              }
+            }
+            return null;
+          }
+        })
+        .add(new Adapters())
+        .build();
+    MoshiConverterFactory factory = MoshiConverterFactory.create(moshi);
+    MoshiConverterFactory factoryLenient = factory.asLenient();
+    MoshiConverterFactory factoryNulls = factory.withNullSerialization();
+    MoshiConverterFactory factoryFailOnUnknown = factory.failOnUnknown();
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(factory)
+        .build();
+    Retrofit retrofitLenient = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(factoryLenient)
+        .build();
+    Retrofit retrofitNulls = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(factoryNulls)
+        .build();
+    Retrofit retrofitFailOnUnknown = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(factoryFailOnUnknown)
+        .build();
+    service = retrofit.create(Service.class);
+    serviceLenient = retrofitLenient.create(Service.class);
+    serviceNulls = retrofitNulls.create(Service.class);
+    serviceFailOnUnknown = retrofitFailOnUnknown.create(Service.class);
+!!!273134.java!!!	anInterface() : void
+    server.enqueue(new MockResponse().setBody("{\"name\":\"value\"}"));
+
+    Call<AnInterface> call = service.anInterface(new AnImplementation("value"));
+    Response<AnInterface> response = call.execute();
+    AnInterface body = response.body();
+    assertThat(body.getName()).isEqualTo("value");
+
+    RecordedRequest request = server.takeRequest();
+    assertThat(request.getBody().readUtf8()).isEqualTo("{\"name\":\"value\"}");
+    assertThat(request.getHeader("Content-Type")).isEqualTo("application/json; charset=UTF-8");
+!!!273262.java!!!	anImplementation() : void
+    server.enqueue(new MockResponse().setBody("{\"theName\":\"value\"}"));
+
+    Call<AnImplementation> call = service.anImplementation(new AnImplementation("value"));
+    Response<AnImplementation> response = call.execute();
+    AnImplementation body = response.body();
+    assertThat(body.theName).isEqualTo("value");
+
+    RecordedRequest request = server.takeRequest();
+    assertThat(request.getBody().readUtf8()).isEqualTo("{\"theName\":\"value\"}");
+    assertThat(request.getHeader("Content-Type")).isEqualTo("application/json; charset=UTF-8");
+!!!273390.java!!!	annotations() : void
+    server.enqueue(new MockResponse().setBody("\"qualified!\""));
+
+    Call<String> call = service.annotations("value");
+    Response<String> response = call.execute();
+    assertThat(response.body()).isEqualTo("it worked!");
+
+    RecordedRequest request = server.takeRequest();
+    assertThat(request.getBody().readUtf8()).isEqualTo("\"qualified!\"");
+    assertThat(request.getHeader("Content-Type")).isEqualTo("application/json; charset=UTF-8");
+!!!273518.java!!!	asLenient() : void
+    MockResponse malformedResponse = new MockResponse().setBody("{\"theName\":value}");
+    server.enqueue(malformedResponse);
+    server.enqueue(malformedResponse);
+
+    Call<AnImplementation> call = service.anImplementation(new AnImplementation("value"));
+    try {
+      call.execute();
+      fail();
+    } catch (IOException e) {
+      assertEquals(e.getMessage(),
+          "Use JsonReader.setLenient(true) to accept malformed JSON at path $.theName");
+    }
+
+    Call<AnImplementation> call2 = serviceLenient.anImplementation(new AnImplementation("value"));
+    Response<AnImplementation> response = call2.execute();
+    AnImplementation body = response.body();
+    assertThat(body.theName).isEqualTo("value");
+!!!273646.java!!!	withNulls() : void
+    server.enqueue(new MockResponse().setBody("{}"));
+
+    Call<AnImplementation> call = serviceNulls.anImplementation(new AnImplementation(null));
+    call.execute();
+    assertEquals("{\"theName\":null}", server.takeRequest().getBody().readUtf8());
+!!!273774.java!!!	failOnUnknown() : void
+    server.enqueue(new MockResponse().setBody("{\"taco\":\"delicious\"}"));
+
+    Call<AnImplementation> call = serviceFailOnUnknown.anImplementation(new AnImplementation(null));
+    try {
+      call.execute();
+      fail();
+    } catch (JsonDataException e) {
+      assertThat(e).hasMessage("Cannot skip unexpected STRING at $.taco");
+    }
+!!!273902.java!!!	utf8BomSkipped() : void
+    Buffer responseBody = new Buffer()
+        .write(ByteString.decodeHex("EFBBBF"))
+        .writeUtf8("{\"theName\":\"value\"}");
+    MockResponse malformedResponse = new MockResponse().setBody(responseBody);
+    server.enqueue(malformedResponse);
+
+    Call<AnImplementation> call = service.anImplementation(new AnImplementation("value"));
+    Response<AnImplementation> response = call.execute();
+    AnImplementation body = response.body();
+    assertThat(body.theName).isEqualTo("value");
+!!!274030.java!!!	nonUtf8BomIsNotSkipped() : void
+    Buffer responseBody = new Buffer()
+        .write(ByteString.decodeHex("FEFF"))
+        .writeString("{\"theName\":\"value\"}", Charset.forName("UTF-16"));
+    MockResponse malformedResponse = new MockResponse().setBody(responseBody);
+    server.enqueue(malformedResponse);
+
+    Call<AnImplementation> call = service.anImplementation(new AnImplementation("value"));
+    try {
+      call.execute();
+      fail();
+    } catch (IOException expected) {
+    }
+!!!274158.java!!!	requireFullResponseDocumentConsumption() : void
+    server.enqueue(new MockResponse().setBody("{\"theName\":\"value\"}"));
+
+    Call<Value> call = service.value();
+    try {
+      call.execute();
+      fail();
+    } catch (JsonDataException e) {
+      assertThat(e).hasMessage("JSON document was not fully consumed.");
+    }

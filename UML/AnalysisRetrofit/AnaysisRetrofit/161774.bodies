@@ -1,0 +1,19 @@
+class AnInterfaceAdapter
+!!!260846.java!!!	write(inout jsonWriter : JsonWriter, inout anInterface : GsonConverterFactoryTest::AnInterface) : void
+      jsonWriter.beginObject();
+      jsonWriter.name("name").value(anInterface.getName());
+      jsonWriter.endObject();
+!!!260974.java!!!	read(inout jsonReader : JsonReader) : GsonConverterFactoryTest::AnInterface
+      jsonReader.beginObject();
+
+      String name = null;
+      while (jsonReader.peek() != JsonToken.END_OBJECT) {
+        switch (jsonReader.nextName()) {
+          case "name":
+            name = jsonReader.nextString();
+            break;
+        }
+      }
+
+      jsonReader.endObject();
+      return new AnImplementation(name);

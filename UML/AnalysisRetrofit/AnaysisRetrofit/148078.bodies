@@ -1,0 +1,9 @@
+class ForwardingSubscriber
+!!!200686.java!!!	ForwardingSubscriber(inout delegate : Subscriber<T>)
+    this.delegate = delegate;
+!!!200814.java!!!	onNext(inout value : T) : void
+    delegate.onNext(value);
+!!!200942.java!!!	onCompleted() : void
+    delegate.onCompleted();
+!!!201070.java!!!	onError(inout throwable : Throwable) : void
+    delegate.onError(throwable);

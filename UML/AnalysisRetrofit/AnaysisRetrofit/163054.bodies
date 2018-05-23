@@ -1,0 +1,9 @@
+class JacksonResponseBodyConverter
+!!!264558.java!!!	JacksonResponseBodyConverter(inout adapter : ObjectReader)
+    this.adapter = adapter;
+!!!264686.java!!!	convert(inout value : ResponseBody) : T
+    try {
+      return adapter.readValue(value.charStream());
+    } finally {
+      value.close();
+    }

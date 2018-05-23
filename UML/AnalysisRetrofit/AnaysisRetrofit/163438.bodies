@@ -1,0 +1,5 @@
+class AnImplementation
+!!!265070.java!!!	AnImplementation(in name : String)
+      theName = name;
+!!!265198.java!!!	getName() : String
+      return theName;

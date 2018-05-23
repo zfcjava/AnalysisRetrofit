@@ -1,0 +1,44 @@
+class RecordingMaybeObserver
+!!!241518.java!!!	onSuccess(inout value : T) : void
+    events.add(Notification.createOnNext(value));
+!!!241646.java!!!	onError(inout e : Throwable) : void
+    events.add(Notification.<T>createOnError(e));
+!!!241774.java!!!	onComplete() : void
+    events.add(Notification.<T>createOnComplete());
+!!!241902.java!!!	takeNotification() : Notification<T>
+    Notification<T> notification = events.pollFirst();
+    if (notification == null) {
+      throw new AssertionError("No event found!");
+    }
+    return notification;
+!!!242030.java!!!	takeValue() : T
+    Notification<T> notification = takeNotification();
+    assertThat(notification.isOnNext())
+        .as("Expected onNext event but was " + notification)
+        .isTrue();
+    return notification.getValue();
+!!!242158.java!!!	takeError() : Throwable
+    Notification<T> notification = takeNotification();
+    assertThat(notification.isOnError())
+        .as("Expected onError event but was " + notification)
+        .isTrue();
+    return notification.getError();
+!!!242286.java!!!	assertAnyValue() : RecordingMaybeObserver
+    takeValue();
+    return this;
+!!!242414.java!!!	assertValue(inout value : T) : RecordingMaybeObserver
+    assertThat(takeValue()).isEqualTo(value);
+    return this;
+!!!242542.java!!!	assertError(inout throwable : Throwable) : void
+    assertThat(takeError()).isEqualTo(throwable);
+!!!242670.java!!!	assertError(inout errorClass : Class<? extends Throwable>) : void
+    assertError(errorClass, null);
+!!!242798.java!!!	assertError(inout errorClass : Class<? extends Throwable>, in message : String) : void
+    Throwable throwable = takeError();
+    assertThat(throwable).isInstanceOf(errorClass);
+    if (message != null) {
+      assertThat(throwable).hasMessage(message);
+    }
+    assertNoEvents();
+!!!242926.java!!!	assertNoEvents() : void
+    assertThat(events).as("Unconsumed events found!").isEmpty();

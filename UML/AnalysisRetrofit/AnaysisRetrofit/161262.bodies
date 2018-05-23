@@ -1,0 +1,58 @@
+class GsonConverterFactoryTest
+!!!261486.java!!!	setUp() : void
+    Gson gson = new GsonBuilder()
+        .registerTypeAdapter(AnInterface.class, new AnInterfaceAdapter())
+        .registerTypeAdapter(Value.class, Value.BROKEN_ADAPTER)
+        .setLenient()
+        .create();
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .build();
+    service = retrofit.create(Service.class);
+!!!261614.java!!!	anInterface() : void
+    server.enqueue(new MockResponse().setBody("{\"name\":\"value\"}"));
+
+    Call<AnInterface> call = service.anInterface(new AnImplementation("value"));
+    Response<AnInterface> response = call.execute();
+    AnInterface body = response.body();
+    assertThat(body.getName()).isEqualTo("value");
+
+    RecordedRequest request = server.takeRequest();
+    assertThat(request.getBody().readUtf8()).isEqualTo("{\"name\":\"value\"}");
+    assertThat(request.getHeader("Content-Type")).isEqualTo("application/json; charset=UTF-8");
+!!!261742.java!!!	anImplementation() : void
+    server.enqueue(new MockResponse().setBody("{\"theName\":\"value\"}"));
+
+    Call<AnImplementation> call = service.anImplementation(new AnImplementation("value"));
+    Response<AnImplementation> response = call.execute();
+    AnImplementation body = response.body();
+    assertThat(body.theName).isEqualTo("value");
+
+    RecordedRequest request = server.takeRequest();
+    assertThat(request.getBody().readUtf8()).isEqualTo("{\"theName\":\"value\"}");
+    assertThat(request.getHeader("Content-Type")).isEqualTo("application/json; charset=UTF-8");
+!!!261870.java!!!	serializeUsesConfiguration() : void
+    server.enqueue(new MockResponse().setBody("{}"));
+
+    service.anImplementation(new AnImplementation(null)).execute();
+
+    RecordedRequest request = server.takeRequest();
+    assertThat(request.getBody().readUtf8()).isEqualTo("{}"); // Null value was not serialized.
+    assertThat(request.getHeader("Content-Type")).isEqualTo("application/json; charset=UTF-8");
+!!!261998.java!!!	deserializeUsesConfiguration() : void
+    server.enqueue(new MockResponse().setBody("{/* a comment! */}"));
+
+    Response<AnImplementation> response =
+        service.anImplementation(new AnImplementation("value")).execute();
+    assertThat(response.body().getName()).isNull();
+!!!262126.java!!!	requireFullResponseDocumentConsumption() : void
+    server.enqueue(new MockResponse().setBody("{\"theName\":\"value\"}"));
+
+    Call<Value> call = service.value();
+    try {
+      call.execute();
+      fail();
+    } catch (JsonIOException e) {
+      assertThat(e).hasMessage("JSON document was not fully consumed.");
+    }

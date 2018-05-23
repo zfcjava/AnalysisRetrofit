@@ -1,0 +1,7 @@
+class AlwaysNullConverterFactory
+!!!267118.java!!!	responseBodyConverter(inout type : Type, inout annotations : Annotation, inout retrofit : Retrofit) : Converter
+    return new Converter<ResponseBody, Object>() {
+      @Override public Object convert(ResponseBody value) throws IOException {
+        return null;
+      }
+    };

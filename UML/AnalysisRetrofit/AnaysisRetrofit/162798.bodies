@@ -1,0 +1,16 @@
+class JacksonConverterFactory
+!!!263662.java!!!	create() : JacksonConverterFactory
+    return create(new ObjectMapper());
+!!!263790.java!!!	create(inout mapper : ObjectMapper) : JacksonConverterFactory
+    if (mapper == null) throw new NullPointerException("mapper == null");
+    return new JacksonConverterFactory(mapper);
+!!!263918.java!!!	JacksonConverterFactory(inout mapper : ObjectMapper)
+    this.mapper = mapper;
+!!!264046.java!!!	responseBodyConverter(inout type : Type, inout annotations : Annotation, inout retrofit : Retrofit) : Converter
+    JavaType javaType = mapper.getTypeFactory().constructType(type);
+    ObjectReader reader = mapper.readerFor(javaType);
+    return new JacksonResponseBodyConverter<>(reader);
+!!!264174.java!!!	requestBodyConverter(inout type : Type, inout parameterAnnotations : Annotation, inout methodAnnotations : Annotation, inout retrofit : Retrofit) : Converter
+    JavaType javaType = mapper.getTypeFactory().constructType(type);
+    ObjectWriter writer = mapper.writerFor(javaType);
+    return new JacksonRequestBodyConverter<>(writer);

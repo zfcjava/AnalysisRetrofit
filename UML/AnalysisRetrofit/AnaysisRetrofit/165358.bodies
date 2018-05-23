@@ -1,0 +1,12 @@
+class Contact
+!!!269166.java!!!	Contact()
+    this("", new ArrayList<PhoneNumber>());
+!!!269294.java!!!	Contact(in name : String, inout phoneNumbers : List<PhoneNumber>)
+    this.name = name;
+    this.phone_numbers = phoneNumbers;
+!!!269422.java!!!	equals(inout o : Object) : boolean
+    return o instanceof Contact
+        && ((Contact) o).name.equals(name)
+        && ((Contact) o).phone_numbers.equals(phone_numbers);
+!!!269550.java!!!	hashCode() : int
+    return Arrays.asList(name, phone_numbers).hashCode();

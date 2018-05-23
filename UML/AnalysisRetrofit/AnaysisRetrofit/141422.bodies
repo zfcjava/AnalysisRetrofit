@@ -1,0 +1,10 @@
+class NonMatchingConverterFactory
+!!!183790.java!!!	responseBodyConverter(inout type : Type, inout annotations : Annotation, inout retrofit : Retrofit) : Converter
+    called = true;
+    return null;
+!!!183918.java!!!	requestBodyConverter(inout type : Type, inout parameterAnnotations : Annotation, inout methodAnnotations : Annotation, inout retrofit : Retrofit) : Converter
+    called = true;
+    return null;
+!!!184046.java!!!	stringConverter(inout type : Type, inout annotations : Annotation, inout retrofit : Retrofit) : Converter
+    called = true;
+    return null;

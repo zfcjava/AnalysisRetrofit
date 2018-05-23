@@ -1,0 +1,37 @@
+class RxJavaCallAdapter
+!!!195182.java!!!	RxJavaCallAdapter(inout responseType : Type, inout scheduler : Scheduler, inout isAsync : boolean, inout isResult : boolean, inout isBody : boolean, inout isSingle : boolean, inout isCompletable : boolean)
+    this.responseType = responseType;
+    this.scheduler = scheduler;
+    this.isAsync = isAsync;
+    this.isResult = isResult;
+    this.isBody = isBody;
+    this.isSingle = isSingle;
+    this.isCompletable = isCompletable;
+!!!195310.java!!!	responseType() : Type
+    return responseType;
+!!!195438.java!!!	adapt(inout call : Call) : Object
+    OnSubscribe<Response<R>> callFunc = isAsync
+        ? new CallEnqueueOnSubscribe<>(call)
+        : new CallExecuteOnSubscribe<>(call);
+
+    OnSubscribe<?> func;
+    if (isResult) {
+      func = new ResultOnSubscribe<>(callFunc);
+    } else if (isBody) {
+      func = new BodyOnSubscribe<>(callFunc);
+    } else {
+      func = callFunc;
+    }
+    Observable<?> observable = Observable.create(func);
+
+    if (scheduler != null) {
+      observable = observable.subscribeOn(scheduler);
+    }
+
+    if (isSingle) {
+      return observable.toSingle();
+    }
+    if (isCompletable) {
+      return observable.toCompletable();
+    }
+    return observable;

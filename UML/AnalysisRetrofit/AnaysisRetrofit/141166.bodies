@@ -1,0 +1,4 @@
+class DelegatingCallAdapterFactory
+!!!183534.java!!!	get(inout returnType : Type, inout annotations : Annotation, inout retrofit : Retrofit) : CallAdapter
+    called = true;
+    return retrofit.nextCallAdapter(this, returnType, annotations);

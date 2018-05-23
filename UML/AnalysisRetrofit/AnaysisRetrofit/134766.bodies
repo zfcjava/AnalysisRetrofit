@@ -1,0 +1,12 @@
+class GenericArrayTypeImpl
+!!!154990.java!!!	GenericArrayTypeImpl(inout componentType : Type)
+      this.componentType = componentType;
+!!!155118.java!!!	getGenericComponentType() : Type
+      return componentType;
+!!!155246.java!!!	equals(inout o : Object) : boolean
+      return o instanceof GenericArrayType
+          && Utils.equals(this, (GenericArrayType) o);
+!!!155374.java!!!	hashCode() : int
+      return componentType.hashCode();
+!!!155502.java!!!	toString() : String
+      return typeToString(componentType) + "[]";

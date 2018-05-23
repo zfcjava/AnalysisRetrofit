@@ -1,0 +1,806 @@
+format 76
+"moshi" // retrofit::retrofit::src::main::java::retrofit2::converter::moshi
+  revision 1
+  modified_by 110 "Administrator"
+  // class settings
+  //class diagram settings
+  draw_all_relations default hide_attributes default hide_operations default hide_getset_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_context default show_members_multiplicity default show_members_initialization default show_attribute_modifiers default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_relation_modifiers default show_relation_visibility default show_infonote default shadow default show_stereotype_properties default
+  //use case diagram settings
+  package_name_in_tab default show_context default auto_label_position default draw_all_relations default class_drawing_mode default shadow default show_stereotype_properties default
+  //sequence diagram settings
+  show_full_operations_definition default write_horizontally default class_drawing_mode default drawing_language default draw_all_relations default shadow default show_stereotype_properties default show_class_context_mode default show_msg_context_mode default
+  //collaboration diagram settings
+  show_full_operations_definition default show_hierarchical_rank default write_horizontally default class_drawing_mode default drawing_language default package_name_in_tab default show_context default show_msg_context default draw_all_relations default shadow default show_stereotype_properties default
+  //object diagram settings
+   write_horizontally default package_name_in_tab default show_context default auto_label_position default draw_all_relations default shadow default show_stereotype_properties default
+  //component diagram settings
+  package_name_in_tab default show_context default auto_label_position default draw_all_relations default shadow default
+  draw_component_as_icon default show_component_req_prov default show_component_rea default show_stereotype_properties default
+  //deployment diagram settings
+  package_name_in_tab default show_context default write_horizontally default auto_label_position default draw_all_relations default shadow default
+  draw_component_as_icon default show_component_req_prov default show_component_rea default show_stereotype_properties default
+  //state diagram settings
+  package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations default shadow default
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  //activity diagram settings
+  package_name_in_tab default show_context default show_opaque_action_definition default auto_label_position default write_flow_label_horizontally default draw_all_relations default shadow default
+  show_infonote default drawing_language default show_stereotype_properties default
+  
+  java_dir "e:/android2018/AnalysisRetrofit/source/retrofit/retrofit-converters/moshi/src/main/java/retrofit2/converter/moshi/"
+  java_package "retrofit2.converter.moshi"
+  classview 129902 "moshi"
+    //class diagram settings
+    draw_all_relations default hide_attributes default hide_operations default hide_getset_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_context default show_members_multiplicity default show_members_initialization default show_attribute_modifiers default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_relation_modifiers default show_relation_visibility default show_infonote default shadow default show_stereotype_properties default
+    //collaboration diagram settings
+    show_full_operations_definition default show_hierarchical_rank default write_horizontally default class_drawing_mode default drawing_language default package_name_in_tab default show_context default show_msg_context default draw_all_relations default shadow default show_stereotype_properties default
+    //object diagram settings
+     write_horizontally default package_name_in_tab default show_context default auto_label_position default draw_all_relations default shadow default show_stereotype_properties default
+    //sequence diagram settings
+    show_full_operations_definition default write_horizontally default class_drawing_mode default drawing_language default draw_all_relations default shadow default show_stereotype_properties default show_class_context_mode default show_msg_context_mode default
+    //state diagram settings
+    package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations default shadow default
+    show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+    //class settings
+    //activity diagram settings
+    package_name_in_tab default show_context default show_opaque_action_definition default auto_label_position default write_flow_label_horizontally default draw_all_relations default shadow default
+    show_infonote default drawing_language default show_stereotype_properties default
+    class 165870 "MoshiConverterFactory"
+      visibility public 
+      nactuals 4
+      actual class class_ref 128238 // Converter
+        rank 0 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 1 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 2 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 3 explicit_value ""
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "A {@linkplain Converter.Factory converter} which uses Moshi for JSON.
+<p>
+Because Moshi is so flexible in the types it supports, this converter assumes that it can handle
+all types. If you are mixing JSON serialization with something else (such as protocol buffers),
+you must {@linkplain Retrofit.Builder#addConverterFactory(Converter.Factory) add this instance}
+last to allow the other converters a chance to see their types.
+<p>
+Any {@link JsonQualifier @JsonQualifier}-annotated annotations on the parameter will be used
+when looking up a request body converter and those on the method will be used when looking up a
+response body converter."
+      classrelation 161902 // <generalisation>
+	relation 161902 ---|>
+	  a public
+	    java "${type}"
+	    classrelation_ref 161902 // <generalisation>
+	  b parent class_ref 128366 // Factory
+      end
+
+      operation 271342 "create"
+	class_operation public return_type class_ref 165870 // MoshiConverterFactory
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment " Create an instance using a default {@link Moshi} instance for conversion. "
+      end
+
+      operation 271470 "create"
+	class_operation public return_type class_ref 165870 // MoshiConverterFactory
+	nparams 1
+	  param inout name "moshi" explicit_type "Moshi"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@SuppressWarnings(\"ConstantConditions\")
+"
+	
+	
+	
+	comment " Create an instance using {@code moshi} for conversion. 
+ Guarding public API nullability."
+      end
+
+      attribute 161006 "moshi"
+	const_attribute private explicit_type "Moshi"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 161134 "lenient"
+	const_attribute private explicit_type "boolean"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 161262 "failOnUnknown"
+	const_attribute private explicit_type "boolean"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 161390 "serializeNulls"
+	const_attribute private explicit_type "boolean"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      operation 271598 "MoshiConverterFactory"
+	private explicit_return_type ""
+	nparams 4
+	  param inout name "moshi" explicit_type "Moshi"
+	  param inout name "lenient" explicit_type "boolean"
+	  param inout name "failOnUnknown" explicit_type "boolean"
+	  param inout name "serializeNulls" explicit_type "boolean"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}, ${t3} ${p3}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 271726 "asLenient"
+	public return_type class_ref 165870 // MoshiConverterFactory
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment " Return a new factory which uses {@linkplain JsonAdapter#lenient() lenient} adapters. "
+      end
+
+      operation 271854 "failOnUnknown"
+	public return_type class_ref 165870 // MoshiConverterFactory
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Return a new factory which uses {@link JsonAdapter#failOnUnknown()} adapters."
+      end
+
+      operation 271982 "withNullSerialization"
+	public return_type class_ref 165870 // MoshiConverterFactory
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment " Return a new factory which includes null values into the serialized JSON. "
+      end
+
+      operation 272110 "responseBodyConverter"
+	public return_type class_ref 128238 // Converter
+	nparams 3
+	  param inout name "type" explicit_type "Type"
+	  param inout name "annotations" explicit_type "Annotation"
+	  param inout name "retrofit" type class_ref 128494 // Retrofit
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type}<ResponseBody, ?> ${name}${(}${t0} ${p0}, ${t1}[] ${p1}, ${t2} ${p2}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 272238 "requestBodyConverter"
+	public return_type class_ref 128238 // Converter
+	nparams 4
+	  param inout name "type" explicit_type "Type"
+	  param inout name "parameterAnnotations" explicit_type "Annotation"
+	  param inout name "methodAnnotations" explicit_type "Annotation"
+	  param inout name "retrofit" type class_ref 128494 // Retrofit
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type}<?, RequestBody> ${name}${(}${t0} ${p0}, ${t1}[] ${p1}, ${t2}[] ${p2}, ${t3} ${p3}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 272366 "jsonAnnotations"
+	class_operation private explicit_return_type "Set<? extends Annotation>"
+	nparams 1
+	  param inout name "annotations" explicit_type "Annotation"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0}[] ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+    end
+
+    class 165998 "MoshiRequestBodyConverter"
+      visibility package 
+      nformals 1
+      formal name "T" type "" explicit_default_value ""
+        explicit_extends ""
+      nactuals 4
+      actual class class_ref 128238 // Converter
+        rank 0 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 1 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 2 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 3 explicit_value ""
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      classrelation 162030 // <realization>
+	relation 162030 -_-|>
+	  stereotype "bind"
+	  a public
+	    java "${type}"
+	    classrelation_ref 162030 // <realization>
+	  b parent class_ref 128238 // Converter
+      end
+
+      attribute 161518 "MEDIA_TYPE"
+	class_attribute const_attribute private explicit_type "MediaType"
+	init_value " MediaType.parse(\"application/json; charset=UTF-8\")"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 161646 "adapter"
+	const_attribute private explicit_type "T"
+	stereotype "JsonAdapter"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}> ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      operation 272494 "MoshiRequestBodyConverter"
+	package explicit_return_type ""
+	nparams 1
+	  param inout name "adapter" explicit_type "JsonAdapter<T>"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 272622 "convert"
+	public explicit_return_type "RequestBody"
+	nparams 1
+	  param inout name "value" explicit_type "T"
+	nexceptions 1
+	  explicit_exception "IOException"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+    end
+
+    class 166126 "MoshiResponseBodyConverter"
+      visibility package 
+      nformals 1
+      formal name "T" type "" explicit_default_value ""
+        explicit_extends ""
+      nactuals 4
+      actual class class_ref 128238 // Converter
+        rank 0 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 1 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 2 explicit_value ""
+      actual class class_ref 128238 // Converter
+        rank 3 explicit_value ""
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      classrelation 162158 // <realization>
+	relation 162158 -_-|>
+	  stereotype "bind"
+	  a public
+	    java "${type}"
+	    classrelation_ref 162158 // <realization>
+	  b parent class_ref 128238 // Converter
+      end
+
+      attribute 161774 "UTF8_BOM"
+	class_attribute const_attribute private explicit_type "ByteString"
+	init_value " ByteString.decodeHex(\"EFBBBF\")"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 161902 "adapter"
+	const_attribute private explicit_type "T"
+	stereotype "JsonAdapter"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}> ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      operation 272750 "MoshiResponseBodyConverter"
+	package explicit_return_type ""
+	nparams 1
+	  param inout name "adapter" explicit_type "JsonAdapter<T>"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 272878 "convert"
+	public explicit_return_type "T"
+	nparams 1
+	  param inout name "value" explicit_type "ResponseBody"
+	nexceptions 1
+	  explicit_exception "IOException"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+    end
+
+    class 166254 "MoshiConverterFactoryTest"
+      visibility public 
+      cpp_decl ""
+      final java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      attribute 162030 "service"
+	private explicit_type "Service"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 162158 "serviceLenient"
+	private explicit_type "Service"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 162286 "serviceNulls"
+	private explicit_type "Service"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 162414 "serviceFailOnUnknown"
+	private explicit_type "Service"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      operation 273006 "setUp"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Before
+"
+	
+	
+	
+      end
+
+      operation 273134 "anInterface"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 2
+	  explicit_exception "IOException"
+	  explicit_exception "InterruptedException"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 273262 "anImplementation"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 2
+	  explicit_exception "IOException"
+	  explicit_exception "InterruptedException"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 273390 "annotations"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 2
+	  explicit_exception "IOException"
+	  explicit_exception "InterruptedException"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 273518 "asLenient"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 2
+	  explicit_exception "IOException"
+	  explicit_exception "InterruptedException"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 273646 "withNulls"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 2
+	  explicit_exception "IOException"
+	  explicit_exception "InterruptedException"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 273774 "failOnUnknown"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 2
+	  explicit_exception "IOException"
+	  explicit_exception "InterruptedException"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 273902 "utf8BomSkipped"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 1
+	  explicit_exception "IOException"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 274030 "nonUtf8BomIsNotSkipped"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 1
+	  explicit_exception "IOException"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+
+      operation 274158 "requireFullResponseDocumentConsumption"
+	public explicit_return_type "void"
+	nparams 0
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Test
+"
+	
+	
+	
+      end
+    end
+  end
+
+  deploymentview 129774 "moshi"
+    //deployment diagram settings
+    package_name_in_tab default show_context default write_horizontally default auto_label_position default draw_all_relations default shadow default
+    draw_component_as_icon default show_component_req_prov default show_component_rea default show_stereotype_properties default
+    artifact 148078 "MoshiConverterFactory"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.JsonQualifier;
+import com.squareup.moshi.Moshi;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Converter;
+import retrofit2.Retrofit;
+import static java.util.Collections.unmodifiableSet;
+${definition}"
+      associated_classes
+	class_ref 165870 // MoshiConverterFactory
+      end
+      comment "Copyright (C) 2015 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 148206 "MoshiRequestBodyConverter"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.JsonWriter;
+import java.io.IOException;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okio.Buffer;
+import retrofit2.Converter;
+${definition}"
+      associated_classes
+	class_ref 165998 // MoshiRequestBodyConverter
+      end
+      comment "Copyright (C) 2015 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 148334 "MoshiResponseBodyConverter"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.JsonDataException;
+import com.squareup.moshi.JsonReader;
+import java.io.IOException;
+import okhttp3.ResponseBody;
+import okio.BufferedSource;
+import okio.ByteString;
+import retrofit2.Converter;
+${definition}"
+      associated_classes
+	class_ref 166126 // MoshiResponseBodyConverter
+      end
+      comment "Copyright (C) 2015 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+
+    artifact 148462 "MoshiConverterFactoryTest"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import com.squareup.moshi.FromJson;
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.JsonDataException;
+import com.squareup.moshi.JsonQualifier;
+import com.squareup.moshi.JsonReader;
+import com.squareup.moshi.JsonWriter;
+import com.squareup.moshi.Moshi;
+import com.squareup.moshi.ToJson;
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.annotation.Retention;
+import java.lang.reflect.Type;
+import java.nio.charset.Charset;
+import java.util.Set;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
+import okio.Buffer;
+import okio.ByteString;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+${definition}"
+      associated_classes
+	class_ref 166254 // MoshiConverterFactoryTest
+      end
+      comment "Copyright (C) 2015 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."
+    end
+  end
+end

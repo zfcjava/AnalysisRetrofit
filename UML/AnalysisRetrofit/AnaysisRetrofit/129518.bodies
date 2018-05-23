@@ -1,0 +1,58 @@
+class Response
+!!!143214.java!!!	success(inout body : T) : Response
+    return success(body, new okhttp3.Response.Builder() //
+        .code(200)
+        .message("OK")
+        .protocol(Protocol.HTTP_1_1)
+        .request(new Request.Builder().url("http://localhost/").build())
+        .build());
+!!!143342.java!!!	success(inout body : T, inout headers : Headers) : Response
+    checkNotNull(headers, "headers == null");
+    return success(body, new okhttp3.Response.Builder() //
+        .code(200)
+        .message("OK")
+        .protocol(Protocol.HTTP_1_1)
+        .headers(headers)
+        .request(new Request.Builder().url("http://localhost/").build())
+        .build());
+!!!143470.java!!!	success(inout body : T, inout rawResponse : okhttp3.Response) : Response
+    checkNotNull(rawResponse, "rawResponse == null");
+    if (!rawResponse.isSuccessful()) {
+      throw new IllegalArgumentException("rawResponse must be successful response");
+    }
+    return new Response<>(rawResponse, body, null);
+!!!143598.java!!!	error(in code : int, inout body : ResponseBody) : Response
+    if (code < 400) throw new IllegalArgumentException("code < 400: " + code);
+    return error(body, new okhttp3.Response.Builder() //
+        .code(code)
+        .message("Response.error()")
+        .protocol(Protocol.HTTP_1_1)
+        .request(new Request.Builder().url("http://localhost/").build())
+        .build());
+!!!143726.java!!!	error(inout body : ResponseBody, inout rawResponse : okhttp3.Response) : Response
+    checkNotNull(body, "body == null");
+    checkNotNull(rawResponse, "rawResponse == null");
+    if (rawResponse.isSuccessful()) {
+      throw new IllegalArgumentException("rawResponse should not be successful response");
+    }
+    return new Response<>(rawResponse, null, body);
+!!!143854.java!!!	Response(inout rawResponse : okhttp3.Response, inout body : T, inout errorBody : ResponseBody)
+    this.rawResponse = rawResponse;
+    this.body = body;
+    this.errorBody = errorBody;
+!!!143982.java!!!	raw() : okhttp3.Response
+    return rawResponse;
+!!!144110.java!!!	code() : int
+    return rawResponse.code();
+!!!144238.java!!!	message() : String
+    return rawResponse.message();
+!!!144366.java!!!	headers() : Headers
+    return rawResponse.headers();
+!!!144494.java!!!	isSuccessful() : boolean
+    return rawResponse.isSuccessful();
+!!!144622.java!!!	body() : T
+    return body;
+!!!144750.java!!!	errorBody() : ResponseBody
+    return errorBody;
+!!!144878.java!!!	toString() : String
+    return rawResponse.toString();

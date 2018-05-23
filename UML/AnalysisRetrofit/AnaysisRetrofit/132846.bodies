@@ -1,0 +1,5 @@
+class RawPart
+!!!139118.java!!!	apply(inout builder : RequestBuilder, inout value : MultipartBody.Part) : void
+      if (value != null) { // Skip null values.
+        builder.addPart(value);
+      }

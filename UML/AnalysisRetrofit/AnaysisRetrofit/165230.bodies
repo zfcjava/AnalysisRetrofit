@@ -1,0 +1,12 @@
+class JaxbResponseConverter
+!!!268910.java!!!	JaxbResponseConverter(inout context : JAXBContext, inout type : Class<T>)
+    this.context = context;
+    this.type = type;
+!!!269038.java!!!	convert(inout value : ResponseBody) : T
+    try {
+      Unmarshaller unmarshaller = context.createUnmarshaller();
+      XMLStreamReader streamReader = xmlInputFactory.createXMLStreamReader(value.charStream());
+      return unmarshaller.unmarshal(streamReader, type).getValue();
+    } catch (JAXBException | XMLStreamException e) {
+      throw new RuntimeException(e);
+    }

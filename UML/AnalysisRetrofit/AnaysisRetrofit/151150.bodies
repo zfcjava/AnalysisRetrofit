@@ -1,0 +1,33 @@
+class BodyObserver
+!!!216686.java!!!	BodyObserver(inout observer : Observer<? super R>)
+      this.observer = observer;
+!!!216814.java!!!	onSubscribe(inout disposable : Disposable) : void
+      observer.onSubscribe(disposable);
+!!!216942.java!!!	onNext(inout response : Response) : void
+      if (response.isSuccessful()) {
+        observer.onNext(response.body());
+      } else {
+        terminated = true;
+        Throwable t = new HttpException(response);
+        try {
+          observer.onError(t);
+        } catch (Throwable inner) {
+          Exceptions.throwIfFatal(inner);
+          RxJavaPlugins.onError(new CompositeException(t, inner));
+        }
+      }
+!!!217070.java!!!	onComplete() : void
+      if (!terminated) {
+        observer.onComplete();
+      }
+!!!217198.java!!!	onError(inout throwable : Throwable) : void
+      if (!terminated) {
+        observer.onError(throwable);
+      } else {
+        // This should never happen! onNext handles and forwards errors automatically.
+        Throwable broken = new AssertionError(
+            "This should never happen! Report as a bug with the full stacktrace.");
+        //noinspection UnnecessaryInitCause Two-arg AssertionError constructor is 1.7+ only.
+        broken.initCause(throwable);
+        RxJavaPlugins.onError(broken);
+      }

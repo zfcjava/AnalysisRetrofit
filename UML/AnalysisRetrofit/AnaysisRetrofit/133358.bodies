@@ -1,0 +1,12 @@
+class Java8
+!!!140526.java!!!	isDefaultMethod(inout method : Method) : boolean
+      return method.isDefault();
+!!!140654.java!!!	invokeDefaultMethod(inout method : Method, inout declaringClass : Class<?>, inout object : Object, inout  : Object...args) : Object
+      // Because the service interface might not be public, we need to use a MethodHandle lookup
+      // that ignores the visibility of the declaringClass.
+      Constructor<Lookup> constructor = Lookup.class.getDeclaredConstructor(Class.class, int.class);
+      constructor.setAccessible(true);
+      return constructor.newInstance(declaringClass, -1 /* trusted */)
+          .unreflectSpecial(method, declaringClass)
+          .bindTo(object)
+          .invokeWithArguments(args);

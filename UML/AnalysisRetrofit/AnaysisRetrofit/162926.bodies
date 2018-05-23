@@ -1,0 +1,6 @@
+class JacksonRequestBodyConverter
+!!!264302.java!!!	JacksonRequestBodyConverter(inout adapter : ObjectWriter)
+    this.adapter = adapter;
+!!!264430.java!!!	convert(inout value : T) : RequestBody
+    byte[] bytes = adapter.writeValueAsBytes(value);
+    return RequestBody.create(MEDIA_TYPE, bytes);

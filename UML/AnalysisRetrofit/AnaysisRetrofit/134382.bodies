@@ -1,0 +1,281 @@
+class Utils
+!!!151534.java!!!	Utils()
+    // No instances.
+!!!151662.java!!!	getRawType(inout type : Type) : Class<?>
+    checkNotNull(type, "type == null");
+
+    if (type instanceof Class<?>) {
+      // Type is a normal class.
+      return (Class<?>) type;
+    }
+    if (type instanceof ParameterizedType) {
+      ParameterizedType parameterizedType = (ParameterizedType) type;
+
+      // I'm not exactly sure why getRawType() returns Type instead of Class. Neal isn't either but
+      // suspects some pathological case related to nested classes exists.
+      Type rawType = parameterizedType.getRawType();
+      if (!(rawType instanceof Class)) throw new IllegalArgumentException();
+      return (Class<?>) rawType;
+    }
+    if (type instanceof GenericArrayType) {
+      Type componentType = ((GenericArrayType) type).getGenericComponentType();
+      return Array.newInstance(getRawType(componentType), 0).getClass();
+    }
+    if (type instanceof TypeVariable) {
+      // We could use the variable's bounds, but that won't work if there are multiple. Having a raw
+      // type that's more general than necessary is okay.
+      return Object.class;
+    }
+    if (type instanceof WildcardType) {
+      return getRawType(((WildcardType) type).getUpperBounds()[0]);
+    }
+
+    throw new IllegalArgumentException("Expected a Class, ParameterizedType, or "
+          + "GenericArrayType, but <" + type + "> is of type " + type.getClass().getName());
+!!!151790.java!!!	equals(inout a : Type, inout b : Type) : boolean
+    if (a == b) {
+      return true; // Also handles (a == null && b == null).
+
+    } else if (a instanceof Class) {
+      return a.equals(b); // Class already specifies equals().
+
+    } else if (a instanceof ParameterizedType) {
+      if (!(b instanceof ParameterizedType)) return false;
+      ParameterizedType pa = (ParameterizedType) a;
+      ParameterizedType pb = (ParameterizedType) b;
+      return equal(pa.getOwnerType(), pb.getOwnerType())
+          && pa.getRawType().equals(pb.getRawType())
+          && Arrays.equals(pa.getActualTypeArguments(), pb.getActualTypeArguments());
+
+    } else if (a instanceof GenericArrayType) {
+      if (!(b instanceof GenericArrayType)) return false;
+      GenericArrayType ga = (GenericArrayType) a;
+      GenericArrayType gb = (GenericArrayType) b;
+      return equals(ga.getGenericComponentType(), gb.getGenericComponentType());
+
+    } else if (a instanceof WildcardType) {
+      if (!(b instanceof WildcardType)) return false;
+      WildcardType wa = (WildcardType) a;
+      WildcardType wb = (WildcardType) b;
+      return Arrays.equals(wa.getUpperBounds(), wb.getUpperBounds())
+          && Arrays.equals(wa.getLowerBounds(), wb.getLowerBounds());
+
+    } else if (a instanceof TypeVariable) {
+      if (!(b instanceof TypeVariable)) return false;
+      TypeVariable<?> va = (TypeVariable<?>) a;
+      TypeVariable<?> vb = (TypeVariable<?>) b;
+      return va.getGenericDeclaration() == vb.getGenericDeclaration()
+          && va.getName().equals(vb.getName());
+
+    } else {
+      return false; // This isn't a type we support!
+    }
+!!!151918.java!!!	getGenericSupertype(inout context : Type, inout rawType : Class<?>, inout toResolve : Class<?>) : Type
+    if (toResolve == rawType) return context;
+
+    // We skip searching through interfaces if unknown is an interface.
+    if (toResolve.isInterface()) {
+      Class<?>[] interfaces = rawType.getInterfaces();
+      for (int i = 0, length = interfaces.length; i < length; i++) {
+        if (interfaces[i] == toResolve) {
+          return rawType.getGenericInterfaces()[i];
+        } else if (toResolve.isAssignableFrom(interfaces[i])) {
+          return getGenericSupertype(rawType.getGenericInterfaces()[i], interfaces[i], toResolve);
+        }
+      }
+    }
+
+    // Check our supertypes.
+    if (!rawType.isInterface()) {
+      while (rawType != Object.class) {
+        Class<?> rawSupertype = rawType.getSuperclass();
+        if (rawSupertype == toResolve) {
+          return rawType.getGenericSuperclass();
+        } else if (toResolve.isAssignableFrom(rawSupertype)) {
+          return getGenericSupertype(rawType.getGenericSuperclass(), rawSupertype, toResolve);
+        }
+        rawType = rawSupertype;
+      }
+    }
+
+    // We can't resolve this further.
+    return toResolve;
+!!!152046.java!!!	indexOf(inout array : Object, inout toFind : Object) : int
+    for (int i = 0; i < array.length; i++) {
+      if (toFind.equals(array[i])) return i;
+    }
+    throw new NoSuchElementException();
+!!!152174.java!!!	equal(inout a : Object, inout b : Object) : boolean
+    return a == b || (a != null && a.equals(b));
+!!!152302.java!!!	hashCodeOrZero(inout o : Object) : int
+    return o != null ? o.hashCode() : 0;
+!!!152430.java!!!	typeToString(inout type : Type) : String
+    return type instanceof Class ? ((Class<?>) type).getName() : type.toString();
+!!!152558.java!!!	getSupertype(inout context : Type, inout contextRawType : Class<?>, inout supertype : Class<?>) : Type
+    if (!supertype.isAssignableFrom(contextRawType)) throw new IllegalArgumentException();
+    return resolve(context, contextRawType,
+        getGenericSupertype(context, contextRawType, supertype));
+!!!152686.java!!!	resolve(inout context : Type, inout contextRawType : Class<?>, inout toResolve : Type) : Type
+    // This implementation is made a little more complicated in an attempt to avoid object-creation.
+    while (true) {
+      if (toResolve instanceof TypeVariable) {
+        TypeVariable<?> typeVariable = (TypeVariable<?>) toResolve;
+        toResolve = resolveTypeVariable(context, contextRawType, typeVariable);
+        if (toResolve == typeVariable) {
+          return toResolve;
+        }
+
+      } else if (toResolve instanceof Class && ((Class<?>) toResolve).isArray()) {
+        Class<?> original = (Class<?>) toResolve;
+        Type componentType = original.getComponentType();
+        Type newComponentType = resolve(context, contextRawType, componentType);
+        return componentType == newComponentType ? original : new GenericArrayTypeImpl(
+            newComponentType);
+
+      } else if (toResolve instanceof GenericArrayType) {
+        GenericArrayType original = (GenericArrayType) toResolve;
+        Type componentType = original.getGenericComponentType();
+        Type newComponentType = resolve(context, contextRawType, componentType);
+        return componentType == newComponentType ? original : new GenericArrayTypeImpl(
+            newComponentType);
+
+      } else if (toResolve instanceof ParameterizedType) {
+        ParameterizedType original = (ParameterizedType) toResolve;
+        Type ownerType = original.getOwnerType();
+        Type newOwnerType = resolve(context, contextRawType, ownerType);
+        boolean changed = newOwnerType != ownerType;
+
+        Type[] args = original.getActualTypeArguments();
+        for (int t = 0, length = args.length; t < length; t++) {
+          Type resolvedTypeArgument = resolve(context, contextRawType, args[t]);
+          if (resolvedTypeArgument != args[t]) {
+            if (!changed) {
+              args = args.clone();
+              changed = true;
+            }
+            args[t] = resolvedTypeArgument;
+          }
+        }
+
+        return changed
+            ? new ParameterizedTypeImpl(newOwnerType, original.getRawType(), args)
+            : original;
+
+      } else if (toResolve instanceof WildcardType) {
+        WildcardType original = (WildcardType) toResolve;
+        Type[] originalLowerBound = original.getLowerBounds();
+        Type[] originalUpperBound = original.getUpperBounds();
+
+        if (originalLowerBound.length == 1) {
+          Type lowerBound = resolve(context, contextRawType, originalLowerBound[0]);
+          if (lowerBound != originalLowerBound[0]) {
+            return new WildcardTypeImpl(new Type[] { Object.class }, new Type[] { lowerBound });
+          }
+        } else if (originalUpperBound.length == 1) {
+          Type upperBound = resolve(context, contextRawType, originalUpperBound[0]);
+          if (upperBound != originalUpperBound[0]) {
+            return new WildcardTypeImpl(new Type[] { upperBound }, EMPTY_TYPE_ARRAY);
+          }
+        }
+        return original;
+
+      } else {
+        return toResolve;
+      }
+    }
+!!!152814.java!!!	resolveTypeVariable(inout context : Type, inout contextRawType : Class<?>, inout unknown : TypeVariable<?>) : Type
+    Class<?> declaredByRaw = declaringClassOf(unknown);
+
+    // We can't reduce this further.
+    if (declaredByRaw == null) return unknown;
+
+    Type declaredBy = getGenericSupertype(context, contextRawType, declaredByRaw);
+    if (declaredBy instanceof ParameterizedType) {
+      int index = indexOf(declaredByRaw.getTypeParameters(), unknown);
+      return ((ParameterizedType) declaredBy).getActualTypeArguments()[index];
+    }
+
+    return unknown;
+!!!152942.java!!!	declaringClassOf(inout typeVariable : TypeVariable<?>) : Class<?>
+    GenericDeclaration genericDeclaration = typeVariable.getGenericDeclaration();
+    return genericDeclaration instanceof Class ? (Class<?>) genericDeclaration : null;
+!!!153070.java!!!	checkNotPrimitive(inout type : Type) : void
+    if (type instanceof Class<?> && ((Class<?>) type).isPrimitive()) {
+      throw new IllegalArgumentException();
+    }
+!!!153198.java!!!	checkNotNull(inout object : T, in message : String) : T
+    if (object == null) {
+      throw new NullPointerException(message);
+    }
+    return object;
+!!!153326.java!!!	isAnnotationPresent(inout annotations : Annotation, inout cls : Class<? extends Annotation>) : boolean
+    for (Annotation annotation : annotations) {
+      if (cls.isInstance(annotation)) {
+        return true;
+      }
+    }
+    return false;
+!!!153454.java!!!	buffer(in body : ResponseBody) : ResponseBody
+    Buffer buffer = new Buffer();
+    body.source().readAll(buffer);
+    return ResponseBody.create(body.contentType(), body.contentLength(), buffer);
+!!!153582.java!!!	validateServiceInterface(inout service : Class<T>) : void
+    if (!service.isInterface()) {
+      throw new IllegalArgumentException("API declarations must be interfaces.");
+    }
+    // Prevent API interfaces from extending other interfaces. This not only avoids a bug in
+    // Android (http://b.android.com/58753) but it forces composition of API declarations which is
+    // the recommended pattern.
+    if (service.getInterfaces().length > 0) {
+      throw new IllegalArgumentException("API interfaces must not extend other interfaces.");
+    }
+!!!153710.java!!!	getParameterUpperBound(in index : int, inout type : ParameterizedType) : Type
+    Type[] types = type.getActualTypeArguments();
+    if (index < 0 || index >= types.length) {
+      throw new IllegalArgumentException(
+          "Index " + index + " not in range [0," + types.length + ") for " + type);
+    }
+    Type paramType = types[index];
+    if (paramType instanceof WildcardType) {
+      return ((WildcardType) paramType).getUpperBounds()[0];
+    }
+    return paramType;
+!!!153838.java!!!	hasUnresolvableType(inout type : Type) : boolean
+    if (type instanceof Class<?>) {
+      return false;
+    }
+    if (type instanceof ParameterizedType) {
+      ParameterizedType parameterizedType = (ParameterizedType) type;
+      for (Type typeArgument : parameterizedType.getActualTypeArguments()) {
+        if (hasUnresolvableType(typeArgument)) {
+          return true;
+        }
+      }
+      return false;
+    }
+    if (type instanceof GenericArrayType) {
+      return hasUnresolvableType(((GenericArrayType) type).getGenericComponentType());
+    }
+    if (type instanceof TypeVariable) {
+      return true;
+    }
+    if (type instanceof WildcardType) {
+      return true;
+    }
+    String className = type == null ? "null" : type.getClass().getName();
+    throw new IllegalArgumentException("Expected a Class, ParameterizedType, or "
+        + "GenericArrayType, but <" + type + "> is of type " + className);
+!!!153966.java!!!	getCallResponseType(inout returnType : Type) : Type
+    if (!(returnType instanceof ParameterizedType)) {
+      throw new IllegalArgumentException(
+          "Call return type must be parameterized as Call<Foo> or Call<? extends Foo>");
+    }
+    return getParameterUpperBound(0, (ParameterizedType) returnType);
+!!!156398.java!!!	throwIfFatal(inout t : Throwable) : void
+    if (t instanceof VirtualMachineError) {
+      throw (VirtualMachineError) t;
+    } else if (t instanceof ThreadDeath) {
+      throw (ThreadDeath) t;
+    } else if (t instanceof LinkageError) {
+      throw (LinkageError) t;
+    }

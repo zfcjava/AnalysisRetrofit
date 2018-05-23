@@ -1,0 +1,7 @@
+class FallbackParserFinderTest
+!!!275310.java!!!	converterFactoryFallsBackToParserField() : void
+    Retrofit retrofit = new Retrofit.Builder().baseUrl("http://localhost/").build();
+    ProtoConverterFactory factory = ProtoConverterFactory.create();
+    Converter<ResponseBody, ?> converter =
+        factory.responseBodyConverter(FakePhone.class, new Annotation[0], retrofit);
+    assertThat(converter).isNotNull();

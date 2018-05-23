@@ -1,0 +1,26 @@
+class CompletableTest
+!!!197742.java!!!	setUp() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+        .build();
+    service = retrofit.create(Service.class);
+!!!197870.java!!!	completableSuccess200() : void
+    server.enqueue(new MockResponse().setBody("Hi"));
+
+    RecordingSubscriber<Void> subscriber = subscriberRule.create();
+    service.completable().unsafeSubscribe(subscriber);
+    subscriber.assertCompleted();
+!!!197998.java!!!	completableSuccess404() : void
+    server.enqueue(new MockResponse().setResponseCode(404));
+
+    RecordingSubscriber<Void> subscriber = subscriberRule.create();
+    service.completable().unsafeSubscribe(subscriber);
+    // Required for backwards compatibility.
+    subscriber.assertError(HttpException.class, "HTTP 404 Client Error");
+!!!198126.java!!!	completableFailure() : void
+    server.enqueue(new MockResponse().setSocketPolicy(DISCONNECT_AFTER_REQUEST));
+
+    RecordingSubscriber<Void> subscriber = subscriberRule.create();
+    service.completable().unsafeSubscribe(subscriber);
+    subscriber.assertError(IOException.class);

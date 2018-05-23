@@ -1,0 +1,154 @@
+class MaybeThrowingTest
+!!!232302.java!!!	setUp() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(new StringConverterFactory())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build();
+    service = retrofit.create(Service.class);
+!!!232430.java!!!	bodyThrowingInOnSuccessDeliveredToPlugin() : void
+    server.enqueue(new MockResponse());
+
+    final AtomicReference<Throwable> throwableRef = new AtomicReference<>();
+    RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
+      @Override public void accept(Throwable throwable) throws Exception {
+        if (!throwableRef.compareAndSet(null, throwable)) {
+          throw Exceptions.propagate(throwable);
+        }
+      }
+    });
+
+    RecordingMaybeObserver<String> observer = subscriberRule.create();
+    final RuntimeException e = new RuntimeException();
+    service.body().subscribe(new ForwardingObserver<String>(observer) {
+      @Override public void onSuccess(String value) {
+        throw e;
+      }
+    });
+
+    assertThat(throwableRef.get()).isSameAs(e);
+!!!232558.java!!!	bodyThrowingInOnErrorDeliveredToPlugin() : void
+    server.enqueue(new MockResponse().setResponseCode(404));
+
+    final AtomicReference<Throwable> throwableRef = new AtomicReference<>();
+    RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
+      @Override public void accept(Throwable throwable) throws Exception {
+        if (!throwableRef.compareAndSet(null, throwable)) {
+          throw Exceptions.propagate(throwable);
+        }
+      }
+    });
+
+    RecordingMaybeObserver<String> observer = subscriberRule.create();
+    final AtomicReference<Throwable> errorRef = new AtomicReference<>();
+    final RuntimeException e = new RuntimeException();
+    service.body().subscribe(new ForwardingObserver<String>(observer) {
+      @Override public void onError(Throwable throwable) {
+        if (!errorRef.compareAndSet(null, throwable)) {
+          throw Exceptions.propagate(throwable);
+        }
+        throw e;
+      }
+    });
+
+    //noinspection ThrowableResultOfMethodCallIgnored
+    CompositeException composite = (CompositeException) throwableRef.get();
+    assertThat(composite.getExceptions()).containsExactly(errorRef.get(), e);
+!!!232686.java!!!	responseThrowingInOnSuccessDeliveredToPlugin() : void
+    server.enqueue(new MockResponse());
+
+    final AtomicReference<Throwable> throwableRef = new AtomicReference<>();
+    RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
+      @Override public void accept(Throwable throwable) throws Exception {
+        if (!throwableRef.compareAndSet(null, throwable)) {
+          throw Exceptions.propagate(throwable);
+        }
+      }
+    });
+
+    RecordingMaybeObserver<Response<String>> observer = subscriberRule.create();
+    final RuntimeException e = new RuntimeException();
+    service.response().subscribe(new ForwardingObserver<Response<String>>(observer) {
+      @Override public void onSuccess(Response<String> value) {
+        throw e;
+      }
+    });
+
+    assertThat(throwableRef.get()).isSameAs(e);
+!!!232814.java!!!	responseThrowingInOnErrorDeliveredToPlugin() : void
+    server.enqueue(new MockResponse().setSocketPolicy(DISCONNECT_AFTER_REQUEST));
+
+    final AtomicReference<Throwable> throwableRef = new AtomicReference<>();
+    RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
+      @Override public void accept(Throwable throwable) throws Exception {
+        if (!throwableRef.compareAndSet(null, throwable)) {
+          throw Exceptions.propagate(throwable);
+        }
+      }
+    });
+
+    RecordingMaybeObserver<Response<String>> observer = subscriberRule.create();
+    final AtomicReference<Throwable> errorRef = new AtomicReference<>();
+    final RuntimeException e = new RuntimeException();
+    service.response().subscribe(new ForwardingObserver<Response<String>>(observer) {
+      @Override public void onError(Throwable throwable) {
+        if (!errorRef.compareAndSet(null, throwable)) {
+          throw Exceptions.propagate(throwable);
+        }
+        throw e;
+      }
+    });
+
+    //noinspection ThrowableResultOfMethodCallIgnored
+    CompositeException composite = (CompositeException) throwableRef.get();
+    assertThat(composite.getExceptions()).containsExactly(errorRef.get(), e);
+!!!232942.java!!!	resultThrowingInOnSuccessDeliveredToPlugin() : void
+    server.enqueue(new MockResponse());
+
+    final AtomicReference<Throwable> throwableRef = new AtomicReference<>();
+    RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
+      @Override public void accept(Throwable throwable) throws Exception {
+        if (!throwableRef.compareAndSet(null, throwable)) {
+          throw Exceptions.propagate(throwable);
+        }
+      }
+    });
+
+    RecordingMaybeObserver<Result<String>> observer = subscriberRule.create();
+    final RuntimeException e = new RuntimeException();
+    service.result().subscribe(new ForwardingObserver<Result<String>>(observer) {
+      @Override public void onSuccess(Result<String> value) {
+        throw e;
+      }
+    });
+
+    assertThat(throwableRef.get()).isSameAs(e);
+!!!233070.java!!!	resultThrowingInOnErrorDeliveredToPlugin() : void
+    server.enqueue(new MockResponse());
+
+    final AtomicReference<Throwable> throwableRef = new AtomicReference<>();
+    RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
+      @Override public void accept(Throwable throwable) throws Exception {
+        if (!throwableRef.compareAndSet(null, throwable)) {
+          throw Exceptions.propagate(throwable);
+        }
+      }
+    });
+
+    RecordingMaybeObserver<Result<String>> observer = subscriberRule.create();
+    final RuntimeException first = new RuntimeException();
+    final RuntimeException second = new RuntimeException();
+    service.result().subscribe(new ForwardingObserver<Result<String>>(observer) {
+      @Override public void onSuccess(Result<String> value) {
+        // The only way to trigger onError for Result is if onSuccess throws.
+        throw first;
+      }
+
+      @Override public void onError(Throwable throwable) {
+        throw second;
+      }
+    });
+
+    //noinspection ThrowableResultOfMethodCallIgnored
+    CompositeException composite = (CompositeException) throwableRef.get();
+    assertThat(composite.getExceptions()).containsExactly(first, second);

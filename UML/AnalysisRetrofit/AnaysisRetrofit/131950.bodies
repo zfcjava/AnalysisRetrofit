@@ -1,0 +1,12 @@
+class Query
+!!!137198.java!!!	Query(in name : String, inout valueConverter : Converter, inout encoded : boolean)
+      this.name = checkNotNull(name, "name == null");
+      this.valueConverter = valueConverter;
+      this.encoded = encoded;
+!!!137326.java!!!	apply(inout builder : RequestBuilder, inout value : T) : void
+      if (value == null) return; // Skip null values.
+
+      String queryValue = valueConverter.convert(value);
+      if (queryValue == null) return; // Skip converted but null values
+
+      builder.addQueryParam(name, queryValue, encoded);

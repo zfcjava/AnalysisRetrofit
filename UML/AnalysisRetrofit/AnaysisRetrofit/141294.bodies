@@ -1,0 +1,4 @@
+class NonMatchingCallAdapterFactory
+!!!183662.java!!!	get(inout returnType : Type, inout annotations : Annotation, inout retrofit : Retrofit) : CallAdapter
+    called = true;
+    return null;

@@ -1,0 +1,16 @@
+class JaxbRequestConverter
+!!!268654.java!!!	JaxbRequestConverter(inout context : JAXBContext, inout type : Class<T>)
+    this.context = context;
+    this.type = type;
+!!!268782.java!!!	convert(in value : T) : RequestBody
+    Buffer buffer = new Buffer();
+    try {
+      Marshaller marshaller = context.createMarshaller();
+
+      XMLStreamWriter xmlWriter = xmlOutputFactory.createXMLStreamWriter(
+          buffer.outputStream(), JaxbConverterFactory.XML.charset().name());
+      marshaller.marshal(value, xmlWriter);
+    } catch (JAXBException | XMLStreamException e) {
+      throw new RuntimeException(e);
+    }
+    return RequestBody.create(JaxbConverterFactory.XML, buffer.readByteString());

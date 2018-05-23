@@ -1,0 +1,16 @@
+class DefaultCallAdapterFactory
+!!!131566.java!!!	get(inout returnType : Type, inout annotations : Annotation, inout retrofit : Retrofit) : CallAdapter
+    if (getRawType(returnType) != Call.class) {
+      return null;
+    }
+
+    final Type responseType = Utils.getCallResponseType(returnType);
+    return new CallAdapter<Object, Call<?>>() {
+      @Override public Type responseType() {
+        return responseType;
+      }
+
+      @Override public Call<Object> adapt(Call<Object> call) {
+        return call;
+      }
+    };

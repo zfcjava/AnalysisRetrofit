@@ -1,0 +1,10 @@
+class NoContentResponseBody
+!!!134894.java!!!	NoContentResponseBody(inout contentType : MediaType, in contentLength : long)
+      this.contentType = contentType;
+      this.contentLength = contentLength;
+!!!135022.java!!!	contentType() : MediaType
+      return contentType;
+!!!135150.java!!!	contentLength() : long
+      return contentLength;
+!!!135278.java!!!	source() : BufferedSource
+      throw new IllegalStateException("Cannot read raw response body of a converted body.");

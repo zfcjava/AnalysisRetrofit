@@ -1,0 +1,26 @@
+class ResponseCallAdapter
+!!!188782.java!!!	ResponseCallAdapter(inout responseType : Type)
+      this.responseType = responseType;
+!!!188910.java!!!	responseType() : Type
+      return responseType;
+!!!189038.java!!!	adapt(in call : Call) : Response
+      final CompletableFuture<Response<R>> future = new CompletableFuture<Response<R>>() {
+        @Override public boolean cancel(boolean mayInterruptIfRunning) {
+          if (mayInterruptIfRunning) {
+            call.cancel();
+          }
+          return super.cancel(mayInterruptIfRunning);
+        }
+      };
+
+      call.enqueue(new Callback<R>() {
+        @Override public void onResponse(Call<R> call, Response<R> response) {
+          future.complete(response);
+        }
+
+        @Override public void onFailure(Call<R> call, Throwable t) {
+          future.completeExceptionally(t);
+        }
+      });
+
+      return future;

@@ -1,0 +1,154 @@
+class RequestBuilder
+!!!141166.java!!!	RequestBuilder(in method : String, inout baseUrl : HttpUrl, in relativeUrl : String, inout headers : Headers, inout contentType : MediaType, inout hasBody : boolean, inout isFormEncoded : boolean, inout isMultipart : boolean)
+    this.method = method;
+    this.baseUrl = baseUrl;
+    this.relativeUrl = relativeUrl;
+    this.requestBuilder = new Request.Builder();
+    this.contentType = contentType;
+    this.hasBody = hasBody;
+
+    if (headers != null) {
+      requestBuilder.headers(headers);
+    }
+
+    if (isFormEncoded) {
+      // Will be set to 'body' in 'build'.
+      formBuilder = new FormBody.Builder();
+    } else if (isMultipart) {
+      // Will be set to 'body' in 'build'.
+      multipartBuilder = new MultipartBody.Builder();
+      multipartBuilder.setType(MultipartBody.FORM);
+    }
+!!!141294.java!!!	setRelativeUrl(inout relativeUrl : Object) : void
+    this.relativeUrl = relativeUrl.toString();
+!!!141422.java!!!	addHeader(in name : String, in value : String) : void
+    if ("Content-Type".equalsIgnoreCase(name)) {
+      MediaType type = MediaType.parse(value);
+      if (type == null) {
+        throw new IllegalArgumentException("Malformed content type: " + value);
+      }
+      contentType = type;
+    } else {
+      requestBuilder.addHeader(name, value);
+    }
+!!!141550.java!!!	addPathParam(in name : String, in value : String, inout encoded : boolean) : void
+    if (relativeUrl == null) {
+      // The relative URL is cleared when the first query parameter is set.
+      throw new AssertionError();
+    }
+    relativeUrl = relativeUrl.replace("{" + name + "}", canonicalizeForPath(value, encoded));
+!!!141678.java!!!	canonicalizeForPath(in input : String, inout alreadyEncoded : boolean) : String
+    int codePoint;
+    for (int i = 0, limit = input.length(); i < limit; i += Character.charCount(codePoint)) {
+      codePoint = input.codePointAt(i);
+      if (codePoint < 0x20 || codePoint >= 0x7f
+          || PATH_SEGMENT_ALWAYS_ENCODE_SET.indexOf(codePoint) != -1
+          || (!alreadyEncoded && (codePoint == '/' || codePoint == '%'))) {
+        // Slow path: the character at i requires encoding!
+        Buffer out = new Buffer();
+        out.writeUtf8(input, 0, i);
+        canonicalizeForPath(out, input, i, limit, alreadyEncoded);
+        return out.readUtf8();
+      }
+    }
+
+    // Fast path: no characters required encoding.
+    return input;
+!!!141806.java!!!	canonicalizeForPath(inout out : Buffer, in input : String, in pos : int, in limit : int, inout alreadyEncoded : boolean) : void
+    Buffer utf8Buffer = null; // Lazily allocated.
+    int codePoint;
+    for (int i = pos; i < limit; i += Character.charCount(codePoint)) {
+      codePoint = input.codePointAt(i);
+      if (alreadyEncoded
+          && (codePoint == '\t' || codePoint == '\n' || codePoint == '\f' || codePoint == '\r')) {
+        // Skip this character.
+      } else if (codePoint < 0x20 || codePoint >= 0x7f
+          || PATH_SEGMENT_ALWAYS_ENCODE_SET.indexOf(codePoint) != -1
+          || (!alreadyEncoded && (codePoint == '/' || codePoint == '%'))) {
+        // Percent encode this character.
+        if (utf8Buffer == null) {
+          utf8Buffer = new Buffer();
+        }
+        utf8Buffer.writeUtf8CodePoint(codePoint);
+        while (!utf8Buffer.exhausted()) {
+          int b = utf8Buffer.readByte() & 0xff;
+          out.writeByte('%');
+          out.writeByte(HEX_DIGITS[(b >> 4) & 0xf]);
+          out.writeByte(HEX_DIGITS[b & 0xf]);
+        }
+      } else {
+        // This character doesn't need encoding. Just copy it over.
+        out.writeUtf8CodePoint(codePoint);
+      }
+    }
+!!!141934.java!!!	addQueryParam(in name : String, in value : String, inout encoded : boolean) : void
+    if (relativeUrl != null) {
+      // Do a one-time combination of the built relative URL and the base URL.
+      urlBuilder = baseUrl.newBuilder(relativeUrl);
+      if (urlBuilder == null) {
+        throw new IllegalArgumentException(
+            "Malformed URL. Base: " + baseUrl + ", Relative: " + relativeUrl);
+      }
+      relativeUrl = null;
+    }
+
+    if (encoded) {
+      //noinspection ConstantConditions Checked to be non-null by above 'if' block.
+      urlBuilder.addEncodedQueryParameter(name, value);
+    } else {
+      //noinspection ConstantConditions Checked to be non-null by above 'if' block.
+      urlBuilder.addQueryParameter(name, value);
+    }
+!!!142062.java!!!	addFormField(in name : String, in value : String, inout encoded : boolean) : void
+    if (encoded) {
+      formBuilder.addEncoded(name, value);
+    } else {
+      formBuilder.add(name, value);
+    }
+!!!142190.java!!!	addPart(inout headers : Headers, inout body : RequestBody) : void
+    multipartBuilder.addPart(headers, body);
+!!!142318.java!!!	addPart(inout part : MultipartBody.Part) : void
+    multipartBuilder.addPart(part);
+!!!142446.java!!!	setBody(inout body : RequestBody) : void
+    this.body = body;
+!!!142574.java!!!	build() : Request
+    HttpUrl url;
+    HttpUrl.Builder urlBuilder = this.urlBuilder;
+    if (urlBuilder != null) {
+      url = urlBuilder.build();
+    } else {
+      // No query parameters triggered builder creation, just combine the relative URL and base URL.
+      //noinspection ConstantConditions Non-null if urlBuilder is null.
+      url = baseUrl.resolve(relativeUrl);
+      if (url == null) {
+        throw new IllegalArgumentException(
+            "Malformed URL. Base: " + baseUrl + ", Relative: " + relativeUrl);
+      }
+    }
+
+    RequestBody body = this.body;
+    if (body == null) {
+      // Try to pull from one of the builders.
+      if (formBuilder != null) {
+        body = formBuilder.build();
+      } else if (multipartBuilder != null) {
+        body = multipartBuilder.build();
+      } else if (hasBody) {
+        // Body is absent, make an empty body.
+        body = RequestBody.create(null, new byte[0]);
+      }
+    }
+
+    MediaType contentType = this.contentType;
+    if (contentType != null) {
+      if (body != null) {
+        body = new ContentTypeOverridingRequestBody(body, contentType);
+      } else {
+        requestBuilder.addHeader("Content-Type", contentType.toString());
+      }
+    }
+
+    return requestBuilder
+        .url(url)
+        .method(method, body)
+        .build();

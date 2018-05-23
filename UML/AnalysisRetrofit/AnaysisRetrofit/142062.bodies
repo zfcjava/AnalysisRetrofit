@@ -1,0 +1,23 @@
+class ResponseCallAdapter
+!!!185326.java!!!	ResponseCallAdapter(inout responseType : Type)
+      this.responseType = responseType;
+!!!185454.java!!!	responseType() : Type
+      return responseType;
+!!!185582.java!!!	adapt(in call : Call) : Response
+      return new AbstractFuture<Response<R>>() {
+        {
+          call.enqueue(new Callback<R>() {
+            @Override public void onResponse(Call<R> call, Response<R> response) {
+              set(response);
+            }
+
+            @Override public void onFailure(Call<R> call, Throwable t) {
+              setException(t);
+            }
+          });
+        }
+
+        @Override protected void interruptTask() {
+          call.cancel();
+        }
+      };

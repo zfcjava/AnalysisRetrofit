@@ -1,0 +1,24 @@
+class JaxbConverterFactory
+!!!267886.java!!!	create() : JaxbConverterFactory
+    return new JaxbConverterFactory(null);
+!!!268014.java!!!	create(inout context : JAXBContext) : JaxbConverterFactory
+    if (context == null) throw new NullPointerException("context == null");
+    return new JaxbConverterFactory(context);
+!!!268142.java!!!	JaxbConverterFactory(inout context : JAXBContext)
+    this.context = context;
+!!!268270.java!!!	requestBodyConverter(inout type : Type, inout parameterAnnotations : Annotation, inout methodAnnotations : Annotation, inout retrofit : Retrofit) : Converter
+    if (type instanceof Class && ((Class<?>) type).isAnnotationPresent(XmlRootElement.class)) {
+      return new JaxbRequestConverter<>(contextForType((Class<?>) type), (Class<?>) type);
+    }
+    return null;
+!!!268398.java!!!	responseBodyConverter(inout type : Type, inout annotations : Annotation, inout retrofit : Retrofit) : Converter
+    if (type instanceof Class && ((Class<?>) type).isAnnotationPresent(XmlRootElement.class)) {
+      return new JaxbResponseConverter<>(contextForType((Class<?>) type), (Class<?>) type);
+    }
+    return null;
+!!!268526.java!!!	contextForType(inout type : Class<?>) : JAXBContext
+    try {
+      return context != null ? context : JAXBContext.newInstance(type);
+    } catch (JAXBException e) {
+      throw new IllegalArgumentException(e);
+    }

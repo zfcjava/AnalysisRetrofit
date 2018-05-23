@@ -1,0 +1,6 @@
+class Android
+!!!140782.java!!!	defaultCallbackExecutor() : Executor
+      return new MainThreadExecutor();
+!!!140910.java!!!	defaultCallAdapterFactory(inout callbackExecutor : Executor) : CallAdapter::Factory
+      if (callbackExecutor == null) throw new AssertionError();
+      return new ExecutorCallAdapterFactory(callbackExecutor);

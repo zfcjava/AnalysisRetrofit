@@ -1,0 +1,35 @@
+class MaybeWithSchedulerTest
+!!!234222.java!!!	setUp() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(new StringConverterFactory())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(scheduler))
+        .build();
+    service = retrofit.create(Service.class);
+!!!234350.java!!!	bodyUsesScheduler() : void
+    server.enqueue(new MockResponse());
+
+    RecordingMaybeObserver<Object> observer = observerRule.create();
+    service.body().subscribe(observer);
+    observer.assertNoEvents();
+
+    scheduler.triggerActions();
+    observer.assertAnyValue();
+!!!234478.java!!!	responseUsesScheduler() : void
+    server.enqueue(new MockResponse());
+
+    RecordingMaybeObserver<Object> observer = observerRule.create();
+    service.response().subscribe(observer);
+    observer.assertNoEvents();
+
+    scheduler.triggerActions();
+    observer.assertAnyValue();
+!!!234606.java!!!	resultUsesScheduler() : void
+    server.enqueue(new MockResponse());
+
+    RecordingMaybeObserver<Object> observer = observerRule.create();
+    service.result().subscribe(observer);
+    observer.assertNoEvents();
+
+    scheduler.triggerActions();
+    observer.assertAnyValue();

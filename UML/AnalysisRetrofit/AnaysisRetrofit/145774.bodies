@@ -1,0 +1,54 @@
+class RxJavaCallAdapterFactory
+!!!195566.java!!!	create() : RxJavaCallAdapterFactory
+    return new RxJavaCallAdapterFactory(null, false);
+!!!195694.java!!!	createAsync() : RxJavaCallAdapterFactory
+    return new RxJavaCallAdapterFactory(null, true);
+!!!195822.java!!!	createWithScheduler(inout scheduler : Scheduler) : RxJavaCallAdapterFactory
+    if (scheduler == null) throw new NullPointerException("scheduler == null");
+    return new RxJavaCallAdapterFactory(scheduler, false);
+!!!195950.java!!!	RxJavaCallAdapterFactory(inout scheduler : Scheduler, inout isAsync : boolean)
+    this.scheduler = scheduler;
+    this.isAsync = isAsync;
+!!!196078.java!!!	get(inout returnType : Type, inout annotations : Annotation, inout retrofit : Retrofit) : CallAdapter
+    Class<?> rawType = getRawType(returnType);
+    boolean isSingle = rawType == Single.class;
+    boolean isCompletable = rawType == Completable.class;
+    if (rawType != Observable.class && !isSingle && !isCompletable) {
+      return null;
+    }
+
+    if (isCompletable) {
+      return new RxJavaCallAdapter(Void.class, scheduler, isAsync, false, true, false, true);
+    }
+
+    boolean isResult = false;
+    boolean isBody = false;
+    Type responseType;
+    if (!(returnType instanceof ParameterizedType)) {
+      String name = isSingle ? "Single" : "Observable";
+      throw new IllegalStateException(name + " return type must be parameterized"
+          + " as " + name + "<Foo> or " + name + "<? extends Foo>");
+    }
+
+    Type observableType = getParameterUpperBound(0, (ParameterizedType) returnType);
+    Class<?> rawObservableType = getRawType(observableType);
+    if (rawObservableType == Response.class) {
+      if (!(observableType instanceof ParameterizedType)) {
+        throw new IllegalStateException("Response must be parameterized"
+            + " as Response<Foo> or Response<? extends Foo>");
+      }
+      responseType = getParameterUpperBound(0, (ParameterizedType) observableType);
+    } else if (rawObservableType == Result.class) {
+      if (!(observableType instanceof ParameterizedType)) {
+        throw new IllegalStateException("Result must be parameterized"
+            + " as Result<Foo> or Result<? extends Foo>");
+      }
+      responseType = getParameterUpperBound(0, (ParameterizedType) observableType);
+      isResult = true;
+    } else {
+      responseType = observableType;
+      isBody = true;
+    }
+
+    return new RxJavaCallAdapter(responseType, scheduler, isAsync, isResult, isBody, isSingle,
+        false);

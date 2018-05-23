@@ -1,0 +1,75 @@
+class AsyncTest
+!!!221806.java!!!	setUp() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
+        .build();
+    service = retrofit.create(Service.class);
+!!!221934.java!!!	success() : void
+    TestObserver<Void> observer = new TestObserver<>();
+    service.completable().subscribe(observer);
+    assertFalse(observer.await(1, SECONDS));
+
+    server.enqueue(new MockResponse());
+    observer.awaitTerminalEvent(1, SECONDS);
+    observer.assertComplete();
+!!!222062.java!!!	failure() : void
+    TestObserver<Void> observer = new TestObserver<>();
+    service.completable().subscribe(observer);
+    assertFalse(observer.await(1, SECONDS));
+
+    server.enqueue(new MockResponse().setSocketPolicy(DISCONNECT_AFTER_REQUEST));
+    observer.awaitTerminalEvent(1, SECONDS);
+    observer.assertError(IOException.class);
+!!!222190.java!!!	throwingInOnCompleteDeliveredToPlugin() : void
+    server.enqueue(new MockResponse());
+
+    final CountDownLatch latch = new CountDownLatch(1);
+    final AtomicReference<Throwable> errorRef = new AtomicReference<>();
+    RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
+      @Override public void accept(Throwable throwable) throws Exception {
+        if (!errorRef.compareAndSet(null, throwable)) {
+          throw Exceptions.propagate(throwable); // Don't swallow secondary errors!
+        }
+        latch.countDown();
+      }
+    });
+
+    TestObserver<Void> observer = new TestObserver<>();
+    final RuntimeException e = new RuntimeException();
+    service.completable().subscribe(new ForwardingCompletableObserver(observer) {
+      @Override public void onComplete() {
+        throw e;
+      }
+    });
+
+    latch.await(1, SECONDS);
+    assertThat(errorRef.get()).isSameAs(e);
+!!!222318.java!!!	bodyThrowingInOnErrorDeliveredToPlugin() : void
+    server.enqueue(new MockResponse().setResponseCode(404));
+
+    final CountDownLatch latch = new CountDownLatch(1);
+    final AtomicReference<Throwable> pluginRef = new AtomicReference<>();
+    RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
+      @Override public void accept(Throwable throwable) throws Exception {
+        if (!pluginRef.compareAndSet(null, throwable)) {
+          throw Exceptions.propagate(throwable); // Don't swallow secondary errors!
+        }
+        latch.countDown();
+      }
+    });
+
+    TestObserver<Void> observer = new TestObserver<>();
+    final RuntimeException e = new RuntimeException();
+    final AtomicReference<Throwable> errorRef = new AtomicReference<>();
+    service.completable().subscribe(new ForwardingCompletableObserver(observer) {
+      @Override public void onError(Throwable throwable) {
+        errorRef.set(throwable);
+        throw e;
+      }
+    });
+
+    latch.await(1, SECONDS);
+    //noinspection ThrowableResultOfMethodCallIgnored
+    CompositeException composite = (CompositeException) pluginRef.get();
+    assertThat(composite.getExceptions()).containsExactly(errorRef.get(), e);

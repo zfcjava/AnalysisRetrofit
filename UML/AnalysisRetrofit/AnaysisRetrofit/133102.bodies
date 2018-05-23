@@ -1,0 +1,14 @@
+class Body
+!!!139502.java!!!	Body(inout converter : Converter)
+      this.converter = converter;
+!!!139630.java!!!	apply(inout builder : RequestBuilder, inout value : T) : void
+      if (value == null) {
+        throw new IllegalArgumentException("Body parameter value must not be null.");
+      }
+      RequestBody body;
+      try {
+        body = converter.convert(value);
+      } catch (IOException e) {
+        throw new RuntimeException("Unable to convert " + value + " to RequestBody", e);
+      }
+      builder.setBody(body);

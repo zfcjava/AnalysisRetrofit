@@ -1,0 +1,1112 @@
+class RetrofitTest
+!!!174446.java!!!	objectMethodsStillWork() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .build();
+    CallMethod example = retrofit.create(CallMethod.class);
+
+    assertThat(example.hashCode()).isNotZero();
+    assertThat(example.equals(this)).isFalse();
+    assertThat(example.toString()).isNotEmpty();
+!!!174574.java!!!	interfaceWithExtendIsNotSupported() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .build();
+    try {
+      retrofit.create(Extending.class);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage("API interfaces must not extend other interfaces.");
+    }
+!!!174702.java!!!	cloneSharesStatefulInstances() : void
+    CallAdapter.Factory callAdapter = mock(CallAdapter.Factory.class);
+    Converter.Factory converter = mock(Converter.Factory.class);
+    HttpUrl baseUrl = server.url("/");
+    Executor executor = mock(Executor.class);
+    okhttp3.Call.Factory callFactory = mock(okhttp3.Call.Factory.class);
+
+    Retrofit one = new Retrofit.Builder()
+        .addCallAdapterFactory(callAdapter)
+        .addConverterFactory(converter)
+        .baseUrl(baseUrl)
+        .callbackExecutor(executor)
+        .callFactory(callFactory)
+        .build();
+
+    CallAdapter.Factory callAdapter2 = mock(CallAdapter.Factory.class);
+    Converter.Factory converter2 = mock(Converter.Factory.class);
+    Retrofit two = one.newBuilder()
+        .addCallAdapterFactory(callAdapter2)
+        .addConverterFactory(converter2)
+        .build();
+    assertEquals(one.callAdapterFactories().size() + 1, two.callAdapterFactories().size());
+    assertThat(two.callAdapterFactories()).contains(callAdapter, callAdapter2);
+    assertEquals(one.converterFactories().size() + 1, two.converterFactories().size());
+    assertThat(two.converterFactories()).contains(converter, converter2);
+    assertSame(baseUrl, two.baseUrl());
+    assertSame(executor, two.callbackExecutor());
+    assertSame(callFactory, two.callFactory());
+!!!174830.java!!!	builtInConvertersAbsentInCloneBuilder() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .build();
+
+    assertEquals(0, retrofit.newBuilder().converterFactories().size());
+!!!174958.java!!!	responseTypeCannotBeRetrofitResponse() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .build();
+    CallMethod service = retrofit.create(CallMethod.class);
+    try {
+      service.badType1();
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage(
+          "'retrofit2.Response' is not a valid response body type. Did you mean ResponseBody?\n"
+              + "    for method CallMethod.badType1");
+    }
+!!!175086.java!!!	responseTypeCannotBeOkHttpResponse() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .build();
+    CallMethod service = retrofit.create(CallMethod.class);
+    try {
+      service.badType2();
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage(
+          "'okhttp3.Response' is not a valid response body type. Did you mean ResponseBody?\n"
+              + "    for method CallMethod.badType2");
+    }
+!!!175214.java!!!	voidReturnTypeNotAllowed() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .build();
+    VoidService service = retrofit.create(VoidService.class);
+
+    try {
+      service.nope();
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessageStartingWith(
+          "Service methods cannot return void.\n    for method VoidService.nope");
+    }
+!!!175342.java!!!	validateEagerlyDisabledByDefault() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .build();
+
+    // Should not throw exception about incorrect configuration of the VoidService
+    retrofit.create(VoidService.class);
+!!!175470.java!!!	validateEagerlyDisabledByUser() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .validateEagerly(false)
+        .build();
+
+    // Should not throw exception about incorrect configuration of the VoidService
+    retrofit.create(VoidService.class);
+!!!175598.java!!!	validateEagerlyFailsAtCreation() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .validateEagerly(true)
+        .build();
+
+    try {
+      retrofit.create(VoidService.class);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessageStartingWith(
+          "Service methods cannot return void.\n    for method VoidService.nope");
+    }
+!!!175726.java!!!	callCallAdapterAddedByDefault() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .build();
+    CallMethod example = retrofit.create(CallMethod.class);
+    assertThat(example.getResponseBody()).isNotNull();
+!!!175854.java!!!	callCallCustomAdapter() : void
+    final AtomicBoolean factoryCalled = new AtomicBoolean();
+    final AtomicBoolean adapterCalled = new AtomicBoolean();
+    class MyCallAdapterFactory extends CallAdapter.Factory {
+      @Override public CallAdapter<?, ?> get(final Type returnType, Annotation[] annotations,
+          Retrofit retrofit) {
+        factoryCalled.set(true);
+        if (getRawType(returnType) != Call.class) {
+          return null;
+        }
+        return new CallAdapter<Object, Call<?>>() {
+          @Override public Type responseType() {
+            return getParameterUpperBound(0, (ParameterizedType) returnType);
+          }
+
+          @Override public Call<Object> adapt(Call<Object> call) {
+            adapterCalled.set(true);
+            return call;
+          }
+        };
+      }
+    }
+
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addCallAdapterFactory(new MyCallAdapterFactory())
+        .build();
+    CallMethod example = retrofit.create(CallMethod.class);
+    assertThat(example.getResponseBody()).isNotNull();
+    assertThat(factoryCalled.get()).isTrue();
+    assertThat(adapterCalled.get()).isTrue();
+!!!175982.java!!!	customCallAdapter() : void
+    class GreetingCallAdapterFactory extends CallAdapter.Factory {
+      @Override public CallAdapter<Object, String> get(Type returnType, Annotation[] annotations,
+          Retrofit retrofit) {
+        if (getRawType(returnType) != String.class) {
+          return null;
+        }
+        return new CallAdapter<Object, String>() {
+          @Override public Type responseType() {
+            return String.class;
+          }
+
+          @Override public String adapt(Call<Object> call) {
+            return "Hi!";
+          }
+        };
+      }
+    }
+
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(new ToStringConverterFactory())
+        .addCallAdapterFactory(new GreetingCallAdapterFactory())
+        .build();
+    StringService example = retrofit.create(StringService.class);
+    assertThat(example.get()).isEqualTo("Hi!");
+!!!176110.java!!!	methodAnnotationsPassedToCallAdapter() : void
+    final AtomicReference<Annotation[]> annotationsRef = new AtomicReference<>();
+    class MyCallAdapterFactory extends CallAdapter.Factory {
+      @Override public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations,
+          Retrofit retrofit) {
+        annotationsRef.set(annotations);
+        return null;
+      }
+    }
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(new ToStringConverterFactory())
+        .addCallAdapterFactory(new MyCallAdapterFactory())
+        .build();
+    Annotated annotated = retrofit.create(Annotated.class);
+    annotated.method(); // Trigger internal setup.
+
+    Annotation[] annotations = annotationsRef.get();
+    assertThat(annotations).hasAtLeastOneElementOfType(Annotated.Foo.class);
+!!!176238.java!!!	customCallAdapterMissingThrows() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .build();
+    FutureMethod example = retrofit.create(FutureMethod.class);
+    try {
+      example.method();
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage(""
+          + "Unable to create call adapter for java.util.concurrent.Future<java.lang.String>\n"
+          + "    for method FutureMethod.method");
+      assertThat(e.getCause()).hasMessage(""
+          + "Could not locate call adapter for java.util.concurrent.Future<java.lang.String>.\n"
+          + "  Tried:\n"
+          + "   * retrofit2.DefaultCallAdapterFactory");
+    }
+!!!176366.java!!!	methodAnnotationsPassedToResponseBodyConverter() : void
+    final AtomicReference<Annotation[]> annotationsRef = new AtomicReference<>();
+    class MyConverterFactory extends Converter.Factory {
+      @Override
+      public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations,
+          Retrofit retrofit) {
+        annotationsRef.set(annotations);
+        return new ToStringConverterFactory().responseBodyConverter(type, annotations, retrofit);
+      }
+    }
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(new MyConverterFactory())
+        .build();
+    Annotated annotated = retrofit.create(Annotated.class);
+    annotated.method(); // Trigger internal setup.
+
+    Annotation[] annotations = annotationsRef.get();
+    assertThat(annotations).hasAtLeastOneElementOfType(Annotated.Foo.class);
+!!!176494.java!!!	methodAndParameterAnnotationsPassedToRequestBodyConverter() : void
+    final AtomicReference<Annotation[]> parameterAnnotationsRef = new AtomicReference<>();
+    final AtomicReference<Annotation[]> methodAnnotationsRef = new AtomicReference<>();
+
+    class MyConverterFactory extends Converter.Factory {
+      @Override
+      public Converter<?, RequestBody> requestBodyConverter(Type type,
+          Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
+        parameterAnnotationsRef.set(parameterAnnotations);
+        methodAnnotationsRef.set(methodAnnotations);
+        return new ToStringConverterFactory().requestBodyConverter(type, parameterAnnotations,
+            methodAnnotations, retrofit);
+      }
+    }
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(new MyConverterFactory())
+        .build();
+    Annotated annotated = retrofit.create(Annotated.class);
+    annotated.bodyParameter(null); // Trigger internal setup.
+
+    assertThat(parameterAnnotationsRef.get()).hasAtLeastOneElementOfType(Annotated.Foo.class);
+    assertThat(methodAnnotationsRef.get()).hasAtLeastOneElementOfType(POST.class);
+!!!176622.java!!!	parameterAnnotationsPassedToStringConverter() : void
+    final AtomicReference<Annotation[]> annotationsRef = new AtomicReference<>();
+    class MyConverterFactory extends Converter.Factory {
+      @Override public Converter<?, String> stringConverter(Type type, Annotation[] annotations,
+          Retrofit retrofit) {
+        annotationsRef.set(annotations);
+
+        return new Converter<Object, String>() {
+          @Override public String convert(Object value) throws IOException {
+            return String.valueOf(value);
+          }
+        };
+      }
+    }
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(new MyConverterFactory())
+        .build();
+    Annotated annotated = retrofit.create(Annotated.class);
+    annotated.queryParameter(null); // Trigger internal setup.
+
+    Annotation[] annotations = annotationsRef.get();
+    assertThat(annotations).hasAtLeastOneElementOfType(Annotated.Foo.class);
+!!!176750.java!!!	stringConverterCalledForString() : void
+    final AtomicBoolean factoryCalled = new AtomicBoolean();
+    class MyConverterFactory extends Converter.Factory {
+      @Override public Converter<?, String> stringConverter(Type type, Annotation[] annotations,
+          Retrofit retrofit) {
+        factoryCalled.set(true);
+        return null;
+      }
+    }
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(new MyConverterFactory())
+        .build();
+    CallMethod service = retrofit.create(CallMethod.class);
+    Call<ResponseBody> call = service.queryString(null);
+    assertThat(call).isNotNull();
+    assertThat(factoryCalled.get()).isTrue();
+!!!176878.java!!!	stringConverterReturningNullResultsInDefault() : void
+    final AtomicBoolean factoryCalled = new AtomicBoolean();
+    class MyConverterFactory extends Converter.Factory {
+      @Override public Converter<?, String> stringConverter(Type type, Annotation[] annotations,
+          Retrofit retrofit) {
+        factoryCalled.set(true);
+        return null;
+      }
+    }
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(new MyConverterFactory())
+        .build();
+    CallMethod service = retrofit.create(CallMethod.class);
+    Call<ResponseBody> call = service.queryObject(null);
+    assertThat(call).isNotNull();
+    assertThat(factoryCalled.get()).isTrue();
+!!!177006.java!!!	missingConverterThrowsOnNonRequestBody() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .build();
+    CallMethod example = retrofit.create(CallMethod.class);
+    try {
+      example.disallowed("Hi!");
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage(""
+          + "Unable to create @Body converter for class java.lang.String (parameter #1)\n"
+          + "    for method CallMethod.disallowed");
+      assertThat(e.getCause()).hasMessage(""
+          + "Could not locate RequestBody converter for class java.lang.String.\n"
+          + "  Tried:\n"
+          + "   * retrofit2.BuiltInConverters");
+    }
+!!!177134.java!!!	missingConverterThrowsOnNonResponseBody() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .build();
+    CallMethod example = retrofit.create(CallMethod.class);
+
+    server.enqueue(new MockResponse().setBody("Hi"));
+
+    try {
+      example.disallowed();
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage(""
+          + "Unable to create converter for class java.lang.String\n"
+          + "    for method CallMethod.disallowed");
+      assertThat(e.getCause()).hasMessage(""
+          + "Could not locate ResponseBody converter for class java.lang.String.\n"
+          + "  Tried:\n"
+          + "   * retrofit2.BuiltInConverters");
+    }
+!!!177262.java!!!	requestBodyOutgoingAllowed() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .build();
+    CallMethod example = retrofit.create(CallMethod.class);
+
+    server.enqueue(new MockResponse().setBody("Hi"));
+
+    Response<ResponseBody> response = example.getResponseBody().execute();
+    assertThat(response.body().string()).isEqualTo("Hi");
+!!!177390.java!!!	voidOutgoingAllowed() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .build();
+    CallMethod example = retrofit.create(CallMethod.class);
+
+    server.enqueue(new MockResponse().setBody("Hi"));
+
+    Response<Void> response = example.getVoid().execute();
+    assertThat(response.body()).isNull();
+!!!177518.java!!!	voidResponsesArePooled() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .build();
+    CallMethod example = retrofit.create(CallMethod.class);
+
+    server.enqueue(new MockResponse().setBody("abc"));
+    server.enqueue(new MockResponse().setBody("def"));
+
+    example.getVoid().execute();
+    example.getVoid().execute();
+
+    assertThat(server.takeRequest().getSequenceNumber()).isEqualTo(0);
+    assertThat(server.takeRequest().getSequenceNumber()).isEqualTo(1);
+!!!177646.java!!!	responseBodyIncomingAllowed() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .build();
+    CallMethod example = retrofit.create(CallMethod.class);
+
+    server.enqueue(new MockResponse().setBody("Hi"));
+
+    RequestBody body = RequestBody.create(MediaType.parse("text/plain"), "Hey");
+    Response<ResponseBody> response = example.postRequestBody(body).execute();
+    assertThat(response.body().string()).isEqualTo("Hi");
+
+    assertThat(server.takeRequest().getBody().readUtf8()).isEqualTo("Hey");
+!!!177774.java!!!	unresolvableResponseTypeThrows() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(new ToStringConverterFactory())
+        .build();
+    UnresolvableResponseType example = retrofit.create(UnresolvableResponseType.class);
+
+    try {
+      example.typeVariable();
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage("Method return type must not include a type variable or wildcard: "
+          + "retrofit2.Call<T>\n    for method UnresolvableResponseType.typeVariable");
+    }
+    try {
+      example.typeVariableUpperBound();
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage("Method return type must not include a type variable or wildcard: "
+          + "retrofit2.Call<T>\n    for method UnresolvableResponseType.typeVariableUpperBound");
+    }
+    try {
+      example.crazy();
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage("Method return type must not include a type variable or wildcard: "
+          + "retrofit2.Call<java.util.List<java.util.Map<java.lang.String, java.util.Set<T[]>>>>\n"
+          + "    for method UnresolvableResponseType.crazy");
+    }
+    try {
+      example.wildcard();
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage("Method return type must not include a type variable or wildcard: "
+          + "retrofit2.Call<?>\n    for method UnresolvableResponseType.wildcard");
+    }
+    try {
+      example.wildcardUpperBound();
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage("Method return type must not include a type variable or wildcard: "
+          + "retrofit2.Call<? extends okhttp3.ResponseBody>\n"
+          + "    for method UnresolvableResponseType.wildcardUpperBound");
+    }
+!!!177902.java!!!	unresolvableParameterTypeThrows() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(new ToStringConverterFactory())
+        .build();
+    UnresolvableParameterType example = retrofit.create(UnresolvableParameterType.class);
+
+    try {
+      example.typeVariable(null);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage("Parameter type must not include a type variable or wildcard: "
+          + "T (parameter #1)\n    for method UnresolvableParameterType.typeVariable");
+    }
+    try {
+      example.typeVariableUpperBound(null);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage("Parameter type must not include a type variable or wildcard: "
+          + "T (parameter #1)\n    for method UnresolvableParameterType.typeVariableUpperBound");
+    }
+    try {
+      example.crazy(null);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage("Parameter type must not include a type variable or wildcard: "
+          + "java.util.List<java.util.Map<java.lang.String, java.util.Set<T[]>>> (parameter #1)\n"
+          + "    for method UnresolvableParameterType.crazy");
+    }
+    try {
+      example.wildcard(null);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage("Parameter type must not include a type variable or wildcard: "
+          + "java.util.List<?> (parameter #1)\n    for method UnresolvableParameterType.wildcard");
+    }
+    try {
+      example.wildcardUpperBound(null);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage("Parameter type must not include a type variable or wildcard: "
+          + "java.util.List<? extends okhttp3.RequestBody> (parameter #1)\n"
+          + "    for method UnresolvableParameterType.wildcardUpperBound");
+    }
+!!!178030.java!!!	baseUrlRequired() : void
+    try {
+      new Retrofit.Builder().build();
+      fail();
+    } catch (IllegalStateException e) {
+      assertThat(e).hasMessage("Base URL required.");
+    }
+!!!178158.java!!!	baseUrlNullThrows() : void
+    try {
+      new Retrofit.Builder().baseUrl((String) null);
+      fail();
+    } catch (NullPointerException e) {
+      assertThat(e).hasMessage("baseUrl == null");
+    }
+    try {
+      new Retrofit.Builder().baseUrl((HttpUrl) null);
+      fail();
+    } catch (NullPointerException e) {
+      assertThat(e).hasMessage("baseUrl == null");
+    }
+!!!178286.java!!!	baseUrlInvalidThrows() : void
+    try {
+      new Retrofit.Builder().baseUrl("ftp://foo/bar");
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage("Illegal URL: ftp://foo/bar");
+    }
+!!!178414.java!!!	baseUrlNoTrailingSlashThrows() : void
+    try {
+      new Retrofit.Builder().baseUrl("http://example.com/api");
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage("baseUrl must end in /: http://example.com/api");
+    }
+    HttpUrl parsed = HttpUrl.parse("http://example.com/api");
+    try {
+      new Retrofit.Builder().baseUrl(parsed);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage("baseUrl must end in /: http://example.com/api");
+    }
+!!!178542.java!!!	baseUrlStringPropagated() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .build();
+    HttpUrl baseUrl = retrofit.baseUrl();
+    assertThat(baseUrl).isEqualTo(HttpUrl.parse("http://example.com/"));
+!!!178670.java!!!	baseHttpUrlPropagated() : void
+    HttpUrl url = HttpUrl.parse("http://example.com/");
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(url)
+        .build();
+    assertThat(retrofit.baseUrl()).isSameAs(url);
+!!!178798.java!!!	clientNullThrows() : void
+    try {
+      new Retrofit.Builder().client(null);
+      fail();
+    } catch (NullPointerException e) {
+      assertThat(e).hasMessage("client == null");
+    }
+!!!178926.java!!!	callFactoryDefault() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com")
+        .build();
+    assertThat(retrofit.callFactory()).isNotNull();
+!!!179054.java!!!	callFactoryPropagated() : void
+    okhttp3.Call.Factory callFactory = mock(okhttp3.Call.Factory.class);
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .callFactory(callFactory)
+        .build();
+    assertThat(retrofit.callFactory()).isSameAs(callFactory);
+!!!179182.java!!!	callFactoryClientPropagated() : void
+    OkHttpClient client = new OkHttpClient();
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .client(client)
+        .build();
+    assertThat(retrofit.callFactory()).isSameAs(client);
+!!!179310.java!!!	callFactoryUsed() : void
+    okhttp3.Call.Factory callFactory = spy(new okhttp3.Call.Factory() {
+      @Override public okhttp3.Call newCall(Request request) {
+        return new OkHttpClient().newCall(request);
+      }
+    });
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .callFactory(callFactory)
+        .build();
+
+    server.enqueue(new MockResponse());
+
+    CallMethod service = retrofit.create(CallMethod.class);
+    service.getResponseBody().execute();
+    verify(callFactory).newCall(any(Request.class));
+    verifyNoMoreInteractions(callFactory);
+!!!179438.java!!!	callFactoryReturningNullThrows() : void
+    okhttp3.Call.Factory callFactory = new okhttp3.Call.Factory() {
+      @Override public okhttp3.Call newCall(Request request) {
+        return null;
+      }
+    };
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .callFactory(callFactory)
+        .build();
+
+    server.enqueue(new MockResponse());
+
+    CallMethod service = retrofit.create(CallMethod.class);
+    Call<ResponseBody> call = service.getResponseBody();
+    try {
+      call.execute();
+      fail();
+    } catch (NullPointerException e) {
+      assertThat(e).hasMessage("Call.Factory returned null.");
+    }
+!!!179566.java!!!	callFactoryThrowingPropagates() : void
+    final RuntimeException cause = new RuntimeException("Broken!");
+    okhttp3.Call.Factory callFactory = new okhttp3.Call.Factory() {
+      @Override public okhttp3.Call newCall(Request request) {
+        throw cause;
+      }
+    };
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .callFactory(callFactory)
+        .build();
+
+    server.enqueue(new MockResponse());
+
+    CallMethod service = retrofit.create(CallMethod.class);
+    Call<ResponseBody> call = service.getResponseBody();
+    try {
+      call.execute();
+      fail();
+    } catch (Exception e) {
+      assertThat(e).isSameAs(cause);
+    }
+!!!179694.java!!!	converterNullThrows() : void
+    try {
+      new Retrofit.Builder().addConverterFactory(null);
+      fail();
+    } catch (NullPointerException e) {
+      assertThat(e).hasMessage("factory == null");
+    }
+!!!179822.java!!!	converterFactoryDefault() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .build();
+    List<Converter.Factory> converterFactories = retrofit.converterFactories();
+    assertThat(converterFactories).hasSize(1);
+    assertThat(converterFactories.get(0)).isInstanceOf(BuiltInConverters.class);
+!!!179950.java!!!	builtInConvertersFirstInClone() : void
+    Converter<ResponseBody, Void> converter = mock(Converter.class);
+    Converter.Factory factory = mock(Converter.Factory.class);
+    Annotation[] annotations = new Annotation[0];
+
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .addConverterFactory(factory)
+        .build();
+
+    doReturn(converter).when(factory).responseBodyConverter(Void.class, annotations, retrofit);
+
+    retrofit.newBuilder().build().responseBodyConverter(Void.class, annotations);
+
+    verifyZeroInteractions(factory);
+!!!180078.java!!!	requestConverterFactoryQueried() : void
+    Type type = String.class;
+    Annotation[] parameterAnnotations = new Annotation[0];
+    Annotation[] methodAnnotations = new Annotation[1];
+
+    Converter<?, RequestBody> expectedAdapter = mock(Converter.class);
+    Converter.Factory factory = mock(Converter.Factory.class);
+
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .addConverterFactory(factory)
+        .build();
+
+    doReturn(expectedAdapter).when(factory).requestBodyConverter(type, parameterAnnotations,
+        methodAnnotations, retrofit);
+
+    Converter<?, RequestBody> actualAdapter = retrofit.requestBodyConverter(type,
+        parameterAnnotations, methodAnnotations);
+    assertThat(actualAdapter).isSameAs(expectedAdapter);
+
+    verify(factory).requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
+    verifyNoMoreInteractions(factory);
+!!!180206.java!!!	requestConverterFactoryNoMatchThrows() : void
+    Type type = String.class;
+    Annotation[] annotations = new Annotation[0];
+
+    NonMatchingConverterFactory nonMatchingFactory = new NonMatchingConverterFactory();
+
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .addConverterFactory(nonMatchingFactory)
+        .build();
+
+    try {
+      retrofit.requestBodyConverter(type, annotations, annotations);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage(""
+          + "Could not locate RequestBody converter for class java.lang.String.\n"
+          + "  Tried:\n"
+          + "   * retrofit2.BuiltInConverters\n"
+          + "   * retrofit2.helpers.NonMatchingConverterFactory");
+    }
+
+    assertThat(nonMatchingFactory.called).isTrue();
+!!!180334.java!!!	requestConverterFactorySkippedNoMatchThrows() : void
+    Type type = String.class;
+    Annotation[] annotations = new Annotation[0];
+
+    NonMatchingConverterFactory nonMatchingFactory1 = new NonMatchingConverterFactory();
+    NonMatchingConverterFactory nonMatchingFactory2 = new NonMatchingConverterFactory();
+
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .addConverterFactory(nonMatchingFactory1)
+        .addConverterFactory(nonMatchingFactory2)
+        .build();
+
+    try {
+      retrofit.nextRequestBodyConverter(nonMatchingFactory1, type, annotations, annotations);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage(""
+          + "Could not locate RequestBody converter for class java.lang.String.\n"
+          + "  Skipped:\n"
+          + "   * retrofit2.BuiltInConverters\n"
+          + "   * retrofit2.helpers.NonMatchingConverterFactory\n"
+          + "  Tried:\n"
+          + "   * retrofit2.helpers.NonMatchingConverterFactory");
+    }
+
+    assertThat(nonMatchingFactory1.called).isFalse();
+    assertThat(nonMatchingFactory2.called).isTrue();
+!!!180462.java!!!	responseConverterFactoryQueried() : void
+    Type type = String.class;
+    Annotation[] annotations = new Annotation[0];
+
+    Converter<ResponseBody, ?> expectedAdapter = mock(Converter.class);
+    Converter.Factory factory = mock(Converter.Factory.class);
+
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .addConverterFactory(factory)
+        .build();
+
+    doReturn(expectedAdapter).when(factory).responseBodyConverter(type, annotations, retrofit);
+
+    Converter<ResponseBody, ?> actualAdapter = retrofit.responseBodyConverter(type, annotations);
+    assertThat(actualAdapter).isSameAs(expectedAdapter);
+
+    verify(factory).responseBodyConverter(type, annotations, retrofit);
+    verifyNoMoreInteractions(factory);
+!!!180590.java!!!	responseConverterFactoryNoMatchThrows() : void
+    Type type = String.class;
+    Annotation[] annotations = new Annotation[0];
+
+    NonMatchingConverterFactory nonMatchingFactory = new NonMatchingConverterFactory();
+
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .addConverterFactory(nonMatchingFactory)
+        .build();
+
+    try {
+      retrofit.responseBodyConverter(type, annotations);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage(""
+          + "Could not locate ResponseBody converter for class java.lang.String.\n"
+          + "  Tried:\n"
+          + "   * retrofit2.BuiltInConverters\n"
+          + "   * retrofit2.helpers.NonMatchingConverterFactory");
+    }
+
+    assertThat(nonMatchingFactory.called).isTrue();
+!!!180718.java!!!	responseConverterFactorySkippedNoMatchThrows() : void
+    Type type = String.class;
+    Annotation[] annotations = new Annotation[0];
+
+    NonMatchingConverterFactory nonMatchingFactory1 = new NonMatchingConverterFactory();
+    NonMatchingConverterFactory nonMatchingFactory2 = new NonMatchingConverterFactory();
+
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .addConverterFactory(nonMatchingFactory1)
+        .addConverterFactory(nonMatchingFactory2)
+        .build();
+
+    try {
+      retrofit.nextResponseBodyConverter(nonMatchingFactory1, type, annotations);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage(""
+          + "Could not locate ResponseBody converter for class java.lang.String.\n"
+          + "  Skipped:\n"
+          + "   * retrofit2.BuiltInConverters\n"
+          + "   * retrofit2.helpers.NonMatchingConverterFactory\n"
+          + "  Tried:\n"
+          + "   * retrofit2.helpers.NonMatchingConverterFactory");
+    }
+
+    assertThat(nonMatchingFactory1.called).isFalse();
+    assertThat(nonMatchingFactory2.called).isTrue();
+!!!180846.java!!!	stringConverterFactoryQueried() : void
+    Type type = Object.class;
+    Annotation[] annotations = new Annotation[0];
+
+    Converter<?, String> expectedAdapter = mock(Converter.class);
+    Converter.Factory factory = mock(Converter.Factory.class);
+
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .addConverterFactory(factory)
+        .build();
+
+    doReturn(expectedAdapter).when(factory).stringConverter(type, annotations, retrofit);
+
+    Converter<?, String> actualAdapter = retrofit.stringConverter(type, annotations);
+    assertThat(actualAdapter).isSameAs(expectedAdapter);
+
+    verify(factory).stringConverter(type, annotations, retrofit);
+    verifyNoMoreInteractions(factory);
+!!!180974.java!!!	converterFactoryPropagated() : void
+    Converter.Factory factory = mock(Converter.Factory.class);
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .addConverterFactory(factory)
+        .build();
+    assertThat(retrofit.converterFactories()).contains(factory);
+!!!181102.java!!!	callAdapterFactoryNullThrows() : void
+    try {
+      new Retrofit.Builder().addCallAdapterFactory(null);
+      fail();
+    } catch (NullPointerException e) {
+      assertThat(e).hasMessage("factory == null");
+    }
+!!!181230.java!!!	callAdapterFactoryDefault() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .build();
+    assertThat(retrofit.callAdapterFactories()).isNotEmpty();
+!!!181358.java!!!	callAdapterFactoryPropagated() : void
+    CallAdapter.Factory factory = mock(CallAdapter.Factory.class);
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .addCallAdapterFactory(factory)
+        .build();
+    assertThat(retrofit.callAdapterFactories()).contains(factory);
+!!!181486.java!!!	callAdapterFactoryQueried() : void
+    Type type = String.class;
+    Annotation[] annotations = new Annotation[0];
+
+    CallAdapter<?, ?> expectedAdapter = mock(CallAdapter.class);
+    CallAdapter.Factory factory = mock(CallAdapter.Factory.class);
+
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .addCallAdapterFactory(factory)
+        .build();
+
+    doReturn(expectedAdapter).when(factory).get(type, annotations, retrofit);
+
+    CallAdapter<?, ?> actualAdapter = retrofit.callAdapter(type, annotations);
+    assertThat(actualAdapter).isSameAs(expectedAdapter);
+
+    verify(factory).get(type, annotations, retrofit);
+    verifyNoMoreInteractions(factory);
+!!!181614.java!!!	callAdapterFactoryQueriedCanDelegate() : void
+    Type type = String.class;
+    Annotation[] annotations = new Annotation[0];
+
+    CallAdapter<?, ?> expectedAdapter = mock(CallAdapter.class);
+    CallAdapter.Factory factory2 = mock(CallAdapter.Factory.class);
+    CallAdapter.Factory factory1 = spy(new CallAdapter.Factory() {
+      @Override
+      public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
+        return retrofit.nextCallAdapter(this, returnType, annotations);
+      }
+    });
+
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .addCallAdapterFactory(factory1)
+        .addCallAdapterFactory(factory2)
+        .build();
+
+    doReturn(expectedAdapter).when(factory2).get(type, annotations, retrofit);
+
+    CallAdapter<?, ?> actualAdapter = retrofit.callAdapter(type, annotations);
+    assertThat(actualAdapter).isSameAs(expectedAdapter);
+
+    verify(factory1).get(type, annotations, retrofit);
+    verifyNoMoreInteractions(factory1);
+    verify(factory2).get(type, annotations, retrofit);
+    verifyNoMoreInteractions(factory2);
+!!!181742.java!!!	callAdapterFactoryQueriedCanDelegateTwiceWithoutRecursion() : void
+    Type type = String.class;
+    Annotation[] annotations = new Annotation[0];
+
+    CallAdapter<?, ?> expectedAdapter = mock(CallAdapter.class);
+    CallAdapter.Factory factory3 = mock(CallAdapter.Factory.class);
+    CallAdapter.Factory factory2 = spy(new CallAdapter.Factory() {
+      @Override
+      public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
+        return retrofit.nextCallAdapter(this, returnType, annotations);
+      }
+    });
+    CallAdapter.Factory factory1 = spy(new CallAdapter.Factory() {
+      @Override
+      public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
+        return retrofit.nextCallAdapter(this, returnType, annotations);
+      }
+    });
+
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .addCallAdapterFactory(factory1)
+        .addCallAdapterFactory(factory2)
+        .addCallAdapterFactory(factory3)
+        .build();
+
+    doReturn(expectedAdapter).when(factory3).get(type, annotations, retrofit);
+
+    CallAdapter<?, ?> actualAdapter = retrofit.callAdapter(type, annotations);
+    assertThat(actualAdapter).isSameAs(expectedAdapter);
+
+    verify(factory1).get(type, annotations, retrofit);
+    verifyNoMoreInteractions(factory1);
+    verify(factory2).get(type, annotations, retrofit);
+    verifyNoMoreInteractions(factory2);
+    verify(factory3).get(type, annotations, retrofit);
+    verifyNoMoreInteractions(factory3);
+!!!181870.java!!!	callAdapterFactoryNoMatchThrows() : void
+    Type type = String.class;
+    Annotation[] annotations = new Annotation[0];
+
+    NonMatchingCallAdapterFactory nonMatchingFactory = new NonMatchingCallAdapterFactory();
+
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .addCallAdapterFactory(nonMatchingFactory)
+        .build();
+
+    try {
+      retrofit.callAdapter(type, annotations);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage(""
+          + "Could not locate call adapter for class java.lang.String.\n"
+          + "  Tried:\n"
+          + "   * retrofit2.helpers.NonMatchingCallAdapterFactory\n"
+          + "   * retrofit2.DefaultCallAdapterFactory");
+    }
+
+    assertThat(nonMatchingFactory.called).isTrue();
+!!!181998.java!!!	callAdapterFactoryDelegateNoMatchThrows() : void
+    Type type = String.class;
+    Annotation[] annotations = new Annotation[0];
+
+    DelegatingCallAdapterFactory delegatingFactory1 = new DelegatingCallAdapterFactory();
+    DelegatingCallAdapterFactory delegatingFactory2 = new DelegatingCallAdapterFactory();
+    NonMatchingCallAdapterFactory nonMatchingFactory = new NonMatchingCallAdapterFactory();
+
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .addCallAdapterFactory(delegatingFactory1)
+        .addCallAdapterFactory(delegatingFactory2)
+        .addCallAdapterFactory(nonMatchingFactory)
+        .build();
+
+    try {
+      retrofit.callAdapter(type, annotations);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e).hasMessage(""
+          + "Could not locate call adapter for class java.lang.String.\n"
+          + "  Skipped:\n"
+          + "   * retrofit2.helpers.DelegatingCallAdapterFactory\n"
+          + "   * retrofit2.helpers.DelegatingCallAdapterFactory\n"
+          + "  Tried:\n"
+          + "   * retrofit2.helpers.NonMatchingCallAdapterFactory\n"
+          + "   * retrofit2.DefaultCallAdapterFactory");
+    }
+
+    assertThat(delegatingFactory1.called).isTrue();
+    assertThat(delegatingFactory2.called).isTrue();
+    assertThat(nonMatchingFactory.called).isTrue();
+!!!182126.java!!!	platformAwareAdapterAbsentInCloneBuilder() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .build();
+
+    assertEquals(0, retrofit.newBuilder().callAdapterFactories().size());
+!!!182254.java!!!	callbackExecutorNullThrows() : void
+    try {
+      new Retrofit.Builder().callbackExecutor(null);
+      fail();
+    } catch (NullPointerException e) {
+      assertThat(e).hasMessage("executor == null");
+    }
+!!!182382.java!!!	callbackExecutorPropagatesDefaultJvm() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .build();
+    assertThat(retrofit.callbackExecutor()).isNull();
+!!!182510.java!!!	callbackExecutorPropagatesDefaultAndroid() : void
+    final Executor executor = Executors.newSingleThreadExecutor();
+    Platform platform = new Platform() {
+      @Override Executor defaultCallbackExecutor() {
+        return executor;
+      }
+    };
+    Retrofit retrofit = new Retrofit.Builder(platform)
+        .baseUrl("http://example.com/")
+        .build();
+    assertThat(retrofit.callbackExecutor()).isSameAs(executor);
+!!!182638.java!!!	callbackExecutorPropagated() : void
+    Executor executor = mock(Executor.class);
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://example.com/")
+        .callbackExecutor(executor)
+        .build();
+    assertThat(retrofit.callbackExecutor()).isSameAs(executor);
+!!!182766.java!!!	callbackExecutorUsedForSuccess() : void
+    Executor executor = spy(new Executor() {
+      @Override public void execute(Runnable command) {
+        command.run();
+      }
+    });
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .callbackExecutor(executor)
+        .build();
+    CallMethod service = retrofit.create(CallMethod.class);
+    Call<ResponseBody> call = service.getResponseBody();
+
+    server.enqueue(new MockResponse());
+
+    final CountDownLatch latch = new CountDownLatch(1);
+    call.enqueue(new Callback<ResponseBody>() {
+      @Override public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+        latch.countDown();
+      }
+
+      @Override public void onFailure(Call<ResponseBody> call, Throwable t) {
+        t.printStackTrace();
+      }
+    });
+    assertTrue(latch.await(2, TimeUnit.SECONDS));
+
+    verify(executor).execute(any(Runnable.class));
+    verifyNoMoreInteractions(executor);
+!!!182894.java!!!	callbackExecutorUsedForFailure() : void
+    Executor executor = spy(new Executor() {
+      @Override public void execute(Runnable command) {
+        command.run();
+      }
+    });
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .callbackExecutor(executor)
+        .build();
+    CallMethod service = retrofit.create(CallMethod.class);
+    Call<ResponseBody> call = service.getResponseBody();
+
+    server.enqueue(new MockResponse().setSocketPolicy(DISCONNECT_AT_START));
+
+    final CountDownLatch latch = new CountDownLatch(1);
+    call.enqueue(new Callback<ResponseBody>() {
+      @Override public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+        throw new AssertionError();
+      }
+
+      @Override public void onFailure(Call<ResponseBody> call, Throwable t) {
+        latch.countDown();
+      }
+    });
+    assertTrue(latch.await(2, TimeUnit.SECONDS));
+
+    verify(executor).execute(any(Runnable.class));
+    verifyNoMoreInteractions(executor);
+!!!183022.java!!!	argumentCapture() : void
+    AtomicInteger i = new AtomicInteger();
+
+    server.enqueue(new MockResponse().setBody("a"));
+    server.enqueue(new MockResponse().setBody("b"));
+
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(new ToStringConverterFactory())
+        .build();
+    MutableParameters mutableParameters = retrofit.create(MutableParameters.class);
+
+    i.set(100);
+    Call<String> call1 = mutableParameters.method(i);
+
+    i.set(101);
+    Response<String> response1 = call1.execute();
+
+    i.set(102);
+    assertEquals("a", response1.body());
+    assertEquals("/?i=101", server.takeRequest().getPath());
+
+    i.set(200);
+    Call<String> call2 = call1.clone();
+
+    i.set(201);
+    Response<String> response2 = call2.execute();
+
+    i.set(202);
+    assertEquals("b", response2.body());
+
+    assertEquals("/?i=201", server.takeRequest().getPath());

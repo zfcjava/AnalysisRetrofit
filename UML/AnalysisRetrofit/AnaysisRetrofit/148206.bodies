@@ -1,0 +1,121 @@
+class ObservableTest
+!!!201582.java!!!	setUp() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(new StringConverterFactory())
+        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+        .build();
+    service = retrofit.create(Service.class);
+!!!201710.java!!!	bodySuccess200() : void
+    server.enqueue(new MockResponse().setBody("Hi"));
+
+    RecordingSubscriber<String> subscriber = subscriberRule.create();
+    service.body().unsafeSubscribe(subscriber);
+    subscriber.assertValue("Hi").assertCompleted();
+!!!201838.java!!!	bodySuccess404() : void
+    server.enqueue(new MockResponse().setResponseCode(404));
+
+    RecordingSubscriber<String> subscriber = subscriberRule.create();
+    service.body().unsafeSubscribe(subscriber);
+    // Required for backwards compatibility.
+    subscriber.assertError(HttpException.class, "HTTP 404 Client Error");
+!!!201966.java!!!	bodyFailure() : void
+    server.enqueue(new MockResponse().setSocketPolicy(DISCONNECT_AFTER_REQUEST));
+
+    RecordingSubscriber<String> subscriber = subscriberRule.create();
+    service.body().unsafeSubscribe(subscriber);
+    subscriber.assertError(IOException.class);
+!!!202094.java!!!	bodyRespectsBackpressure() : void
+    server.enqueue(new MockResponse().setBody("Hi"));
+
+    RecordingSubscriber<String> subscriber = subscriberRule.createWithInitialRequest(0);
+    service.body().unsafeSubscribe(subscriber);
+    assertThat(server.getRequestCount()).isEqualTo(1);
+    subscriber.assertNoEvents();
+
+    subscriber.requestMore(1);
+    subscriber.assertAnyValue().assertCompleted();
+
+    subscriber.requestMore(Long.MAX_VALUE); // Subsequent requests do not trigger HTTP requests.
+    assertThat(server.getRequestCount()).isEqualTo(1);
+!!!202222.java!!!	responseSuccess200() : void
+    server.enqueue(new MockResponse().setBody("Hi"));
+
+    RecordingSubscriber<Response<String>> subscriber = subscriberRule.create();
+    service.response().unsafeSubscribe(subscriber);
+    assertThat(subscriber.takeValue().body()).isEqualTo("Hi");
+    subscriber.assertCompleted();
+!!!202350.java!!!	responseSuccess404() : void
+    server.enqueue(new MockResponse().setResponseCode(404));
+
+    RecordingSubscriber<Response<String>> subscriber = subscriberRule.create();
+    service.response().unsafeSubscribe(subscriber);
+    assertThat(subscriber.takeValue().code()).isEqualTo(404);
+    subscriber.assertCompleted();
+!!!202478.java!!!	responseFailure() : void
+    server.enqueue(new MockResponse().setSocketPolicy(DISCONNECT_AFTER_REQUEST));
+
+    RecordingSubscriber<Response<String>> subscriber = subscriberRule.create();
+    service.response().unsafeSubscribe(subscriber);
+    subscriber.assertError(IOException.class);
+!!!202606.java!!!	responseRespectsBackpressure() : void
+    server.enqueue(new MockResponse().setBody("Hi"));
+
+    RecordingSubscriber<Response<String>> subscriber = subscriberRule.createWithInitialRequest(0);
+    service.response().unsafeSubscribe(subscriber);
+    assertThat(server.getRequestCount()).isEqualTo(1);
+    subscriber.assertNoEvents();
+
+    subscriber.requestMore(1);
+    subscriber.assertAnyValue().assertCompleted();
+
+    subscriber.requestMore(Long.MAX_VALUE); // Subsequent requests do not trigger HTTP requests.
+    assertThat(server.getRequestCount()).isEqualTo(1);
+!!!202734.java!!!	responseUnsubscribedDoesNotCallCompleted() : void
+    server.enqueue(new MockResponse().setBody("Hi"));
+
+    final RecordingSubscriber<Response<String>> subscriber = subscriberRule.create();
+    service.response()
+        .doOnNext(new Action1<Response<String>>() {
+          @Override
+          public void call(Response<String> response) {
+            subscriber.unsubscribe();
+          }
+        })
+        .subscribe(subscriber);
+
+    assertThat(subscriber.takeValue().body()).isEqualTo("Hi");
+!!!202862.java!!!	resultSuccess200() : void
+    server.enqueue(new MockResponse().setBody("Hi"));
+
+    RecordingSubscriber<Result<String>> subscriber = subscriberRule.create();
+    service.result().unsafeSubscribe(subscriber);
+    assertThat(subscriber.takeValue().response().body()).isEqualTo("Hi");
+    subscriber.assertCompleted();
+!!!202990.java!!!	resultSuccess404() : void
+    server.enqueue(new MockResponse().setResponseCode(404));
+
+    RecordingSubscriber<Result<String>> subscriber = subscriberRule.create();
+    service.result().unsafeSubscribe(subscriber);
+    assertThat(subscriber.takeValue().response().code()).isEqualTo(404);
+    subscriber.assertCompleted();
+!!!203118.java!!!	resultFailure() : void
+    server.enqueue(new MockResponse().setSocketPolicy(DISCONNECT_AFTER_REQUEST));
+
+    RecordingSubscriber<Result<String>> subscriber = subscriberRule.create();
+    service.result().unsafeSubscribe(subscriber);
+    assertThat(subscriber.takeValue().error()).isInstanceOf(IOException.class);
+    subscriber.assertCompleted();
+!!!203246.java!!!	resultRespectsBackpressure() : void
+    server.enqueue(new MockResponse().setBody("Hi"));
+
+    RecordingSubscriber<Result<String>> subscriber = subscriberRule.createWithInitialRequest(0);
+    service.result().unsafeSubscribe(subscriber);
+    assertThat(server.getRequestCount()).isEqualTo(1);
+    subscriber.assertNoEvents();
+
+    subscriber.requestMore(1);
+    subscriber.assertAnyValue().assertCompleted();
+
+    subscriber.requestMore(Long.MAX_VALUE); // Subsequent requests do not trigger HTTP requests.
+    assertThat(server.getRequestCount()).isEqualTo(1);

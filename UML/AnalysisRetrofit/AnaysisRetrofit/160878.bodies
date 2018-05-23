@@ -1,0 +1,14 @@
+class GsonConverterFactory
+!!!259182.java!!!	create() : GsonConverterFactory
+    return create(new Gson());
+!!!259310.java!!!	create(inout gson : Gson) : GsonConverterFactory
+    if (gson == null) throw new NullPointerException("gson == null");
+    return new GsonConverterFactory(gson);
+!!!259438.java!!!	GsonConverterFactory(inout gson : Gson)
+    this.gson = gson;
+!!!259566.java!!!	responseBodyConverter(inout type : Type, inout annotations : Annotation, inout retrofit : Retrofit) : Converter
+    TypeAdapter<?> adapter = gson.getAdapter(TypeToken.get(type));
+    return new GsonResponseBodyConverter<>(gson, adapter);
+!!!259694.java!!!	requestBodyConverter(inout type : Type, inout parameterAnnotations : Annotation, inout methodAnnotations : Annotation, inout retrofit : Retrofit) : Converter
+    TypeAdapter<?> adapter = gson.getAdapter(TypeToken.get(type));
+    return new GsonRequestBodyConverter<>(gson, adapter);

@@ -1,0 +1,60 @@
+class ListenableFutureTest
+!!!186734.java!!!	setUp() : void
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(server.url("/"))
+        .addConverterFactory(new StringConverterFactory())
+        .addCallAdapterFactory(GuavaCallAdapterFactory.create())
+        .build();
+    service = retrofit.create(Service.class);
+!!!186862.java!!!	bodySuccess200() : void
+    server.enqueue(new MockResponse().setBody("Hi"));
+
+    ListenableFuture<String> future = service.body();
+    assertThat(future.get()).isEqualTo("Hi");
+!!!186990.java!!!	bodySuccess404() : void
+    server.enqueue(new MockResponse().setResponseCode(404));
+
+    ListenableFuture<String> future = service.body();
+    try {
+      future.get();
+      fail();
+    } catch (ExecutionException e) {
+      assertThat(e.getCause())
+          .isInstanceOf(HttpException.class) // Required for backwards compatibility.
+          .isInstanceOf(retrofit2.HttpException.class)
+          .hasMessage("HTTP 404 Client Error");
+    }
+!!!187118.java!!!	bodyFailure() : void
+    server.enqueue(new MockResponse().setSocketPolicy(DISCONNECT_AFTER_REQUEST));
+
+    ListenableFuture<String> future = service.body();
+    try {
+      future.get();
+      fail();
+    } catch (ExecutionException e) {
+      assertThat(e.getCause()).isInstanceOf(IOException.class);
+    }
+!!!187246.java!!!	responseSuccess200() : void
+    server.enqueue(new MockResponse().setBody("Hi"));
+
+    ListenableFuture<Response<String>> future = service.response();
+    Response<String> response = future.get();
+    assertThat(response.isSuccessful()).isTrue();
+    assertThat(response.body()).isEqualTo("Hi");
+!!!187374.java!!!	responseSuccess404() : void
+    server.enqueue(new MockResponse().setResponseCode(404).setBody("Hi"));
+
+    ListenableFuture<Response<String>> future = service.response();
+    Response<String> response = future.get();
+    assertThat(response.isSuccessful()).isFalse();
+    assertThat(response.errorBody().string()).isEqualTo("Hi");
+!!!187502.java!!!	responseFailure() : void
+    server.enqueue(new MockResponse().setSocketPolicy(DISCONNECT_AFTER_REQUEST));
+
+    ListenableFuture<Response<String>> future = service.response();
+    try {
+      future.get();
+      fail();
+    } catch (ExecutionException e) {
+      assertThat(e.getCause()).isInstanceOf(IOException.class);
+    }

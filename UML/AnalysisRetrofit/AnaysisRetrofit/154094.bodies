@@ -1,0 +1,9 @@
+class ForwardingCompletableObserver
+!!!224110.java!!!	ForwardingCompletableObserver(inout delegate : CompletableObserver)
+      this.delegate = delegate;
+!!!224238.java!!!	onSubscribe(inout disposable : Disposable) : void
+      delegate.onSubscribe(disposable);
+!!!224366.java!!!	onComplete() : void
+      delegate.onComplete();
+!!!224494.java!!!	onError(inout throwable : Throwable) : void
+      delegate.onError(throwable);

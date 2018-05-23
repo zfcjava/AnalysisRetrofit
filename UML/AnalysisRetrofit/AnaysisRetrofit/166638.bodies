@@ -1,0 +1,12 @@
+class ProtoResponseBodyConverter
+!!!275054.java!!!	ProtoResponseBodyConverter(inout parser : Parser<T>, inout registry : ExtensionRegistryLite)
+    this.parser = parser;
+    this.registry = registry;
+!!!275182.java!!!	convert(inout value : ResponseBody) : T
+    try {
+      return parser.parseFrom(value.byteStream(), registry);
+    } catch (InvalidProtocolBufferException e) {
+      throw new RuntimeException(e); // Despite extending IOException, this is data mismatch.
+    } finally {
+      value.close();
+    }

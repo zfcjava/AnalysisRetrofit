@@ -1,0 +1,7 @@
+class TestingUtils
+!!!183406.java!!!	onlyMethod(inout c : Class) : Method
+    Method[] declaredMethods = c.getDeclaredMethods();
+    if (declaredMethods.length == 1) {
+      return declaredMethods[0];
+    }
+    throw new IllegalArgumentException("More than one method declared.");

@@ -1,0 +1,11 @@
+class GsonRequestBodyConverter
+!!!259822.java!!!	GsonRequestBodyConverter(inout gson : Gson, inout adapter : TypeAdapter<T>)
+    this.gson = gson;
+    this.adapter = adapter;
+!!!259950.java!!!	convert(inout value : T) : RequestBody
+    Buffer buffer = new Buffer();
+    Writer writer = new OutputStreamWriter(buffer.outputStream(), UTF_8);
+    JsonWriter jsonWriter = gson.newJsonWriter(writer);
+    adapter.write(jsonWriter, value);
+    jsonWriter.close();
+    return RequestBody.create(MEDIA_TYPE, buffer.readByteString());

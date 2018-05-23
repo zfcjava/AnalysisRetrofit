@@ -1,0 +1,20 @@
+class HeaderMap
+!!!137966.java!!!	HeaderMap(inout valueConverter : Converter)
+      this.valueConverter = valueConverter;
+!!!138094.java!!!	apply(inout builder : RequestBuilder, inout value : Map<String, T>) : void
+      if (value == null) {
+        throw new IllegalArgumentException("Header map was null.");
+      }
+
+      for (Map.Entry<String, T> entry : value.entrySet()) {
+        String headerName = entry.getKey();
+        if (headerName == null) {
+          throw new IllegalArgumentException("Header map contained null key.");
+        }
+        T headerValue = entry.getValue();
+        if (headerValue == null) {
+          throw new IllegalArgumentException(
+              "Header map contained null value for key '" + headerName + "'.");
+        }
+        builder.addHeader(headerName, valueConverter.convert(headerValue));
+      }

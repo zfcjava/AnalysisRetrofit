@@ -1,0 +1,9 @@
+class CallEnqueueObservable
+!!!217326.java!!!	CallEnqueueObservable(inout originalCall : Call)
+    this.originalCall = originalCall;
+!!!217454.java!!!	subscribeActual(inout observer : Observer<? super Response<T>>) : void
+    // Since Call is a one-shot type, clone it for each new observer.
+    Call<T> call = originalCall.clone();
+    CallCallback<T> callback = new CallCallback<>(call, observer);
+    observer.onSubscribe(callback);
+    call.enqueue(callback);

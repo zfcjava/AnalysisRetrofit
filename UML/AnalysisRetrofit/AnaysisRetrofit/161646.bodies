@@ -1,0 +1,3 @@
+class Value
+!!!260718.java!!!	Value(in theName : String)
+      this.theName = theName;

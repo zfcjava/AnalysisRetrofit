@@ -1,0 +1,53 @@
+class ServiceMethod
+!!!148974.java!!!	ServiceMethod(inout builder : ServiceMethod::Builder)
+    this.callFactory = builder.retrofit.callFactory();
+    this.callAdapter = builder.callAdapter;
+    this.baseUrl = builder.retrofit.baseUrl();
+    this.responseConverter = builder.responseConverter;
+    this.httpMethod = builder.httpMethod;
+    this.relativeUrl = builder.relativeUrl;
+    this.headers = builder.headers;
+    this.contentType = builder.contentType;
+    this.hasBody = builder.hasBody;
+    this.isFormEncoded = builder.isFormEncoded;
+    this.isMultipart = builder.isMultipart;
+    this.parameterHandlers = builder.parameterHandlers;
+!!!149102.java!!!	toCall(inout  : Object...args) : okhttp3.Call
+    RequestBuilder requestBuilder = new RequestBuilder(httpMethod, baseUrl, relativeUrl, headers,
+        contentType, hasBody, isFormEncoded, isMultipart);
+
+    @SuppressWarnings("unchecked") // It is an error to invoke a method with the wrong arg types.
+    ParameterHandler<Object>[] handlers = (ParameterHandler<Object>[]) parameterHandlers;
+
+    int argumentCount = args != null ? args.length : 0;
+    if (argumentCount != handlers.length) {
+      throw new IllegalArgumentException("Argument count (" + argumentCount
+          + ") doesn't match expected count (" + handlers.length + ")");
+    }
+
+    for (int p = 0; p < argumentCount; p++) {
+      handlers[p].apply(requestBuilder, args[p]);
+    }
+
+    return callFactory.newCall(requestBuilder.build());
+!!!149230.java!!!	adapt(inout call : Call) : T
+    return callAdapter.adapt(call);
+!!!149358.java!!!	toResponse(inout body : ResponseBody) : R
+    return responseConverter.convert(body);
+!!!151278.java!!!	parsePathParameters(in path : String) : Set<String>
+    Matcher m = PARAM_URL_REGEX.matcher(path);
+    Set<String> patterns = new LinkedHashSet<>();
+    while (m.find()) {
+      patterns.add(m.group(1));
+    }
+    return patterns;
+!!!151406.java!!!	boxIfPrimitive(inout type : Class<?>) : Class<?>
+    if (boolean.class == type) return Boolean.class;
+    if (byte.class == type) return Byte.class;
+    if (char.class == type) return Character.class;
+    if (double.class == type) return Double.class;
+    if (float.class == type) return Float.class;
+    if (int.class == type) return Integer.class;
+    if (long.class == type) return Long.class;
+    if (short.class == type) return Short.class;
+    return type;

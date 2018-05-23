@@ -1,0 +1,4 @@
+class VoidResponseBodyConverter
+!!!129134.java!!!	convert(inout value : ResponseBody) : Void
+      value.close();
+      return null;

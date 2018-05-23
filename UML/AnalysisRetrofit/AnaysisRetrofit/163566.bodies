@@ -1,0 +1,8 @@
+class AnInterfaceSerializer
+!!!265326.java!!!	AnInterfaceSerializer()
+      super(AnInterface.class);
+!!!265454.java!!!	serialize(inout anInterface : JacksonConverterFactoryTest::AnInterface, inout jsonGenerator : JsonGenerator, inout serializerProvider : SerializerProvider) : void
+      jsonGenerator.writeStartObject();
+      jsonGenerator.writeFieldName("name");
+      jsonGenerator.writeString(anInterface.getName());
+      jsonGenerator.writeEndObject();

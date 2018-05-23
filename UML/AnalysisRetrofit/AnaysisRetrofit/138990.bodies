@@ -1,0 +1,15 @@
+class EmptyCall
+!!!167150.java!!!	enqueue(inout callback : Callback) : void
+      throw new UnsupportedOperationException();
+!!!167278.java!!!	isExecuted() : boolean
+      return false;
+!!!167406.java!!!	execute() : Response
+      throw new UnsupportedOperationException();
+!!!167534.java!!!	cancel() : void
+      throw new UnsupportedOperationException();
+!!!167662.java!!!	isCanceled() : boolean
+      return false;
+!!!167790.java!!!	clone() : Call
+      throw new UnsupportedOperationException();
+!!!167918.java!!!	request() : Request
+      throw new UnsupportedOperationException();

@@ -1,0 +1,7 @@
+class QueryName
+!!!137454.java!!!	QueryName(inout nameConverter : Converter, inout encoded : boolean)
+      this.nameConverter = nameConverter;
+      this.encoded = encoded;
+!!!137582.java!!!	apply(inout builder : RequestBuilder, inout value : T) : void
+      if (value == null) return; // Skip null values.
+      builder.addQueryParam(nameConverter.convert(value), null, encoded);
